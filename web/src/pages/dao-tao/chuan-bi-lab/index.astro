@@ -1,0 +1,21 @@
+---
+import Site from "../../../layouts/Site.astro";
+import TrainNav from "../../../components/dao-tao/TrainNav.astro";
+import { setup } from "../../../data/training/setup";
+import { wrapTables } from "../../../lib/training";
+---
+<Site lang="vi" active="training" path="/dao-tao/chuan-bi-lab/" alt={null} type="LearningResource"
+  title="Chuẩn bị môi trường lab | Đào tạo Chuyên gia Agent OS" desc="Hướng dẫn dựng môi trường thực hành Agent OS trên máy của học viên trước buổi học đầu tiên.">
+  <div class="mx-auto w-full max-w-[90rem] px-4 sm:px-6">
+    <TrainNav variant="mobile" current="chuan-bi-lab" />
+    <div class="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-10">
+      <aside class="hidden lg:block"><TrainNav variant="side" current="chuan-bi-lab" /></aside>
+      <article class="min-w-0 py-10 pb-24 sm:py-14">
+        <p class="text-sm text-zinc-500"><a class="hover:text-zinc-900 dark:hover:text-white" href="/dao-tao/">Đào tạo</a> / Chuẩn bị lab</p>
+        <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight sm:text-[2.6rem]" style="text-wrap: balance;">Chuẩn bị môi trường lab</h1>
+        <p class="lead !max-w-3xl">Làm các bước dưới đây trước buổi 1 để máy của anh chị sẵn sàng cho mọi bài thực hành.</p>
+        <div class="prose-l mt-8 max-w-3xl" set:html={wrapTables(setup.student)} />
+      </article>
+    </div>
+  </div>
+</Site>

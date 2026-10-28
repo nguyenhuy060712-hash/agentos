@@ -1,0 +1,14 @@
+---
+// Glossary for the lesson.
+interface Props { items: [string, string][] }
+const { items } = Astro.props;
+---
+<h2 id="thuat-ngu">Thuật ngữ trong bài</h2>
+<dl class="not-prose grid gap-px overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-200 sm:grid-cols-2 dark:border-zinc-800 dark:bg-zinc-800">
+  {items.map(([t, d]) => (
+    <div class="bg-white p-4 dark:bg-[#141518]">
+      <dt class="font-semibold text-zinc-950 dark:text-white">{t}</dt>
+      <dd class="mt-1 text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</dd>
+    </div>
+  ))}
+</dl>

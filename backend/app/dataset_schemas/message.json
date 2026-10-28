@@ -1,0 +1,121 @@
+{
+ "$id": "/public/schemas/v1/message.json",
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "type": "object",
+ "properties": {
+  "role": {
+   "type": "string",
+   "enum": [
+    "system",
+    "user",
+    "human",
+    "assistant",
+    "ai",
+    "tool",
+    "function",
+    "developer"
+   ],
+   "description": "The role of the message sender. It can be 'system', 'developer', 'user', 'human', 'tool', 'function', 'ai', or 'assistant'."
+  },
+  "content": {
+   "oneOf": [
+    {
+     "type": "string",
+     "description": "Text content, as a simple string."
+    },
+    {
+     "type": "array",
+     "description": "An array of content parts, which can be multiple 'text' types or one 'refusal' type.",
+     "items": {
+      "type": "object",
+      "properties": {
+       "type": {
+        "type": "string",
+        "description": "The type of the content part. It can be either 'text' or 'refusal'."
+       },
+       "content": {
+        "type": "string",
+        "description": "The actual content of the part."
+       }
+      },
+      "required": [
+       "type"
+      ]
+     }
+    }
+   ]
+  },
+  "refusal": {
+   "type": "string",
+   "description": "The refusal message by the assistant."
+  },
+  "tool_calls": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "The id of the tool call."
+     },
+     "type": {
+      "type": "string",
+      "description": "The type of the tool."
+     },
+     "function": {
+      "type": "object",
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "The name of the function."
+       },
+       "arguments": {
+        "type": "string",
+        "description": "The arguments for the function."
+       }
+      },
+      "required": [
+       "name",
+       "arguments"
+      ],
+      "description": "The function that the model called."
+     }
+    }
+   }
+  },
+  "tool_call_id": {
+   "type": "string",
+   "description": "Tool call that this message is responding to."
+  },
+  "function_call": {
+   "type": [
+    "object",
+    "null"
+   ],
+   "properties": {
+    "name": {
+     "type": "string",
+     "description": "The name of the function being called."
+    },
+    "arguments": {
+     "type": "string",
+     "description": "Arguments to pass to the function."
+    }
+   },
+   "required": [
+    "name",
+    "arguments"
+   ],
+   "description": "Only present when role is 'assistant' and the assistant is invoking a function."
+  },
+  "name": {
+   "type": "string",
+   "description": "The name of the message sender."
+  }
+ },
+ "required": [
+  "role",
+  "content"
+ ],
+ "additionalProperties": false
+}

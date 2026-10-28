@@ -1,0 +1,14 @@
+# Sandbox data image for `chay_code_python` (chat_gd5b.py, env AOS_SBX_DATA_IMAGE).
+# 21/10: python:3.15-slim + numpy 2.5.4, pandas 3.0.6, matplotlib 3.11.2 (was only on the VPS at /opt/agentos/sandbox/).
+# 23/10 (GĐ8.6 file skills): + python-docx 1.2.0, openpyxl 3.1.5, python-pptx 1.0.2, weasyprint 70.0 (+ pango) and Noto fonts (Vietnamese).
+# The skill helper scripts are NOT baked in: app/skills is bind-mounted read-only at /opt/aos_skills on each run.
+# Build: docker build -t agentos-sbx-py:20261023 -f sandbox/Dockerfile.py-data sandbox/
+FROM python:3.15-slim
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0 fontconfig fonts-noto-core \
+ && rm -rf /var/lib/apt/lists/* && fc-cache -f
+RUN pip install --no-cache-dir numpy==2.5.4 pandas==3.0.6 matplotlib==3.11.2 \
+      python-docx==1.2.0 openpyxl==3.1.5 python-pptx==1.0.2 weasyprint==70.0
+RUN mkdir -p /workspace/out /opt/aos_skills && chmod 1777 /workspace /workspace/out
+USER 65534:65534
+WORKDIR /tmp

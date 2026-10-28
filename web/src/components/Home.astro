@@ -1,0 +1,236 @@
+---
+// Home page (VI at /, EN at /en/): short overview that routes visitors to Features, the LangSmith comparison and the course.
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import Ext from "./Ext.astro";
+import { LINKS } from "../data/content";
+import { areas, featureCount } from "../data/features";
+import { parity } from "../data/parity";
+import { lessons, lessonHref, levels } from "../data/lessons";
+import { shotSrc } from "../data/images";
+import { routes, ui, type Lang } from "../data/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const vi = lang === "vi";
+const r = routes[lang];
+const t = ui[lang];
+const pct = (n: number) => (vi ? String(n).replace(".", ",") : String(n)) + "%";
+const feat = (id: string) => `${r.features}#${id}`;
+const newCount = areas.reduce((n, a) => n + a.features.filter((f) => f.since).length, 0);
+const sme = parity.latest.rows[0].v;
+const c = vi ? {
+  eyebrow: "Không phải Cloud SaaS. Mỗi khách hàng một bộ riêng.",
+  h1a: "Đội ngũ AI riêng của doanh nghiệp,", h1b: "chạy trên máy chủ của chính bạn.",
+  lead: "Agent OS Chat là nơi nhân viên trò chuyện, nói chuyện bằng giọng và giao việc cho agent AI, quen tay như ChatGPT. Agent OS là nền tảng phía sau: tạo agent, đưa agent ra Zalo, Telegram, Slack, duyệt việc quan trọng, theo dõi chất lượng và chi phí. Cả hai cài trên máy chủ riêng của từng khách.",
+  cta1: "Xem mọi tính năng", cta2: "Học xây agent", note: "Bản demo cần tài khoản được cấp.",
+  stats: [[String(featureCount), "tính năng, mỗi mục có ảnh thật"], [String(areas.length), "khu vực sản phẩm"], [pct(sme[3]), "nhu cầu thiết yếu DNVVN so với LangSmith"], ["0đ", "phí bản quyền nền tảng bên thứ ba"]],
+  heroAlt: "Agent OS Chat: tài liệu mở trong Canvas bên cạnh cuộc trò chuyện", mobileAlt: "Thẻ hỏi thông tin trên điện thoại",
+  twoTitle: "Hai sản phẩm, một hệ thống",
+  chat: { t: "Agent OS Chat", d: "Cho nhân viên dùng hằng ngày", pts: ["Trò chuyện, voice song công, @agent", "Canvas, tạo file Word/Excel/PDF, nghiên cứu sâu", "Dự án, bộ nhớ, chỉ dẫn riêng", "Duyệt và hỏi lại ngay trong chat"], link: "Tính năng Chat", id: "chat", img: "canvas-doc" },
+  os: { t: "Agent OS", d: "Cho người xây và vận hành agent", pts: ["Tạo agent bằng trò chuyện, mẫu theo ngành", "Kênh Zalo, Telegram, Slack; Gmail, Microsoft 365", "Trace, đánh giá, Prompt & Context Hub, Studio", "Trần chi phí, che dữ liệu cá nhân, mã hoá"], link: "Tính năng Agent OS", id: "agents", img: "trace-trajectory" },
+  areasTitle: "Khám phá theo khu vực", areasSub: "Trang Tính năng trình bày như tài liệu sản phẩm: mỗi tính năng có một câu làm được gì, dùng khi nào, nằm ở đâu, ảnh chụp thật và nhãn mức độ sẵn sàng.",
+  count: (n: number) => `${n} tính năng`,
+  parTitle: "So với LangSmith", parSub: `Chấm chi tiết ${parity.latest.catalogue.toLocaleString("vi-VN")} tính năng của LangSmith (${parity.latest.date.vi}): đáp ứng ${pct(sme[3])} nhu cầu thiết yếu của doanh nghiệp vừa và nhỏ, tăng từ ${pct(sme[0])} trước bản nâng cấp tháng 10/2026.`,
+  newBadge: "Mới", newText: `Bản nâng cấp 10/2026: ${newCount} tính năng mới — máy tính ảo cho agent, nhiều model, Engine tự sửa lỗi…`, newHref: `${r.features}#moi`, parLink: "Xem bảng so sánh và khác biệt còn lại",
+  learnTitle: "Khoá học: hiểu và xây hệ thống AI agent", learnSub: "7 bài từ cơ bản tới nâng cao cho người không chuyên lập trình. Mỗi bài có ví dụ đời thường, sơ đồ, thực hành trên Agent OS và câu hỏi tự kiểm tra.", learnCta: "Vào khoá học",
+  whyTitle: "Vì sao doanh nghiệp chọn Agent OS",
+  why: [["Dữ liệu ở lại máy chủ của bạn", "Chat, bộ nhớ, tài liệu, trace nằm trong PostgreSQL trên VPS của khách; có mã hoá khi lưu và sao lưu ra ngoài máy."], ["Chỉ trả tiền model, có trần", "Không phí nền tảng bên thứ ba. Trần chi phí theo công ty, theo agent, theo người; định tuyến model rẻ cho câu dễ."], ["Agent làm việc thật, người duyệt việc quan trọng", "Công cụ thật, kênh thật; gửi mail, đăng bài, ghi dữ liệu luôn dừng chờ duyệt, mọi bước đều có trace."], ["Làm cho người Việt", "Giao diện và tài liệu tiếng Việt, Zalo OA, che CCCD, mã số thuế, biển số; mẫu agent cho doanh nghiệp Việt."]],
+  faqTitle: "Hỏi nhanh",
+  faq: [["Agent OS khác ChatGPT ở điểm nào?", "ChatGPT là trợ lý dùng chung trên cloud. Agent OS là đội agent riêng của doanh nghiệp, chạy trên máy chủ của bạn, gắn vào công cụ và quy trình thật, có duyệt, trần chi phí và nhật ký đầy đủ."], ["Dữ liệu của tôi nằm ở đâu?", "Trên VPS của chính bạn. Ra ngoài chỉ có nội dung gửi tới nhà cung cấp model để trả lời câu hỏi, và có thể che dữ liệu cá nhân trước khi gửi."], ["Tôi phải trả những gì?", "Tiền VPS và tiền gọi model theo mức dùng, trả thẳng cho nhà cung cấp. Không có phí thuê bao nền tảng bên thứ ba."], ["Đã chạy được trên Zalo chưa?", "Phần mã và kiểm thử với máy chủ giả lập đã xong cho Zalo OA, Telegram, Slack. Chạy thật cần Zalo OA, bot và tên miền của khách."], ["Có cần biết lập trình để dùng không?", "Không. Agent được tạo bằng trò chuyện, cấu hình bằng giao diện; khoá học trên trang này dành cho người không chuyên."]],
+  contact: { t: "Muốn có đội AI riêng cho doanh nghiệp?", d: "MozaAI tư vấn, cài đặt và vận hành Agent OS trên máy chủ riêng cho từng khách hàng.", cta: "Liên hệ MozaAI", demo: "Xem bản demo" },
+} : {
+  eyebrow: "Not a cloud SaaS. One dedicated stack per customer.",
+  h1a: "Your company's own AI team,", h1b: "running on your own server.",
+  lead: "Agent OS Chat is where staff chat, talk by voice and hand work to AI agents, as familiar as ChatGPT. Agent OS is the platform behind it: build agents, put them on Zalo, Telegram and Slack, approve what matters, and track quality and cost. Both run on each customer's dedicated server.",
+  cta1: "See every feature", cta2: "Learn to build agents (VI)", note: "The demo needs an issued account.",
+  stats: [[String(featureCount), "features, each with a real screenshot"], [String(areas.length), "product areas"], [pct(sme[3]), "of SME-essential LangSmith features"], ["$0", "third-party platform licence fees"]],
+  heroAlt: "Agent OS Chat: a document open in Canvas next to the chat", mobileAlt: "Ask-for-info card on a phone",
+  twoTitle: "Two products, one system",
+  chat: { t: "Agent OS Chat", d: "For staff, every day", pts: ["Chat, full-duplex voice, @agents", "Canvas, Word/Excel/PDF files, deep research", "Projects, memory, personal instructions", "Approvals and follow-up questions in the chat"], link: "Chat features", id: "chat", img: "canvas-doc" },
+  os: { t: "Agent OS", d: "For people who build and run agents", pts: ["Build agents by chatting, industry templates", "Zalo, Telegram, Slack; Gmail, Microsoft 365", "Tracing, evaluation, Prompt & Context Hub, Studio", "Spend caps, personal-data masking, encryption"], link: "Agent OS features", id: "agents", img: "trace-trajectory" },
+  areasTitle: "Explore by area", areasSub: "The Features page reads like product documentation: every feature says what it does, when to use it and where it lives, with a real screenshot and a readiness label.",
+  count: (n: number) => `${n} features`,
+  parTitle: "Compared with LangSmith", parSub: `Scored feature by feature across ${parity.latest.catalogue.toLocaleString("en-US")} LangSmith features (${parity.latest.date.en}): ${pct(sme[3])} of what small and medium businesses essentially need, up from ${pct(sme[0])} before the October 2026 upgrade.`,
+  newBadge: "New", newText: `October 2026 upgrade: ${newCount} new features — virtual computers for agents, many models, a self-fixing Engine…`, newHref: `${r.features}#whats-new`, parLink: "See the comparison and remaining gaps",
+  learnTitle: "Course: understand and build AI agent systems", learnSub: "7 lessons from basics to advanced for non-programmers, in Vietnamese. Each has everyday examples, diagrams, hands-on practice on Agent OS and self-check questions.", learnCta: "Open the course",
+  whyTitle: "Why companies choose Agent OS",
+  why: [["Data stays on your server", "Chats, memory, documents and traces live in PostgreSQL on the customer's VPS, encrypted at rest with off-site backups."], ["Pay only for models, with caps", "No third-party platform fee. Spend caps per company, agent and person; cheap models for easy requests."], ["Agents do real work, humans approve what matters", "Real tools, real channels; sending mail, publishing and writing data always wait for approval, every step is traced."], ["Built for Vietnam", "Vietnamese UI and docs, Zalo OA, masking of citizen IDs, tax codes and plates; agent templates for Vietnamese businesses."]],
+  faqTitle: "Quick answers",
+  faq: [["How is Agent OS different from ChatGPT?", "ChatGPT is a shared cloud assistant. Agent OS is your company's own agent team on your own server, wired into real tools and workflows, with approvals, spend caps and full logs."], ["Where does my data live?", "On your own VPS. Only the content sent to the model provider leaves the server, and personal data can be masked first."], ["What do I pay for?", "The VPS and model usage, paid directly to the provider. No third-party platform subscription."], ["Does it work on Zalo yet?", "Code and tests against simulated servers are done for Zalo OA, Telegram and Slack. Going live needs the customer's Zalo OA, bots and domain."], ["Do I need to code?", "No. Agents are built by chatting and configured in the UI; the course on this site is for non-programmers."]],
+  contact: { t: "Want a private AI team for your company?", d: "MozaAI advises on, installs and runs Agent OS on a dedicated server for each customer.", cta: "Contact MozaAI", demo: "See the demo" },
+};
+---
+<!-- HERO -->
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 -top-40 -z-10 mx-auto h-[36rem] max-w-5xl opacity-30 blur-3xl grad-bg dark:opacity-25" style="border-radius: 50%;"></div>
+  <div class="wrap pt-14 pb-10 sm:pt-20">
+    <a href={c.newHref} class="group mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-violet-200 bg-violet-50 py-1 pl-1 pr-3 text-sm text-violet-900 hover:border-violet-400 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-200">
+      <span class="rounded-full grad-bg px-2 py-0.5 text-xs font-semibold text-white">{c.newBadge}</span>
+      <span class="truncate">{c.newText}</span>
+      <Icon name="arrow" class="h-3.5 w-3.5 shrink-0 transition group-hover:translate-x-0.5" />
+    </a>
+    <p class="kicker"><span class="h-1.5 w-1.5 rounded-full grad-bg"></span>{c.eyebrow}</p>
+    <h1 class="mt-6 max-w-4xl text-4xl font-bold leading-[1.1] sm:text-6xl" style="text-wrap: balance;">{c.h1a} <span class="grad-text">{c.h1b}</span></h1>
+    <p class="lead text-lg sm:text-xl">{c.lead}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn-primary" href={r.features}>{c.cta1} <Icon name="arrow" class="h-4 w-4" /></a>
+      <a class="btn-ghost" href={r.learn}>{c.cta2}</a>
+      <Ext class="btn-ghost" href={LINKS.chat} label={t.newTab}>{t.nav.demo}</Ext>
+    </div>
+    <p class="mt-3 text-xs text-zinc-500">{c.note}</p>
+    <dl class="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
+      {c.stats.map(([n, l]) => (
+        <div class="border-l-2 border-zinc-200 pl-4 dark:border-zinc-800">
+          <dt class="sr-only">{l}</dt>
+          <dd class="font-display text-3xl font-bold text-zinc-950 dark:text-white">{n}</dd>
+          <dd class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{l}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+  <div class="wrap pb-16">
+    <div class="relative">
+      <div class="shot shadow-2xl shadow-violet-500/10">
+        <Image src={shotSrc("chat-canvas")} alt={c.heroAlt} widths={[640, 960, 1440]} sizes="(min-width: 1152px) 1088px, 100vw" loading="eager" fetchpriority="high" format="webp" quality={82} class="w-full" />
+      </div>
+      <div class="phone absolute -bottom-10 right-3 hidden w-44 sm:block md:w-52 lg:-right-6">
+        <Image src={shotSrc("m-ask")} alt={c.mobileAlt} widths={[260, 400]} sizes="208px" format="webp" quality={82} class="w-full" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO PRODUCTS -->
+<section class="section border-t border-zinc-200 bg-zinc-50/60 !py-20 dark:border-zinc-800 dark:bg-zinc-950/40">
+  <div class="wrap">
+    <h2 class="h2">{c.twoTitle}</h2>
+    <div class="mt-10 grid gap-5 lg:grid-cols-2">
+      {[c.chat, c.os].map((p) => (
+        <div class="card flex flex-col !p-0 overflow-hidden">
+          <div class="p-6 sm:p-7">
+            <p class="text-sm text-zinc-500">{p.d}</p>
+            <h3 class="mt-1 text-2xl font-bold"><span class="grad-text">{p.t}</span></h3>
+            <ul class="mt-4 grid gap-2 text-[15px] text-zinc-700 dark:text-zinc-300">
+              {p.pts.map((x) => <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500"></span>{x}</li>)}
+            </ul>
+            <a class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-violet-700 hover:underline dark:text-violet-300" href={feat(p.id)}>{p.link} <Icon name="arrow" class="h-4 w-4" /></a>
+          </div>
+          <div class="mt-auto border-t border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
+            <Image src={shotSrc(p.img)} alt="" widths={[480, 800]} sizes="(min-width: 1024px) 560px, 100vw" format="webp" quality={78} class="w-full" />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="section !py-20">
+  <div class="wrap">
+    <h2 class="h2">{c.areasTitle}</h2>
+    <p class="lead">{c.areasSub}</p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {areas.map((a) => (
+        <a href={feat(a.id)} class="card group !p-5 transition hover:border-violet-400">
+          <div class="flex items-center gap-3">
+            <span class="grid h-9 w-9 place-items-center rounded-xl grad-bg text-white"><Icon name={a.icon} class="h-[18px] w-[18px]" /></span>
+            <h3 class="font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-300">{a[lang].t}</h3>
+            <span class="ml-auto text-xs text-zinc-400">{c.count(a.features.length)}</span>
+          </div>
+          <p class="mt-3 line-clamp-3 text-sm text-zinc-600 dark:text-zinc-400">{a[lang].intro}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- PARITY -->
+<section class="section border-t border-zinc-200 bg-zinc-950 !py-20 text-zinc-300 dark:border-zinc-800">
+  <div class="wrap grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
+    <div>
+      <h2 class="h2 !text-white">{c.parTitle}</h2>
+      <p class="mt-4 text-zinc-400">{c.parSub}</p>
+      <p class="mt-6 font-display text-6xl font-bold"><span class="grad-text">{pct(parity.total.now)}</span></p>
+      <a class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline" href={r.compare}>{c.parLink} <Icon name="arrow" class="h-4 w-4" /></a>
+    </div>
+    <ul class="grid gap-3">
+      {parity.rows.map((row) => (
+        <li class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5">
+          <span class="text-sm text-zinc-300">{row[lang]}</span>
+          <span class="text-sm tabular-nums text-white">{pct(row.pctNow)}</span>
+          <span class="col-span-2 h-2 overflow-hidden rounded-full bg-zinc-800" aria-hidden="true">
+            <span class="block h-full rounded-full grad-bg" style={`width:${row.pctNow}%`}></span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- COURSE -->
+<section class="section !py-20">
+  <div class="wrap grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+    <div>
+      <h2 class="h2">{c.learnTitle}</h2>
+      <p class="lead">{c.learnSub}</p>
+      <a class="btn-primary mt-8" href={r.learn}>{c.learnCta} <Icon name="arrow" class="h-4 w-4" /></a>
+    </div>
+    <ol class="grid gap-2">
+      {lessons.map((l) => (
+        <li>
+          <a href={lessonHref(l.slug)} class="flex items-center gap-4 rounded-xl border border-zinc-200 p-3.5 transition hover:border-violet-400 dark:border-zinc-800">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-zinc-100 font-display font-bold text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">{l.n}</span>
+            <span class="min-w-0 flex-1 font-medium text-zinc-900 dark:text-white" lang="vi">{l.title}</span>
+            <span class="hidden shrink-0 text-xs text-zinc-500 sm:inline" lang="vi">{levels[l.level]}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- WHY + FAQ -->
+<section class="section border-t border-zinc-200 bg-zinc-50/60 !py-20 dark:border-zinc-800 dark:bg-zinc-950/40">
+  <div class="wrap grid gap-12 lg:grid-cols-2">
+    <div>
+      <h2 class="h2">{c.whyTitle}</h2>
+      <div class="mt-8 grid gap-5">
+        {c.why.map(([h, d]) => (
+          <div class="flex gap-4">
+            <span class="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full grad-bg text-xs font-bold text-white">✓</span>
+            <div><h3 class="font-semibold">{h}</h3><p class="mt-1 text-[15px] text-zinc-600 dark:text-zinc-400">{d}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div>
+      <h2 class="h2">{c.faqTitle}</h2>
+      <div class="mt-8 grid gap-2.5">
+        {c.faq.map(([q, a]) => (
+          <details class="group rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900/50">
+            <summary class="flex cursor-pointer list-none items-center gap-3 p-4 font-medium text-zinc-900 dark:text-white"><span class="flex-1">{q}</span><span class="text-zinc-400 transition group-open:rotate-45">+</span></summary>
+            <p class="border-t border-zinc-200 px-4 py-3 text-[15px] text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section !py-20" id="contact">
+  <div class="wrap">
+    <div class="relative overflow-hidden rounded-3xl bg-zinc-950 px-6 py-14 text-center sm:px-12">
+      <div aria-hidden="true" class="absolute inset-0 opacity-40 grad-bg blur-3xl"></div>
+      <div class="relative">
+        <h2 class="h2 !text-white">{c.contact.t}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-zinc-300">{c.contact.d}</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <Ext class="btn bg-white text-zinc-950 hover:bg-zinc-200" href={LINKS.mozaai} label={t.newTab}>{c.contact.cta} · mozaai.vn</Ext>
+          <Ext class="btn border border-white/30 text-white hover:bg-white/10" href={LINKS.chat} label={t.newTab}>{c.contact.demo}</Ext>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

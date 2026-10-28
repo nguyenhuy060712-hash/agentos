@@ -1,0 +1,18 @@
+<svg viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="26">CHUẨN BỊ (LÀM MỘT LẦN, KHI CÓ TÀI LIỆU MỚI)</text>
+<rect class="b" x="20" y="38" width="150" height="66" rx="10"/><text class="t" x="95" y="66" text-anchor="middle">Tài liệu</text><text class="s" x="95" y="86" text-anchor="middle">PDF, Word, Excel</text>
+<rect class="b" x="210" y="38" width="150" height="66" rx="10"/><text class="t" x="285" y="66" text-anchor="middle">Cắt đoạn</text><text class="s" x="285" y="86" text-anchor="middle">mỗi đoạn vài đoạn văn</text>
+<rect class="b2" x="400" y="38" width="150" height="66" rx="10"/><text class="t" x="475" y="66" text-anchor="middle">Embedding</text><text class="s" x="475" y="86" text-anchor="middle">chữ → toạ độ nghĩa</text>
+<rect class="b3" x="590" y="38" width="150" height="66" rx="10"/><text class="t" x="665" y="66" text-anchor="middle">Kho vector</text><text class="s" x="665" y="86" text-anchor="middle">pgvector trong DB</text>
+<path class="l" d="M170 71H208" marker-end="url(#m3)"/><path class="l" d="M360 71H398" marker-end="url(#m3)"/><path class="l" d="M550 71H588" marker-end="url(#m3)"/>
+<text class="k" x="20" y="186">MỖI CÂU HỎI</text>
+<rect class="b5" x="20" y="198" width="124" height="70" rx="10"/><text class="t" x="82" y="227" text-anchor="middle">Câu hỏi</text><text class="s" x="82" y="247" text-anchor="middle">“Đổi hàng mấy ngày?”</text>
+<rect class="b2" x="168" y="198" width="124" height="70" rx="10"/><text class="t" x="230" y="227" text-anchor="middle">Embedding</text><text class="s" x="230" y="247" text-anchor="middle">câu hỏi → toạ độ</text>
+<rect class="b3" x="316" y="198" width="124" height="70" rx="10"/><text class="t" x="378" y="227" text-anchor="middle">Tìm gần nghĩa</text><text class="s" x="378" y="247" text-anchor="middle">lấy 3–5 đoạn</text>
+<rect class="b2" x="464" y="198" width="124" height="70" rx="10"/><text class="t" x="526" y="227" text-anchor="middle">LLM đọc</text><text class="s" x="526" y="247" text-anchor="middle">đoạn + câu hỏi</text>
+<rect class="b5" x="612" y="198" width="128" height="70" rx="10"/><text class="t" x="676" y="227" text-anchor="middle">Trả lời</text><text class="s" x="676" y="247" text-anchor="middle">kèm nguồn [1]</text>
+<path class="l" d="M144 233H166" marker-end="url(#m3)"/><path class="l" d="M292 233H314" marker-end="url(#m3)"/><path class="l" d="M440 233H462" marker-end="url(#m3)"/><path class="l" d="M588 233H610" marker-end="url(#m3)"/>
+<path class="la" d="M665 104V150H378V196" marker-end="url(#m3)" stroke-dasharray="5 4"/>
+<text class="s" x="522" y="143" text-anchor="middle">tìm trong kho</text>
+</svg>

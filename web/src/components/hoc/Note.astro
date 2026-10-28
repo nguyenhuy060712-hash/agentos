@@ -1,0 +1,11 @@
+---
+// Tip / warning callout.
+interface Props { kind?: "tip" | "warn"; title?: string }
+const { kind = "tip", title } = Astro.props;
+const cls = kind === "warn" ? "border-rose-200 bg-rose-50/70 dark:border-rose-500/30 dark:bg-rose-500/10" : "border-sky-200 bg-sky-50/70 dark:border-sky-500/30 dark:bg-sky-500/10";
+const tcls = kind === "warn" ? "text-rose-700 dark:text-rose-300" : "text-sky-700 dark:text-sky-300";
+---
+<div class={`callout ${cls}`}>
+  <p class={`callout-title ${tcls}`}><span aria-hidden="true">{kind === "warn" ? "⚠" : "💡"}</span>{title ?? (kind === "warn" ? "Cẩn thận" : "Mẹo")}</p>
+  <slot />
+</div>

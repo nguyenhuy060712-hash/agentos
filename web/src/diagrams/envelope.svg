@@ -1,0 +1,32 @@
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="me" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="24">NGOÀI CƠ SỞ DỮ LIỆU</text>
+<rect class="b4" x="20" y="36" width="220" height="92" rx="12"/>
+<text class="t" x="130" y="62" text-anchor="middle">Khoá gốc (KEK)</text>
+<text class="s" x="130" y="84" text-anchor="middle">AOS_SECRET_KEYS trong .env</text>
+<text class="s" x="130" y="102" text-anchor="middle">"k2027a:…,k2026a:…"</text>
+<text class="s" x="130" y="120" text-anchor="middle">khoá đầu danh sách đang dùng</text>
+<text class="k" x="290" y="24">TRONG POSTGRESQL</text>
+<rect class="zone" x="280" y="34" width="460" height="252" rx="16"/>
+<rect class="b2" x="300" y="48" width="200" height="80" rx="12"/>
+<text class="t" x="400" y="74" text-anchor="middle">Khoá dữ liệu (DEK)</text>
+<text class="s" x="400" y="94" text-anchor="middle">một khoá cho mỗi workspace</text>
+<text class="s" x="400" y="112" text-anchor="middle">lưu ở dạng đã bọc bằng KEK</text>
+<path class="la" d="M240 88H298" marker-end="url(#me)"/>
+<text class="s" x="268" y="80" text-anchor="middle">bọc</text>
+<rect class="b5" x="300" y="170" width="420" height="100" rx="12"/>
+<text class="t" x="510" y="196" text-anchor="middle">Giá trị đã mã hoá (AES-256-GCM-SIV)</text>
+<text class="s" x="510" y="218" text-anchor="middle">bí mật · token OAuth · khoá 2 lớp (luôn bật)</text>
+<text class="s" x="510" y="236" text-anchor="middle">+ tuỳ chọn: tin nhắn · trace · run · dataset · tệp đính kèm</text>
+<text class="s" x="510" y="254" text-anchor="middle">gắn với đúng dòng + cột (chống chép sang dòng khác)</text>
+<path class="la" d="M400 128V168" marker-end="url(#me)"/>
+<text class="s" x="440" y="152">mã hoá / giải mã</text>
+<rect class="b" x="540" y="48" width="180" height="80" rx="12"/>
+<text class="t" x="630" y="74" text-anchor="middle">aos_crypto</text>
+<text class="s" x="630" y="94" text-anchor="middle">status · migrate</text>
+<text class="s" x="630" y="112" text-anchor="middle">rotate --kek · rotate --dek</text>
+<text class="s" x="130" y="170" text-anchor="middle">Lấy DB hoặc bản sao lưu</text>
+<text class="s" x="130" y="188" text-anchor="middle">mà thiếu KEK = chuỗi vô nghĩa</text>
+<text class="s" x="130" y="220" text-anchor="middle">Mất KEK = mất dữ liệu</text>
+<text class="s" x="130" y="238" text-anchor="middle">đã mã hoá, không ai cứu được</text>
+</svg>

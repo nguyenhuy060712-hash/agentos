@@ -1,0 +1,12 @@
+<svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker><marker id="mr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah2" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="b4" x="20" y="30" width="128" height="78" rx="12"/><text class="t" x="84" y="58" text-anchor="middle">1. Sao lưu</text><text class="s" x="84" y="78" text-anchor="middle">pg_dump + mã + .env</text><text class="s" x="84" y="95" text-anchor="middle">kéo về ngoài máy</text>
+<rect class="b" x="168" y="30" width="128" height="78" rx="12"/><text class="t" x="232" y="58" text-anchor="middle">2. Đánh dấu</text><text class="s" x="232" y="78" text-anchor="middle">git commit + tag</text><text class="s" x="232" y="95" text-anchor="middle">trên máy chủ</text>
+<rect class="b2" x="316" y="30" width="128" height="78" rx="12"/><text class="t" x="380" y="58" text-anchor="middle">3. Áp dụng</text><text class="s" x="380" y="78" text-anchor="middle">mã, thư viện (lock),</text><text class="s" x="380" y="95" text-anchor="middle">.env, build /chat/</text>
+<rect class="b2" x="464" y="30" width="128" height="78" rx="12"/><text class="t" x="528" y="58" text-anchor="middle">4. Khởi động lại</text><text class="s" x="528" y="78" text-anchor="middle">chỉ api + worker</text><text class="s" x="528" y="95" text-anchor="middle">bảng tự tạo khi khởi động</text>
+<rect class="b5" x="612" y="30" width="128" height="78" rx="12"/><text class="t" x="676" y="58" text-anchor="middle">5. Kiểm chứng</text><text class="s" x="676" y="78" text-anchor="middle">health, thử nhanh,</text><text class="s" x="676" y="95" text-anchor="middle">kiểm rò rỉ, log</text>
+<path class="l" d="M148 69H166" marker-end="url(#mr)"/><path class="l" d="M296 69H314" marker-end="url(#mr)"/><path class="l" d="M444 69H462" marker-end="url(#mr)"/><path class="l" d="M592 69H610" marker-end="url(#mr)"/>
+<path class="la" d="M676 108V170H232V112" marker-end="url(#mr2)" stroke-dasharray="6 4"/>
+<rect class="b4" x="330" y="150" width="240" height="64" rx="12"/><text class="t" x="450" y="176" text-anchor="middle">Lỗi → Quay lại</text><text class="s" x="450" y="196" text-anchor="middle">git checkout tag · pg_restore --clean</text>
+<text class="s" x="676" y="232" text-anchor="middle">Đạt → ghi nhận, theo dõi 24 giờ</text>
+</svg>

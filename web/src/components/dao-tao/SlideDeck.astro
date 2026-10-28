@@ -1,0 +1,63 @@
+---
+// The slides of one module as <section class="slide"> elements: auto title slide, slides[], auto end slide (homework).
+// Renders only sections (no wrapper) so several decks can follow each other in one print page. Never renders slide notes.
+import { Image } from "astro:assets";
+import { shotSrc } from "../../data/images";
+import { modules } from "../../data/training/programme";
+import { tracks } from "../../data/training/programme";
+import type { Module } from "../../data/training/types";
+import "../../styles/slides.css";
+
+interface Props { m: Module; idp?: string }
+const { m, idp = "" } = Astro.props;
+const files = import.meta.glob<string>("../../diagrams/*.svg", { eager: true, query: "?raw", import: "default" });
+const svg = (name: string) => { const s = files[`../../diagrams/${name}.svg`]; if (!s) throw new Error(`missing diagram: ${name}`); return s; };
+const next = modules[m.n];
+const total = m.slides.length + 2;
+---
+<section class="slide slide-title" id={`${idp}s1`} aria-label={`Buổi ${m.n}: ${m.title}`} data-n="1">
+  <div class="s-in">
+    <p class="s-kick">Chương trình đào tạo Chuyên gia Agent OS · Buổi {m.n}/{modules.length} · {tracks[m.track].t}</p>
+    <h1 class="s-hero grad-text">{m.title}</h1>
+    <p class="s-sub">{m.summary}</p>
+    <div class="s-goals">
+      <p class="s-label">Học xong buổi này, học viên làm được</p>
+      <ul class="s-pts s-pts-sm">{m.goals.slice(0, 3).map((g) => <li>{g}</li>)}</ul>
+    </div>
+    <p class="s-foot"><span>Agent OS · MozaAI</span><span>1 / {total}</span></p>
+  </div>
+</section>
+
+{m.slides.map((s, i) => (
+  <section class="slide" id={`${idp}s${i + 2}`} aria-label={s.t} data-n={i + 2}>
+    <div class="s-in">
+      <p class="s-kick">Buổi {m.n} · {m.short}</p>
+      <h2 class="s-t">{s.t}</h2>
+      <div class:list={["s-body", (s.diagram || s.shot) && "has-media", (s.diagram || s.shot) && !(s.pts?.length || s.code) && "media-only"]}>
+        {(s.pts?.length || s.code) && (
+          <div class="s-text">
+            {s.pts && s.pts.length > 0 && <ul class="s-pts">{s.pts.map((p) => <li>{p}</li>)}</ul>}
+            {s.code && <pre class="s-code"><code>{s.code}</code></pre>}
+          </div>
+        )}
+        {s.diagram && <div class="s-media"><div class="dg" role="img" aria-label={s.t} set:html={svg(s.diagram)} /></div>}
+        {s.shot && !s.diagram && <div class="s-media"><Image src={shotSrc(s.shot)} alt={s.t} widths={[640, 960, 1280]} sizes="(min-width: 768px) 55vw, 100vw" format="webp" quality={80} loading="eager" class="s-img" /></div>}
+      </div>
+      <p class="s-foot"><span>Agent OS · MozaAI</span><span>{i + 2} / {total}</span></p>
+    </div>
+  </section>
+))}
+
+<section class="slide slide-end" id={`${idp}s${total}`} aria-label="Bài tập về nhà" data-n={total}>
+  <div class="s-in">
+    <p class="s-kick">Buổi {m.n} · kết thúc</p>
+    <h2 class="s-t">Bài tập về nhà</h2>
+    <div class="s-body">
+      <div class="s-text">
+        {m.homework.length > 0 ? <ol class="s-pts s-pts-num">{m.homework.slice(0, 4).map((h) => <li>{h}</li>)}</ol> : <p class="s-sub">Ôn lại mục tiêu của buổi và làm câu hỏi kiểm tra.</p>}
+        {next && <p class="s-next">Buổi sau: <strong>Buổi {next.n} · {next.title}</strong></p>}
+      </div>
+    </div>
+    <p class="s-foot"><span>Agent OS · MozaAI</span><span>{total} / {total}</span></p>
+  </div>
+</section>

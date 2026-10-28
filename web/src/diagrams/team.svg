@@ -1,0 +1,17 @@
+<svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="b" x="20" y="20" width="170" height="64" rx="12"/><text class="t" x="105" y="47" text-anchor="middle">Người dùng</text><text class="s" x="105" y="67" text-anchor="middle">“Lên chiến dịch Tết”</text>
+<path class="l" d="M190 52H238" marker-end="url(#m4)"/>
+<rect class="b2" x="240" y="20" width="280" height="64" rx="12"/><text class="t" x="380" y="47" text-anchor="middle">Agent trưởng nhóm</text><text class="s" x="380" y="67" text-anchor="middle">lập kế hoạch (to-do), chia việc, tổng hợp</text>
+<path class="l" d="M380 84V104H120V128" marker-end="url(#m4)"/><path class="l" d="M380 84V128" marker-end="url(#m4)"/><path class="l" d="M380 104H640V128" marker-end="url(#m4)"/>
+<text class="s" x="548" y="98">kết quả gửi về trưởng nhóm</text>
+<rect class="b3" x="20" y="130" width="200" height="62" rx="12"/><text class="t" x="120" y="156" text-anchor="middle">Agent con: Nghiên cứu</text><text class="s" x="120" y="176" text-anchor="middle">tìm web, đọc đối thủ</text>
+<rect class="b3" x="280" y="130" width="200" height="62" rx="12"/><text class="t" x="380" y="156" text-anchor="middle">Agent con: Nội dung</text><text class="s" x="380" y="176" text-anchor="middle">viết bài, kịch bản</text>
+<rect class="b3" x="540" y="130" width="200" height="62" rx="12"/><text class="t" x="640" y="156" text-anchor="middle">Agent con: Quảng cáo</text><text class="s" x="640" y="176" text-anchor="middle">đề xuất ngân sách</text>
+<path class="la" d="M640 192V226" marker-end="url(#m4)"/>
+<rect class="b4" x="500" y="228" width="240" height="76" rx="12"/><text class="t" x="620" y="254" text-anchor="middle">⏸ Dừng chờ người duyệt</text><text class="s" x="620" y="274" text-anchor="middle">“Chi 5 triệu cho quảng cáo?”</text><text class="s" x="620" y="292" text-anchor="middle">Cho phép · Sửa · Từ chối</text>
+<text class="k" x="20" y="232">MỐC LƯU SAU MỖI BƯỚC (CHECKPOINT)</text>
+<path class="l" d="M40 268H360"/>
+<circle class="b2" cx="40" cy="268" r="9"/><circle class="b2" cx="120" cy="268" r="9"/><circle class="b2" cx="200" cy="268" r="9"/><circle class="b2" cx="280" cy="268" r="9"/><circle class="b4" cx="360" cy="268" r="9"/>
+<text class="s" x="40" y="296" text-anchor="middle">1</text><text class="s" x="120" y="296" text-anchor="middle">2</text><text class="s" x="200" y="296" text-anchor="middle">3</text><text class="s" x="280" y="296" text-anchor="middle">4</text><text class="s" x="360" y="296" text-anchor="middle">đang chờ</text>
+</svg>

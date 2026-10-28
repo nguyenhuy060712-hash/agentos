@@ -1,0 +1,65 @@
+---
+import "../styles/global.css";
+// path: this page's path; alt: the same page in the other language (null when it has no translation).
+interface Props { lang: "vi" | "en"; title: string; desc: string; ogAlt: string; locale: string; path?: string; alt?: string | null; type?: string; noindex?: boolean }
+const { lang, title, desc, ogAlt, locale, type = "SoftwareApplication", noindex = false } = Astro.props;
+const path = Astro.props.path ?? (lang === "vi" ? "/" : "/en/");
+const alt = Astro.props.alt === undefined ? (lang === "vi" ? "/en/" : "/") : Astro.props.alt;
+const SITE = Astro.site!;
+const canonical = new URL(path, SITE).href;
+const viHref = lang === "vi" ? path : alt;
+const enHref = lang === "en" ? path : alt;
+const og = new URL(lang === "vi" ? "/og-vi.png" : "/og-en.png", SITE).href;
+const ld = {
+  "@context": "https://schema.org",
+  ...(type === "SoftwareApplication"
+    ? { "@type": type, name: "Agent OS", applicationCategory: "BusinessApplication", operatingSystem: "Linux (self-hosted VPS)" }
+    : { "@type": type, name: title }),
+  description: desc,
+  url: canonical,
+  inLanguage: lang === "vi" ? "vi-VN" : "en-US",
+  publisher: { "@type": "Organization", name: "MozaAI", url: "https://mozaai.vn" },
+};
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={desc} />
+  {noindex && <meta name="robots" content="noindex,nofollow" />}
+  <link rel="canonical" href={canonical} />
+  {viHref && enHref && <link rel="alternate" hreflang="vi" href={new URL(viHref, SITE).href} />}
+  {viHref && enHref && <link rel="alternate" hreflang="en" href={new URL(enHref, SITE).href} />}
+  {viHref && enHref && <link rel="alternate" hreflang="x-default" href={new URL(viHref, SITE).href} />}
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MozaAI Agent OS" />
+  <meta property="og:locale" content={locale} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={desc} />
+  <meta property="og:image" content={og} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={ogAlt} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={desc} />
+  <meta name="twitter:image" content={og} />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <script is:inline>
+    (() => { try { const s = localStorage.getItem("theme"); const d = s ? s === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; if (d) document.documentElement.classList.add("dark"); } catch (e) {} })();
+  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+  <slot />
+</body>
+</html>

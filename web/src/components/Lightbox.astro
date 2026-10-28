@@ -1,0 +1,24 @@
+---
+// One <dialog> per page that shows any [data-lightbox] link's image full size. Esc, the × button or a click outside closes it.
+interface Props { close: string }
+const { close } = Astro.props;
+---
+<dialog id="lightbox" class="m-auto max-h-[94vh] max-w-[96vw] overflow-visible bg-transparent p-0 backdrop:bg-zinc-950/80 backdrop:backdrop-blur-sm">
+  <form method="dialog" class="absolute -top-3 -right-3 z-10">
+    <button class="grid h-9 w-9 place-items-center rounded-full bg-white text-xl leading-none text-zinc-900 shadow-lg" aria-label={close}>×</button>
+  </form>
+  <img id="lightbox-img" alt="" class="max-h-[94vh] max-w-[96vw] rounded-lg bg-white object-contain shadow-2xl" />
+</dialog>
+<script>
+  const dlg = document.getElementById("lightbox") as HTMLDialogElement | null;
+  const img = document.getElementById("lightbox-img") as HTMLImageElement | null;
+  document.addEventListener("click", (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>("a[data-lightbox]");
+    if (!a || !dlg || !img || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    img.src = a.href;
+    img.alt = a.querySelector("img")?.alt ?? "";
+    dlg.showModal();
+  });
+  dlg?.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+</script>

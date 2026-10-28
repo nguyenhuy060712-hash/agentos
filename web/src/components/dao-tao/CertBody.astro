@@ -1,0 +1,60 @@
+---
+// Public description of the exam and certification: levels, format, practical tasks (no pass criteria), capstone.
+// Shared by /dao-tao/chung-nhan/ and the student handbook. detail = also show the criterion descriptions.
+import { levels } from "../../data/training/programme";
+import { exam } from "../../data/training/exam";
+
+interface Props { idp?: string; hl?: 2 | 3; detail?: boolean }
+const { idp = "", hl = 2, detail = true } = Astro.props;
+const H = `h${hl}` as "h2";
+const H3 = `h${hl + 1}` as "h3";
+const total = exam.capstone.criteria.reduce((n, c) => n + c[1], 0);
+---
+<div class="prose-l tr-body">
+  <section class="tr-block">
+    <H id={`${idp}cap`}>Ba cấp chứng nhận</H>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">Cấp</th><th scope="col">Tên</th><th scope="col">Buổi cần học</th><th scope="col">Bài thi</th></tr></thead>
+        <tbody>{levels.map((l) => <tr><td class="whitespace-nowrap font-semibold text-zinc-900 dark:text-white">{l.k}</td><td><strong>{l.t}</strong><br />{l.vi}</td><td>{l.sessions}</td><td>{l.exam}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="tr-block">
+    <H id={`${idp}the-thuc`}>Thể thức thi</H>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">Cấp</th><th scope="col">Số câu trắc nghiệm</th><th scope="col">Điểm đạt</th><th scope="col">Thực hành</th><th scope="col">Đồ án</th></tr></thead>
+        <tbody>{exam.format.map((f) => <tr><td class="font-semibold text-zinc-900 dark:text-white">{f.level}</td><td>{f.mcq}</td><td>{f.pass}</td><td>{f.practical}</td><td>{f.capstone ?? "—"}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="tr-block">
+    <H id={`${idp}thuc-hanh`}>Bài thi thực hành</H>
+    {exam.practical.map((p) => (
+      <div class="mt-4 rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800 tr-fig">
+        <H3 class="!mt-0 !text-base">Cấp {p.level} · {p.mins} phút</H3>
+        <p class="!mt-2">{p.task}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="tr-block">
+    <H id={`${idp}capstone`}>Đồ án capstone (cấp L3)</H>
+    <p>{exam.capstone.brief}</p>
+    <H3>Sản phẩm phải nộp</H3>
+    <ul>{exam.capstone.deliverables.map((d) => <li>{d}</li>)}</ul>
+    <H3>Tiêu chí chấm</H3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">Tiêu chí</th><th scope="col">Điểm</th>{detail && <th scope="col">Yêu cầu</th>}</tr></thead>
+        <tbody>
+          {exam.capstone.criteria.map(([n, pts, d]) => <tr><td class="font-medium text-zinc-900 dark:text-white">{n}</td><td>{pts}</td>{detail && <td>{d}</td>}</tr>)}
+          <tr><td class="font-semibold text-zinc-900 dark:text-white">Tổng</td><td class="font-semibold">{total}</td>{detail && <td></td>}</tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

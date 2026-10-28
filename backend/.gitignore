@@ -1,0 +1,13 @@
+.venv
+var/
+__pycache__/
+*.pyc
+*.log
+app/shots/
+app/sandboxes/
+app/exports/
+app/snapshots/
+app/volumes/
+app/.link_key
+.env*
+app/pricing_pending.json

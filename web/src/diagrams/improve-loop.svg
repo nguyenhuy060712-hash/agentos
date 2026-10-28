@@ -1,0 +1,15 @@
+<svg viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah2" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="b5" x="20" y="28" width="200" height="74" rx="12"/><text class="t" x="120" y="57" text-anchor="middle">1. Chạy thật</text><text class="s" x="120" y="79" text-anchor="middle">khách và nhân viên dùng</text>
+<rect class="b" x="280" y="28" width="200" height="74" rx="12"/><text class="t" x="380" y="57" text-anchor="middle">2. Trace ghi lại</text><text class="s" x="380" y="79" text-anchor="middle">từng bước, giờ, tiền</text>
+<rect class="b4" x="540" y="28" width="200" height="74" rx="12"/><text class="t" x="640" y="57" text-anchor="middle">3. Phát hiện vấn đề</text><text class="s" x="640" y="79" text-anchor="middle">Giám sát · Engine · 👎</text>
+<rect class="b2" x="540" y="188" width="200" height="74" rx="12"/><text class="t" x="640" y="217" text-anchor="middle">4. Sửa thành bản mới</text><text class="s" x="640" y="239" text-anchor="middle">Prompt Canvas · Context Hub</text>
+<rect class="b3" x="280" y="188" width="200" height="74" rx="12"/><text class="t" x="380" y="217" text-anchor="middle">5. Thí nghiệm</text><text class="s" x="380" y="239" text-anchor="middle">dataset + giám khảo chấm</text>
+<rect class="b5" x="20" y="188" width="200" height="74" rx="12"/><text class="t" x="120" y="217" text-anchor="middle">6. Qua cổng?</text><text class="s" x="120" y="239" text-anchor="middle">đạt thì chuyển tag prod</text>
+<path class="la" d="M220 65H276" marker-end="url(#m6)"/><path class="la" d="M480 65H536" marker-end="url(#m6)"/>
+<path class="la" d="M640 102V184" marker-end="url(#m6)"/>
+<path class="la" d="M540 225H484" marker-end="url(#m6)"/><path class="la" d="M280 225H224" marker-end="url(#m6)"/>
+<path class="la" d="M120 188V106" marker-end="url(#m6)"/>
+<text class="k" x="380" y="141" text-anchor="middle">VÒNG CẢI TIẾN HẰNG TUẦN</text>
+<text class="s" x="380" y="162" text-anchor="middle">không qua cổng thì quay lại bước 4</text>
+</svg>

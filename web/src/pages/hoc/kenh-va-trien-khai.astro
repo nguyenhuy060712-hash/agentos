@@ -1,0 +1,122 @@
+---
+import Lesson from "../../layouts/Lesson.astro";
+import Diagram from "../../components/hoc/Diagram.astro";
+import Example from "../../components/hoc/Example.astro";
+import Note from "../../components/hoc/Note.astro";
+import Practice from "../../components/hoc/Practice.astro";
+import Quiz from "../../components/hoc/Quiz.astro";
+import Terms from "../../components/hoc/Terms.astro";
+import Fig from "../../components/hoc/Fig.astro";
+---
+<Lesson slug="kenh-va-trien-khai" goals={[
+  "Hiểu cách một agent có mặt trên nhiều kênh mà vẫn là một \"bộ não\".",
+  "Biết điểm riêng và rủi ro của Zalo OA, Zalo cá nhân, Telegram, Slack.",
+  "Hiểu agent dùng Gmail, Drive, phần mềm có sẵn của công ty bằng quyền của ai.",
+  "Nắm các thành phần khi triển khai trên máy chủ riêng và vì sao chuẩn mở quan trọng.",
+]}>
+
+<h2 id="mot-bo-nao-nhieu-cua">Một bộ não, nhiều cửa</h2>
+<p>Khách của doanh nghiệp Việt nhắn qua Zalo, nhân viên dùng Telegram hoặc Slack, quản lý mở trình duyệt. Thay vì làm năm agent cho năm nơi, ta làm <strong>một agent</strong> và mở nhiều <strong>kênh</strong> tới nó.</p>
+
+<Example>
+  <p>Một ngân hàng có nhiều <strong>quầy giao dịch</strong> ở nhiều chi nhánh, nhưng cùng một quy trình, cùng một hệ thống lõi. Khách tới quầy nào cũng được phục vụ như nhau. Kênh của agent cũng vậy: mỗi kênh là một quầy, agent và dữ liệu phía sau là một.</p>
+</Example>
+
+<p>Trên Agent OS, mọi kênh dùng chung một khung, nên có chung các tính chất:</p>
+<ul>
+  <li>Mỗi khách (hoặc mỗi nhóm chat) có <strong>cuộc trò chuyện và bộ nhớ riêng</strong>.</li>
+  <li>Trong nhóm, agent <strong>chỉ trả lời khi được gọi tên</strong>, không chen vào mọi tin.</li>
+  <li>Việc cần duyệt có <strong>nút Duyệt / Từ chối ngay trong kênh</strong> (Zalo: trả lời "duyệt &lt;số&gt;").</li>
+  <li>Người nhắn qua kênh <strong>không</strong> dùng được Gmail, bộ nhớ, chỉ dẫn riêng của chủ agent.</li>
+  <li>Chi phí của kênh được tính riêng; có ô <strong>Thử kênh</strong> để nhắn thử như một khách mà không gửi gì ra ngoài.</li>
+</ul>
+
+<h2 id="tung-kenh">Từng kênh có gì riêng</h2>
+<div class="tbl"><table>
+  <thead><tr><th>Kênh</th><th>Hợp với</th><th>Cần chuẩn bị</th><th>Lưu ý</th></tr></thead>
+  <tbody>
+    <tr><td>Zalo OA</td><td>Chăm sóc, bán hàng cho khách Việt</td><td>Zalo OA, ứng dụng trên developers.zalo.me, tên miền HTTPS</td><td>Tin tư vấn trong 48 giờ kể từ tin cuối của khách là miễn phí</td></tr>
+    <tr><td>Telegram</td><td>Đội nội bộ, cảnh báo, cộng đồng</td><td>Bot tạo từ @BotFather</td><td>Nhận chữ, ảnh, file; dễ bắt đầu nhất</td></tr>
+    <tr><td>Slack</td><td>Công ty làm việc trên Slack</td><td>Slack app, bật Socket Mode</td><td>Không cần tên miền; trả lời trong luồng</td></tr>
+    <tr><td>Zalo cá nhân</td><td>Chỉ thử nghiệm nội bộ</td><td>Một số Zalo phụ</td><td>Không chính thức, trái điều khoản Zalo, có thể bị khoá số</td></tr>
+    <tr><td>Agent OS Chat</td><td>Nhân viên, quản lý</td><td>Tài khoản do công ty cấp</td><td>Đủ tính năng nhất: voice, Canvas, dự án, tạo file</td></tr>
+  </tbody>
+</table></div>
+
+<Note kind="warn" title="Zalo cá nhân">
+  <p>Kênh Zalo cá nhân dùng thư viện bên thứ ba giả lập Zalo Web, <strong>không phải cách chính thức</strong>. Agent OS để mặc định tắt, chỉ admin bật sau khi xác nhận rủi ro, và giới hạn tốc độ gửi. Không dùng số chính, không đưa vào bản giao cho khách. Với khách hàng thật, luôn dùng Zalo OA.</p>
+</Note>
+
+<Fig name="zalo-oa" caption="Khách nhắn Zalo OA; agent xin duyệt trước khi đăng bài và chạy tiếp khi nhân viên trả lời &quot;duyệt 334&quot;" />
+
+<h2 id="ket-noi-cong-cu">Kết nối Gmail, Drive và phần mềm có sẵn</h2>
+<p>Agent hữu ích nhất khi làm việc với công cụ thật của công ty. Có hai đường:</p>
+<h3>OAuth: dùng tài khoản của chính người đang chat</h3>
+<p>Với Gmail, Lịch, Drive, Sheets, Outlook, OneDrive, mỗi người tự bấm <strong>kết nối</strong> và đăng nhập Google/Microsoft. Agent dùng <strong>đúng tài khoản của người đang chat</strong>, không phải một tài khoản chung. Quản trị viên chọn từng dịch vụ ở mức <strong>Chưa bật</strong>, <strong>Chỉ đọc</strong> hoặc <strong>Đọc và ghi</strong>; gửi mail, tạo lịch, sửa bảng tính luôn phải duyệt.</p>
+<p>Nếu cần agent gửi thư từ một hộp thư chung của công ty (ví dụ cskh@), dùng <strong>Danh tính agent</strong>: chủ agent hoặc admin bật, có nhật ký từng lần dùng. Đây là chỗ nhạy cảm, nên có chuyên gia bảo mật xem.</p>
+<h3>MCP: cắm phần mềm khác như cắm USB</h3>
+<p><strong>MCP</strong> (Model Context Protocol) là chuẩn chung để phần mềm "cho agent mượn" công cụ. Odoo, CRM hay hệ thống nội bộ có máy chủ MCP thì agent dùng được ngay, không phải viết tích hợp riêng. Ngược lại, Agent OS cũng là một máy chủ MCP: Claude, Cursor hay phần mềm AI khác gọi được agent của công ty.</p>
+
+<h2 id="trien-khai">Triển khai trên máy chủ riêng</h2>
+<p>Agent OS chạy theo mô hình <strong>mỗi khách một máy chủ riêng</strong> (VPS), không dùng chung với ai. Dữ liệu (chat, bộ nhớ, tài liệu, trace) nằm trên máy chủ đó; ra ngoài chỉ có nội dung gửi tới nhà cung cấp model để trả lời câu hỏi (đã che dữ liệu cá nhân nếu bật).</p>
+<Diagram name="deploy" caption="Các kênh đi vào máy chủ riêng của khách qua cổng HTTPS; Agent OS gọi model và công cụ bên ngoài" />
+<ul>
+  <li><strong>Cổng HTTPS + đăng nhập</strong>: mọi truy cập đi qua kết nối mã hoá; ứng dụng không mở cổng trực tiếp ra Internet.</li>
+  <li><strong>Agent OS</strong>: chạy agent, kênh, duyệt, gateway, trace, đánh giá, lịch chạy.</li>
+  <li><strong>PostgreSQL</strong>: cơ sở dữ liệu chứa mọi thứ, kể cả kho vector cho RAG.</li>
+  <li><strong>Sandbox</strong>: phòng cách ly chạy code AI viết.</li>
+  <li><strong>Sao lưu</strong>: mỗi đêm và trước mỗi lần nâng cấp; có thể gửi bản mã hoá ra kho ngoài.</li>
+</ul>
+<p>Một số kênh và đăng nhập cần <strong>tên miền có HTTPS</strong> cố định (Zalo OA, đăng nhập Google/Microsoft). Đó là lý do khi triển khai cho khách, ta dùng tên miền riêng như <code>agent.tencongty.vn</code>.</p>
+
+<h3>Ra mắt an toàn: dev → staging → prod</h3>
+<ol>
+  <li><strong>dev</strong>: người xây agent thử trên dữ liệu giả.</li>
+  <li><strong>staging</strong>: vài nhân viên dùng thử như thật; đo bằng thí nghiệm và cổng (bài 4).</li>
+  <li><strong>prod</strong>: mở cho khách; theo dõi Giám sát, cảnh báo, Engine.</li>
+</ol>
+<p>Mỗi thay đổi đều có phiên bản và nhãn, nên quay lại bản trước chỉ mất một bấm.</p>
+
+<h2 id="chuan-mo">Vì sao chuẩn mở quan trọng</h2>
+<p>Agent OS xây trên <strong>LangChain, LangGraph, Deep Agents</strong> (mã nguồn mở) và nói chuyện bằng các chuẩn chung: <strong>MCP</strong> cho công cụ, <strong>A2A</strong> cho agent nói chuyện với agent của hệ thống khác, <strong>LangGraph SDK</strong> cho lập trình viên, <strong>OpenTelemetry</strong> cho dữ liệu theo dõi. Lợi ích cho doanh nghiệp:</p>
+<ul>
+  <li><strong>Không bị khoá</strong> vào một nhà cung cấp model: đổi Gemini sang GPT không phải làm lại agent.</li>
+  <li><strong>Dễ bàn giao</strong>: đội kỹ thuật khác đọc hiểu được vì dùng công nghệ phổ biến.</li>
+  <li><strong>Nối được</strong> với công cụ theo dõi, phân tích mà công ty đã có.</li>
+</ul>
+
+<Practice title="Thử một kênh và lấy địa chỉ MCP của agent" time="15 phút"
+  result="Nhắn thử như khách và thấy agent trả lời, kể cả thẻ duyệt; có địa chỉ MCP riêng của agent; biết danh sách việc cần chuẩn bị để chạy kênh thật."
+  shot="channel-tab" shotAlt="Thẻ Kênh của agent và khung Thử kênh">
+  <ol>
+    <li>Mở agent → thẻ <strong>Kênh</strong>. Xem bảng kênh (Loại, Tên, Trạng thái, Người được dùng). Khi có bot thật, bấm <strong>Thêm kênh</strong>, chọn loại và nhập <strong>tên bí mật</strong> đã cất ở <strong>Thành viên &amp; quyền</strong> → <strong>Bí mật</strong>.</li>
+    <li>Ở khung <strong>Thử kênh</strong> bên phải, nhập tên khách "Lan", gõ "shop còn áo khoác xanh không?", bấm <strong>Gửi</strong>. Gửi thêm một yêu cầu cần duyệt để thấy thẻ duyệt trong kênh.</li>
+    <li>Bấm <strong>Chia sẻ</strong> trên trang agent, chép <strong>Địa chỉ MCP của agent này</strong>; đọc ai được dùng agent qua MCP.</li>
+    <li>Mở <strong>Cài đặt</strong> → <strong>Google Workspace &amp; Microsoft 365</strong>: xem ba mức cho từng dịch vụ (không cần bật).</li>
+    <li>Menu <strong>Tracing</strong>: xem cột môi trường của các project; tạo một project mới với môi trường <strong>staging</strong>.</li>
+  </ol>
+</Practice>
+
+<Quiz items={[
+  ["Một agent mở trên Zalo OA và Telegram. Khách A nhắn Zalo, khách B nhắn Telegram. Agent có lẫn chuyện của A và B không?", "Không. Mỗi khách trên mỗi kênh có cuộc trò chuyện và bộ nhớ riêng, dù cùng một agent phía sau."],
+  ["Vì sao không nên dùng Zalo cá nhân để chăm sóc khách thật?", "Vì đây là cách không chính thức, trái điều khoản Zalo, số điện thoại có thể bị khoá, và đụng tới dữ liệu cá nhân. Với khách thật nên dùng Zalo OA."],
+  ["Nhân viên A hỏi agent \"tóm tắt hộp thư hôm nay\". Agent đọc hộp thư của ai?", "Của chính nhân viên A, qua kết nối OAuth A đã tự cấp. Không ai đọc được hộp thư của người khác qua agent."],
+  ["MCP giúp gì khi công ty muốn agent làm việc với Odoo?", "Nếu Odoo có máy chủ MCP, agent cắm vào và dùng được công cụ của Odoo ngay, không phải viết tích hợp riêng; công cụ ghi vẫn có thể bắt duyệt."],
+  ["Vì sao nên có môi trường staging trước khi mở cho khách?", "Để nhân viên dùng thử như thật, đo bằng thí nghiệm và cổng, phát hiện lỗi mà không ảnh hưởng khách và không làm lẫn số liệu thật."],
+]} />
+
+<Terms items={[
+  ["Kênh", "Nơi người dùng nhắn tin với agent: Zalo, Telegram, Slack, web chat."],
+  ["Zalo OA", "Trang Zalo chính thức của doanh nghiệp."],
+  ["Webhook", "\"Địa chỉ nhận tin\": Zalo gọi vào đó khi có tin mới."],
+  ["Socket Mode", "Cách Slack giữ kết nối tới máy chủ mà không cần tên miền công khai."],
+  ["OAuth", "Cho phép ứng dụng dùng tài khoản Google/Microsoft của mình mà không đưa mật khẩu."],
+  ["Danh tính agent", "Cho agent hành động bằng một tài khoản riêng, có nhật ký."],
+  ["MCP", "Chuẩn chung để phần mềm cho agent mượn công cụ, và ngược lại."],
+  ["A2A", "Chuẩn để agent của các hệ thống khác nhau nói chuyện với nhau."],
+  ["VPS", "Máy chủ thuê riêng, nơi Agent OS của khách chạy."],
+  ["Tên miền + HTTPS", "Địa chỉ web cố định có mã hoá, cần cho Zalo OA và đăng nhập Google/Microsoft."],
+  ["dev / staging / prod", "Ba môi trường: đang làm, đang thử, chạy thật."],
+  ["OpenTelemetry", "Chuẩn chung để gửi dữ liệu theo dõi giữa các phần mềm."],
+]} />
+</Lesson>

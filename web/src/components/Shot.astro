@@ -1,0 +1,13 @@
+---
+// A screenshot with responsive WebP sizes; clicking opens the full-size image in the page lightbox (see Lightbox.astro),
+// and without JS the link simply opens the image.
+import { Image, getImage } from "astro:assets";
+import { shotSrc } from "../data/images";
+interface Props { name: string; alt: string; sizes?: string; class?: string; zoom: string; eager?: boolean }
+const { name, alt, sizes = "(min-width: 1280px) 620px, (min-width: 768px) 50vw, 100vw", class: cls = "", zoom, eager = false } = Astro.props;
+const src = shotSrc(name);
+const full = (await getImage({ src, format: "webp", width: Math.min(src.width, 1600), quality: 82 })).src;
+---
+<a href={full} class={`shot group block cursor-zoom-in ${cls}`} data-lightbox aria-label={`${alt}. ${zoom}`}>
+  <Image src={src} alt={alt} widths={[480, 800, 1200]} sizes={sizes} format="webp" quality={80} loading={eager ? "eager" : "lazy"} class="w-full transition group-hover:opacity-95" />
+</a>

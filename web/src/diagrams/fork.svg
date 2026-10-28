@@ -1,0 +1,13 @@
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah2" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="30">NHÁNH CŨ (GIỮ NGUYÊN)</text>
+<path class="l" d="M60 70H700"/>
+<circle class="b" cx="60" cy="70" r="11"/><circle class="b" cx="190" cy="70" r="11"/><circle class="b2" cx="320" cy="70" r="13"/><circle class="b" cx="450" cy="70" r="11"/><circle class="b" cx="580" cy="70" r="11"/><circle class="b4" cx="700" cy="70" r="11"/>
+<text class="s" x="60" y="100" text-anchor="middle">Bước 1</text><text class="s" x="190" y="100" text-anchor="middle">Bước 2</text><text class="t" x="320" y="104" text-anchor="middle" style="font-size:13px">Bước 3</text><text class="s" x="450" y="100" text-anchor="middle">Bước 4: gọi sai công cụ</text><text class="s" x="580" y="100" text-anchor="middle">Bước 5</text><text class="s" x="700" y="100" text-anchor="middle">kết quả sai</text>
+<path class="la" d="M320 83C320 150 360 165 420 165H686" marker-end="url(#m5)"/>
+<circle class="b5" cx="450" cy="165" r="11"/><circle class="b5" cx="580" cy="165" r="11"/><circle class="b5" cx="700" cy="165" r="11"/>
+<text class="k" x="20" y="156">NHÁNH MỚI</text>
+<text class="s" x="20" y="178">chạy lại từ bước 3,</text>
+<text class="s" x="20" y="196">sau khi sửa trạng thái</text>
+<text class="s" x="450" y="198" text-anchor="middle">gọi đúng công cụ</text><text class="s" x="700" y="198" text-anchor="middle">kết quả đúng</text>
+</svg>

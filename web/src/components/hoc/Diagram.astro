@@ -1,0 +1,15 @@
+---
+// Pre-drawn static SVG diagram (src/diagrams/<name>.svg), inlined so it follows the light/dark toggle.
+// On narrow screens the figure scrolls sideways instead of shrinking the text below readable size.
+interface Props { name: string; caption: string; min?: string }
+const { name, caption, min = "34rem" } = Astro.props;
+const files = import.meta.glob<string>("../../diagrams/*.svg", { eager: true, query: "?raw", import: "default" });
+const svg = files[`../../diagrams/${name}.svg`];
+if (!svg) throw new Error(`missing diagram: ${name}`);
+---
+<figure class="not-prose my-8 rounded-2xl border border-zinc-200 bg-zinc-50/70 p-3 sm:p-5 dark:border-zinc-800 dark:bg-zinc-950/40">
+  <div class="dg overflow-x-auto" role="img" aria-label={caption}>
+    <div style={`min-width:${min}`} set:html={svg} />
+  </div>
+  <figcaption class="mt-3 text-center text-sm text-zinc-500">{caption}<span class="sm:hidden"> · vuốt ngang để xem hết</span></figcaption>
+</figure>

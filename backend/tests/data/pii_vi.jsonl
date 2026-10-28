@@ -1,0 +1,248 @@
+{"id": 0, "split": "dev", "text": "Số điện thoại của tôi là 0798466078, gọi giờ hành chính nhé.", "spans": [{"start": 25, "end": 35, "type": "VN_PHONE"}]}
+{"id": 1, "split": "dev", "text": "Liên hệ chị Hoa qua 0763 861 074 để đặt lịch.", "spans": [{"start": 12, "end": 15, "type": "PERSON"}, {"start": 20, "end": 32, "type": "VN_PHONE"}]}
+{"id": 2, "split": "dev", "text": "Zalo 090 240 4786 em nhé", "spans": [{"start": 5, "end": 17, "type": "VN_PHONE"}]}
+{"id": 3, "split": "dev", "text": "SĐT: 0942.882.364", "spans": [{"start": 5, "end": 17, "type": "VN_PHONE"}]}
+{"id": 4, "split": "dev", "text": "Hotline hỗ trợ khách hàng: 059-469-3228", "spans": [{"start": 27, "end": 39, "type": "VN_PHONE"}]}
+{"id": 5, "split": "dev", "text": "Số điện thoại của tôi là +84522586288, gọi giờ hành chính nhé.", "spans": [{"start": 25, "end": 37, "type": "VN_PHONE"}]}
+{"id": 6, "split": "dev", "text": "Liên hệ chị Hoa qua +84 328 088 691 để đặt lịch.", "spans": [{"start": 12, "end": 15, "type": "PERSON"}, {"start": 20, "end": 35, "type": "VN_PHONE"}]}
+{"id": 7, "split": "dev", "text": "Zalo (+84) 376668744 em nhé", "spans": [{"start": 5, "end": 20, "type": "VN_PHONE"}]}
+{"id": 8, "split": "dev", "text": "SĐT: 0920168311", "spans": [{"start": 5, "end": 15, "type": "VN_PHONE"}]}
+{"id": 9, "split": "dev", "text": "Hotline hỗ trợ khách hàng: 0385 220 552", "spans": [{"start": 27, "end": 39, "type": "VN_PHONE"}]}
+{"id": 10, "split": "dev", "text": "Số điện thoại của tôi là 0991.816.043, gọi giờ hành chính nhé.", "spans": [{"start": 25, "end": 37, "type": "VN_PHONE"}]}
+{"id": 11, "split": "dev", "text": "Liên hệ chị Hoa qua +84 996 307 841 để đặt lịch.", "spans": [{"start": 12, "end": 15, "type": "PERSON"}, {"start": 20, "end": 35, "type": "VN_PHONE"}]}
+{"id": 12, "split": "dev", "text": "Khách để lại số 0771028858 và email an.nguyen73@congty.vn.", "spans": [{"start": 16, "end": 26, "type": "VN_PHONE"}, {"start": 36, "end": 57, "type": "EMAIL_ADDRESS"}]}
+{"id": 13, "split": "dev", "text": "so dien thoai cua toi la 0819165608", "spans": [{"start": 25, "end": 35, "type": "VN_PHONE"}]}
+{"id": 14, "split": "dev", "text": "Bên A: số ĐT 0951 072 797; Bên B: số ĐT 0344 625 227.", "spans": [{"start": 13, "end": 25, "type": "VN_PHONE"}, {"start": 40, "end": 52, "type": "VN_PHONE"}]}
+{"id": 15, "split": "dev", "text": "Tổng đài miền Bắc 024 3084 8613", "spans": [{"start": 18, "end": 31, "type": "VN_PHONE"}]}
+{"id": 16, "split": "dev", "text": "Gọi văn phòng (028) 3220 4839 trong giờ làm việc.", "spans": [{"start": 14, "end": 29, "type": "VN_PHONE"}]}
+{"id": 17, "split": "dev", "text": "Điện thoại bàn: 0225 3650 349", "spans": [{"start": 16, "end": 29, "type": "VN_PHONE"}]}
+{"id": 18, "split": "dev", "text": "CCCD của tôi là 030191817350.", "spans": [{"start": 16, "end": 28, "type": "VN_CCCD"}]}
+{"id": 19, "split": "dev", "text": "Số căn cước công dân: 072070955837", "spans": [{"start": 22, "end": 34, "type": "VN_CCCD"}]}
+{"id": 20, "split": "dev", "text": "Khách hàng cung cấp CCCD số 056092085583 để xác minh.", "spans": [{"start": 28, "end": 40, "type": "VN_CCCD"}]}
+{"id": 21, "split": "dev", "text": "so can cuoc 017174538312", "spans": [{"start": 12, "end": 24, "type": "VN_CCCD"}]}
+{"id": 22, "split": "dev", "text": "Ông Lê Văn Bảy, CCCD 011073508353, cấp tại Cục Cảnh sát QLHC.", "spans": [{"start": 4, "end": 14, "type": "PERSON"}, {"start": 21, "end": 33, "type": "VN_CCCD"}]}
+{"id": 23, "split": "dev", "text": "Số định danh cá nhân 079077090777 đã được xác thực.", "spans": [{"start": 21, "end": 33, "type": "VN_CCCD"}]}
+{"id": 24, "split": "dev", "text": "CCCD của tôi là 046188823732.", "spans": [{"start": 16, "end": 28, "type": "VN_CCCD"}]}
+{"id": 25, "split": "dev", "text": "Số căn cước công dân: 094188902413", "spans": [{"start": 22, "end": 34, "type": "VN_CCCD"}]}
+{"id": 26, "split": "dev", "text": "Khách hàng cung cấp CCCD số 062077949757 để xác minh.", "spans": [{"start": 28, "end": 40, "type": "VN_CCCD"}]}
+{"id": 27, "split": "dev", "text": "so can cuoc 033302995569", "spans": [{"start": 12, "end": 24, "type": "VN_CCCD"}]}
+{"id": 28, "split": "dev", "text": "Ông Lê Văn Bảy, CCCD 017162281775, cấp tại Cục Cảnh sát QLHC.", "spans": [{"start": 4, "end": 14, "type": "PERSON"}, {"start": 21, "end": 33, "type": "VN_CCCD"}]}
+{"id": 29, "split": "dev", "text": "Số định danh cá nhân 037183429173 đã được xác thực.", "spans": [{"start": 21, "end": 33, "type": "VN_CCCD"}]}
+{"id": 30, "split": "dev", "text": "CCCD của tôi là 092094335257.", "spans": [{"start": 16, "end": 28, "type": "VN_CCCD"}]}
+{"id": 31, "split": "dev", "text": "Số căn cước công dân: 040191520067", "spans": [{"start": 22, "end": 34, "type": "VN_CCCD"}]}
+{"id": 32, "split": "dev", "text": "Số CMND cũ của anh ấy là 103119428.", "spans": [{"start": 25, "end": 34, "type": "VN_CMND"}]}
+{"id": 33, "split": "dev", "text": "Chứng minh nhân dân số 347989316 cấp năm 2012.", "spans": [{"start": 23, "end": 32, "type": "VN_CMND"}]}
+{"id": 34, "split": "dev", "text": "CMND: 346641670", "spans": [{"start": 6, "end": 15, "type": "VN_CMND"}]}
+{"id": 35, "split": "dev", "text": "so cmnd 246322763 noi cap Ha Noi", "spans": [{"start": 8, "end": 17, "type": "VN_CMND"}]}
+{"id": 36, "split": "dev", "text": "Hồ sơ gồm CMT 179723514 bản sao công chứng.", "spans": [{"start": 14, "end": 23, "type": "VN_CMND"}]}
+{"id": 37, "split": "dev", "text": "Mã số 091303376292 nằm trên thẻ căn cước.", "spans": [{"start": 6, "end": 18, "type": "VN_CCCD"}]}
+{"id": 38, "split": "dev", "text": "Tôi đã gửi giấy tờ: 002206561104 (không có nhãn).", "spans": [{"start": 20, "end": 32, "type": "VN_CCCD"}]}
+{"id": 39, "split": "dev", "text": "Mã số thuế công ty: 3120068982.", "spans": [{"start": 20, "end": 30, "type": "VN_TAX_ID"}]}
+{"id": 40, "split": "dev", "text": "MST 0138653153 - Công ty TNHH Minh Phát.", "spans": [{"start": 4, "end": 14, "type": "VN_TAX_ID"}]}
+{"id": 41, "split": "dev", "text": "Xuất hóa đơn cho MST: 0479631960-001 chi nhánh.", "spans": [{"start": 22, "end": 36, "type": "VN_TAX_ID"}]}
+{"id": 42, "split": "dev", "text": "mst: 0864172187", "spans": [{"start": 5, "end": 15, "type": "VN_TAX_ID"}]}
+{"id": 43, "split": "dev", "text": "Mã số thuế của chi nhánh là 3141645711-001.", "spans": [{"start": 28, "end": 42, "type": "VN_TAX_ID"}]}
+{"id": 44, "split": "dev", "text": "Công ty có mã số thuế 0283165955, đăng ký tại Hà Nội.", "spans": [{"start": 22, "end": 32, "type": "VN_TAX_ID"}]}
+{"id": 45, "split": "dev", "text": "Mã số thuế công ty: 0481779107.", "spans": [{"start": 20, "end": 30, "type": "VN_TAX_ID"}]}
+{"id": 46, "split": "dev", "text": "MST 0830784618 - Công ty TNHH Minh Phát.", "spans": [{"start": 4, "end": 14, "type": "VN_TAX_ID"}]}
+{"id": 47, "split": "dev", "text": "Xuất hóa đơn cho MST: 0830752630-001 chi nhánh.", "spans": [{"start": 22, "end": 36, "type": "VN_TAX_ID"}]}
+{"id": 48, "split": "dev", "text": "mst: 3123608555", "spans": [{"start": 5, "end": 15, "type": "VN_TAX_ID"}]}
+{"id": 49, "split": "dev", "text": "Mã số thuế của chi nhánh là 0259088989-001.", "spans": [{"start": 28, "end": 42, "type": "VN_TAX_ID"}]}
+{"id": 50, "split": "dev", "text": "Công ty có mã số thuế 0265030881, đăng ký tại Hà Nội.", "spans": [{"start": 22, "end": 32, "type": "VN_TAX_ID"}]}
+{"id": 51, "split": "dev", "text": "Mã số thuế công ty: 0835874953.", "spans": [{"start": 20, "end": 30, "type": "VN_TAX_ID"}]}
+{"id": 52, "split": "dev", "text": "MST 0344783768 - Công ty TNHH Minh Phát.", "spans": [{"start": 4, "end": 14, "type": "VN_TAX_ID"}]}
+{"id": 53, "split": "dev", "text": "Mã số thuế cá nhân của tôi: 0123456789 (nhập sai một số).", "spans": [{"start": 28, "end": 38, "type": "VN_TAX_ID"}]}
+{"id": 54, "split": "dev", "text": "Thông tin xuất hóa đơn: 0853782399, địa chỉ Hà Nội.", "spans": [{"start": 24, "end": 34, "type": "VN_TAX_ID"}]}
+{"id": 55, "split": "dev", "text": "Chuyển khoản vào STK 39815288481 Vietcombank.", "spans": [{"start": 21, "end": 32, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 56, "split": "dev", "text": "Số tài khoản: 2813909928 (Techcombank, chi nhánh Hà Nội).", "spans": [{"start": 14, "end": 24, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 57, "split": "dev", "text": "STK 4320420409012 MB Bank", "spans": [{"start": 4, "end": 17, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 58, "split": "dev", "text": "stk: 181257018005", "spans": [{"start": 5, "end": 17, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 59, "split": "dev", "text": "Tài khoản ngân hàng của tôi là 26815237009.", "spans": [{"start": 31, "end": 42, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 60, "split": "dev", "text": "Vui lòng thanh toán vào tài khoản 439379981 - ACB", "spans": [{"start": 34, "end": 43, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 61, "split": "dev", "text": "Chuyển khoản vào STK 2451983888 Vietcombank.", "spans": [{"start": 21, "end": 31, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 62, "split": "dev", "text": "Số tài khoản: 744409275 (Techcombank, chi nhánh Hà Nội).", "spans": [{"start": 14, "end": 23, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 63, "split": "dev", "text": "STK 6896300971 MB Bank", "spans": [{"start": 4, "end": 14, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 64, "split": "dev", "text": "stk: 5083152236489", "spans": [{"start": 5, "end": 18, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 65, "split": "dev", "text": "Tài khoản ngân hàng của tôi là 465482169801712.", "spans": [{"start": 31, "end": 46, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 66, "split": "dev", "text": "Vui lòng thanh toán vào tài khoản 50371692278304 - ACB", "spans": [{"start": 34, "end": 48, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 67, "split": "dev", "text": "Chuyển khoản vào STK 2600429317 Vietcombank.", "spans": [{"start": 21, "end": 31, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 68, "split": "dev", "text": "Số tài khoản: 8948212710 (Techcombank, chi nhánh Hà Nội).", "spans": [{"start": 14, "end": 24, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 69, "split": "dev", "text": "Chủ tài khoản: Trần Thị Mai, số tài khoản 44980768240, ngân hàng BIDV.", "spans": [{"start": 15, "end": 27, "type": "PERSON"}, {"start": 42, "end": 53, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 70, "split": "dev", "text": "Biển số xe của tôi là 94U-504.82.", "spans": [{"start": 22, "end": 32, "type": "VN_LICENSE_PLATE"}]}
+{"id": 71, "split": "dev", "text": "Xe 61F-15916 bị phạt nguội ngày 05/06/2024.", "spans": [{"start": 3, "end": 12, "type": "VN_LICENSE_PLATE"}]}
+{"id": 72, "split": "dev", "text": "BKS: 85-F7 235.81", "spans": [{"start": 5, "end": 17, "type": "VN_LICENSE_PLATE"}]}
+{"id": 73, "split": "dev", "text": "Ô tô biển số 14D5-779.94 đỗ trước cổng.", "spans": [{"start": 13, "end": 24, "type": "VN_LICENSE_PLATE"}]}
+{"id": 74, "split": "dev", "text": "Xe máy 63KD-748.25 cần đăng kiểm.", "spans": [{"start": 7, "end": 18, "type": "VN_LICENSE_PLATE"}]}
+{"id": 75, "split": "dev", "text": "Biển số xe của tôi là 93P-8121.", "spans": [{"start": 22, "end": 30, "type": "VN_LICENSE_PLATE"}]}
+{"id": 76, "split": "dev", "text": "Xe 21U-818.68 bị phạt nguội ngày 05/06/2024.", "spans": [{"start": 3, "end": 13, "type": "VN_LICENSE_PLATE"}]}
+{"id": 77, "split": "dev", "text": "BKS: 38P-14969", "spans": [{"start": 5, "end": 14, "type": "VN_LICENSE_PLATE"}]}
+{"id": 78, "split": "dev", "text": "Ô tô biển số 11-H2 162.08 đỗ trước cổng.", "spans": [{"start": 13, "end": 25, "type": "VN_LICENSE_PLATE"}]}
+{"id": 79, "split": "dev", "text": "Xe máy 70X1-985.25 cần đăng kiểm.", "spans": [{"start": 7, "end": 18, "type": "VN_LICENSE_PLATE"}]}
+{"id": 80, "split": "dev", "text": "Biển số xe của tôi là 35N-311.49.", "spans": [{"start": 22, "end": 32, "type": "VN_LICENSE_PLATE"}]}
+{"id": 81, "split": "dev", "text": "Xe 25-U8 135.17 bị phạt nguội ngày 05/06/2024.", "spans": [{"start": 3, "end": 15, "type": "VN_LICENSE_PLATE"}]}
+{"id": 82, "split": "dev", "text": "Tôi gửi xe 30A-123.45 và xe 51G-678.90 ở hầm B1.", "spans": [{"start": 11, "end": 21, "type": "VN_LICENSE_PLATE"}, {"start": 28, "end": 38, "type": "VN_LICENSE_PLATE"}]}
+{"id": 83, "split": "dev", "text": "Gửi báo giá về lan_pham42@outlook.com giúp mình.", "spans": [{"start": 15, "end": 37, "type": "EMAIL_ADDRESS"}]}
+{"id": 84, "split": "dev", "text": "email: minh.tran8861@gmail.com", "spans": [{"start": 7, "end": 30, "type": "EMAIL_ADDRESS"}]}
+{"id": 85, "split": "dev", "text": "Liên hệ lan_pham11@outlook.com hoặc gọi hotline.", "spans": [{"start": 8, "end": 30, "type": "EMAIL_ADDRESS"}]}
+{"id": 86, "split": "dev", "text": "Gửi báo giá về an.nguyen99@gmail.com giúp mình.", "spans": [{"start": 15, "end": 36, "type": "EMAIL_ADDRESS"}]}
+{"id": 87, "split": "dev", "text": "email: khoa.do43@yahoo.com.vn", "spans": [{"start": 7, "end": 29, "type": "EMAIL_ADDRESS"}]}
+{"id": 88, "split": "dev", "text": "Liên hệ thu.ha76@gmail.com hoặc gọi hotline.", "spans": [{"start": 8, "end": 26, "type": "EMAIL_ADDRESS"}]}
+{"id": 89, "split": "dev", "text": "Gửi báo giá về thu.ha54@fpt.com giúp mình.", "spans": [{"start": 15, "end": 31, "type": "EMAIL_ADDRESS"}]}
+{"id": 90, "split": "dev", "text": "email: thu.ha95@gmail.com", "spans": [{"start": 7, "end": 25, "type": "EMAIL_ADDRESS"}]}
+{"id": 91, "split": "dev", "text": "Máy chủ có IP 27.16.118.77 bị chặn.", "spans": [{"start": 14, "end": 26, "type": "IP_ADDRESS"}]}
+{"id": 92, "split": "dev", "text": "Truy cập từ địa chỉ 171.97.227.246 lúc 10:30.", "spans": [{"start": 20, "end": 34, "type": "IP_ADDRESS"}]}
+{"id": 93, "split": "dev", "text": "Log: 200 GET /health từ 192.204.242.249", "spans": [{"start": 24, "end": 39, "type": "IP_ADDRESS"}]}
+{"id": 94, "split": "dev", "text": "Máy chủ có IP 113.176.35.212 bị chặn.", "spans": [{"start": 14, "end": 28, "type": "IP_ADDRESS"}]}
+{"id": 95, "split": "dev", "text": "Truy cập từ địa chỉ 171.177.236.254 lúc 10:30.", "spans": [{"start": 20, "end": 35, "type": "IP_ADDRESS"}]}
+{"id": 96, "split": "dev", "text": "Thẻ Visa số 4871 7036 1319 8453 hết hạn 12/27.", "spans": [{"start": 12, "end": 31, "type": "CREDIT_CARD"}]}
+{"id": 97, "split": "dev", "text": "Thanh toán bằng thẻ 4775520269873552.", "spans": [{"start": 20, "end": 36, "type": "CREDIT_CARD"}]}
+{"id": 98, "split": "dev", "text": "card 4783 2154 9570 1509 cvv 123", "spans": [{"start": 5, "end": 24, "type": "CREDIT_CARD"}]}
+{"id": 99, "split": "dev", "text": "Thẻ Visa số 4988 3861 1648 1830 hết hạn 12/27.", "spans": [{"start": 12, "end": 31, "type": "CREDIT_CARD"}]}
+{"id": 100, "split": "dev", "text": "Thanh toán bằng thẻ 4254976019181540.", "spans": [{"start": 20, "end": 36, "type": "CREDIT_CARD"}]}
+{"id": 101, "split": "dev", "text": "card 4713 2586 2669 8140 cvv 123", "spans": [{"start": 5, "end": 24, "type": "CREDIT_CARD"}]}
+{"id": 102, "split": "dev", "text": "Thẻ Visa số 4723 4912 5323 7852 hết hạn 12/27.", "spans": [{"start": 12, "end": 31, "type": "CREDIT_CARD"}]}
+{"id": 103, "split": "dev", "text": "Ngày sinh: 22/09/1977", "spans": [{"start": 11, "end": 21, "type": "DATE_OF_BIRTH"}]}
+{"id": 104, "split": "dev", "text": "Tôi sinh ngày 3-5-2006 tại Nam Định.", "spans": [{"start": 14, "end": 22, "type": "DATE_OF_BIRTH"}]}
+{"id": 105, "split": "dev", "text": "DOB 21.05.1962", "spans": [{"start": 4, "end": 14, "type": "DATE_OF_BIRTH"}]}
+{"id": 106, "split": "dev", "text": "Ngày sinh: 16/07/1968", "spans": [{"start": 11, "end": 21, "type": "DATE_OF_BIRTH"}]}
+{"id": 107, "split": "dev", "text": "Tôi sinh ngày 21-2-1996 tại Nam Định.", "spans": [{"start": 14, "end": 23, "type": "DATE_OF_BIRTH"}]}
+{"id": 108, "split": "dev", "text": "DOB 24.04.1962", "spans": [{"start": 4, "end": 14, "type": "DATE_OF_BIRTH"}]}
+{"id": 109, "split": "dev", "text": "Ngày sinh: 25/07/1965", "spans": [{"start": 11, "end": 21, "type": "DATE_OF_BIRTH"}]}
+{"id": 110, "split": "dev", "text": "Số hộ chiếu: B4822539", "spans": [{"start": 13, "end": 21, "type": "VN_PASSPORT"}]}
+{"id": 111, "split": "dev", "text": "Passport P8084522 cấp năm 2021.", "spans": [{"start": 9, "end": 17, "type": "VN_PASSPORT"}]}
+{"id": 112, "split": "dev", "text": "Hộ chiếu số N6660127 còn hạn đến 2031.", "spans": [{"start": 12, "end": 20, "type": "VN_PASSPORT"}]}
+{"id": 113, "split": "dev", "text": "Số hộ chiếu: P2815584", "spans": [{"start": 13, "end": 21, "type": "VN_PASSPORT"}]}
+{"id": 114, "split": "dev", "text": "Khách Nguyễn Văn An, CCCD 056070920867, SĐT 0363 026 969, email hoa.le51@outlook.com.", "spans": [{"start": 6, "end": 19, "type": "PERSON"}, {"start": 26, "end": 38, "type": "VN_CCCD"}, {"start": 44, "end": 56, "type": "VN_PHONE"}, {"start": 64, "end": 84, "type": "EMAIL_ADDRESS"}]}
+{"id": 115, "split": "dev", "text": "Xe 73Y-456.71 của Trần Thị Mai sinh ngày 28/12/1991.", "spans": [{"start": 3, "end": 13, "type": "VN_LICENSE_PLATE"}, {"start": 18, "end": 30, "type": "PERSON"}, {"start": 41, "end": 51, "type": "DATE_OF_BIRTH"}]}
+{"id": 116, "split": "dev", "text": "Hóa đơn gửi MST 3100339176, chuyển khoản STK 2219535208915256 Vietcombank, liên hệ 0565.976.168.", "spans": [{"start": 16, "end": 26, "type": "VN_TAX_ID"}, {"start": 45, "end": 61, "type": "VN_BANK_ACCOUNT"}, {"start": 83, "end": 95, "type": "VN_PHONE"}]}
+{"id": 117, "split": "dev", "text": "Họ tên: PHẠM QUANG HUY; CCCD: 004179330045; SĐT: 0567382500", "spans": [{"start": 8, "end": 22, "type": "PERSON"}, {"start": 30, "end": 42, "type": "VN_CCCD"}, {"start": 49, "end": 59, "type": "VN_PHONE"}]}
+{"id": 118, "split": "dev", "text": "Em tên Lan nhé, nhà ở số 12 đường Lê Lợi, phường Bến Nghé, quận 1.", "spans": [{"start": 22, "end": 65, "type": "ADDRESS"}]}
+{"id": 119, "split": "dev", "text": "Người nhận hàng là Nguyễn Văn An, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 32, "type": "PERSON"}]}
+{"id": 120, "split": "dev", "text": "Người nhận hàng là Trần Thị Bích Ngọc, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 37, "type": "PERSON"}]}
+{"id": 121, "split": "dev", "text": "Người nhận hàng là Lê Hoàng Nam, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 31, "type": "PERSON"}]}
+{"id": 122, "split": "dev", "text": "Người nhận hàng là Phạm Minh Tuấn, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 33, "type": "PERSON"}]}
+{"id": 123, "split": "dev", "text": "Người nhận hàng là Hoàng Thị Lan, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 32, "type": "PERSON"}]}
+{"id": 124, "split": "dev", "text": "Người nhận hàng là Vũ Đức Thắng, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 31, "type": "PERSON"}]}
+{"id": 125, "split": "dev", "text": "Người nhận hàng là Đặng Thu Hà, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 30, "type": "PERSON"}]}
+{"id": 126, "split": "dev", "text": "Người nhận hàng là Bùi Quốc Khánh, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 33, "type": "PERSON"}]}
+{"id": 127, "split": "dev", "text": "Người nhận hàng là Ngô Thanh Tùng, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 33, "type": "PERSON"}]}
+{"id": 128, "split": "dev", "text": "Người nhận hàng là Dương Mỹ Linh, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 32, "type": "PERSON"}]}
+{"id": 129, "split": "dev", "text": "Người nhận hàng là Đỗ Anh Dũng, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 30, "type": "PERSON"}]}
+{"id": 130, "split": "dev", "text": "Người nhận hàng là Phan Văn Hải, giao trong giờ hành chính.", "spans": [{"start": 19, "end": 31, "type": "PERSON"}]}
+{"id": 131, "split": "dev", "text": "Xin chào anh Tuấn, em gọi từ phòng chăm sóc khách hàng.", "spans": [{"start": 13, "end": 17, "type": "PERSON"}]}
+{"id": 132, "split": "dev", "text": "Xin chào chị Hương, em gọi từ phòng chăm sóc khách hàng.", "spans": [{"start": 13, "end": 18, "type": "PERSON"}]}
+{"id": 133, "split": "dev", "text": "Xin chào ông Bảy, em gọi từ phòng chăm sóc khách hàng.", "spans": [{"start": 13, "end": 16, "type": "PERSON"}]}
+{"id": 134, "split": "dev", "text": "Xin chào bà Tám, em gọi từ phòng chăm sóc khách hàng.", "spans": [{"start": 12, "end": 15, "type": "PERSON"}]}
+{"id": 135, "split": "dev", "text": "Xin chào anh Quang Minh, em gọi từ phòng chăm sóc khách hàng.", "spans": [{"start": 13, "end": 23, "type": "PERSON"}]}
+{"id": 136, "split": "dev", "text": "Xin chào chị Thu Thảo, em gọi từ phòng chăm sóc khách hàng.", "spans": [{"start": 13, "end": 21, "type": "PERSON"}]}
+{"id": 137, "split": "dev", "text": "Hợp đồng ký giữa công ty và NGUYỄN THỊ HỒNG.", "spans": [{"start": 28, "end": 43, "type": "PERSON"}]}
+{"id": 138, "split": "dev", "text": "Chủ xe: TRẦN VĂN BÌNH", "spans": [{"start": 8, "end": 21, "type": "PERSON"}]}
+{"id": 139, "split": "dev", "text": "Bác sĩ Lê Thị Thu khám lúc 9h.", "spans": [{"start": 7, "end": 17, "type": "PERSON"}]}
+{"id": 140, "split": "dev", "text": "Địa chỉ nhận hàng: số 12 đường Lê Lợi, phường Bến Nghé, quận 1, TP. Hồ Chí Minh.", "spans": [{"start": 19, "end": 79, "type": "ADDRESS"}]}
+{"id": 141, "split": "dev", "text": "Địa chỉ nhận hàng: 45/6 ngõ 120 phố Hoàng Quốc Việt, phường Nghĩa Đô, quận Cầu Giấy.", "spans": [{"start": 19, "end": 83, "type": "ADDRESS"}]}
+{"id": 142, "split": "dev", "text": "Địa chỉ nhận hàng: số 7 đường Nguyễn Huệ, phường Bến Nghé, quận 1.", "spans": [{"start": 19, "end": 65, "type": "ADDRESS"}]}
+{"id": 143, "split": "dev", "text": "Địa chỉ nhận hàng: 128 đường Trần Phú, phường 4, quận 5.", "spans": [{"start": 19, "end": 55, "type": "ADDRESS"}]}
+{"id": 144, "split": "dev", "text": "Địa chỉ nhận hàng: 88 phố Huế, phường Ngô Thì Nhậm, quận Hai Bà Trưng.", "spans": [{"start": 19, "end": 69, "type": "ADDRESS"}]}
+{"id": 145, "split": "dev", "text": "Địa chỉ nhận hàng: 21/3 hẻm 55 đường Phan Văn Trị, phường 7, quận Gò Vấp.", "spans": [{"start": 19, "end": 72, "type": "ADDRESS"}]}
+{"id": 146, "split": "dev", "text": "Giá sản phẩm là 1.500.000đ, giảm còn 1.290.000 VND.", "spans": []}
+{"id": 147, "split": "dev", "text": "Tổng đơn hàng 12.345.678 đồng đã bao gồm VAT 10%.", "spans": []}
+{"id": 148, "split": "dev", "text": "Đơn hàng số 079203012345 đã được giao thành công.", "spans": []}
+{"id": 149, "split": "dev", "text": "Mã vận đơn 840912345678 đang trên đường giao.", "spans": []}
+{"id": 150, "split": "dev", "text": "Mã giao dịch 001203045678 thanh toán thành công lúc 10:30.", "spans": []}
+{"id": 151, "split": "dev", "text": "Hóa đơn số 0123456 phát hành ngày 12/03/2024.", "spans": []}
+{"id": 152, "split": "dev", "text": "Ngày 12/03/2024 cửa hàng nghỉ lễ.", "spans": []}
+{"id": 153, "split": "dev", "text": "Hẹn gặp ngày 05-06-2025 lúc 14:30.", "spans": []}
+{"id": 154, "split": "dev", "text": "Phiên bản 1.2.3.4 vừa được phát hành.", "spans": []}
+{"id": 155, "split": "dev", "text": "Năm 2024 doanh thu tăng 35,5% so với năm 2023.", "spans": []}
+{"id": 156, "split": "dev", "text": "Dung lượng 128 GB, RAM 16 GB, màn hình 6,7 inch.", "spans": []}
+{"id": 157, "split": "dev", "text": "Căn hộ 12A-05 tầng 12 tòa A2.", "spans": []}
+{"id": 158, "split": "dev", "text": "Phòng 305, tầng 3, tòa nhà Landmark 81.", "spans": []}
+{"id": 159, "split": "dev", "text": "Mình đang ở Hà Nội, tuần sau vào Đà Nẵng công tác.", "spans": []}
+{"id": 160, "split": "dev", "text": "Đường Nguyễn Huệ và đường Lê Lợi rất đông vào cuối tuần.", "spans": []}
+{"id": 161, "split": "dev", "text": "Nhà hát Lớn nằm trên phố Tràng Tiền, Hà Nội.", "spans": []}
+{"id": 162, "split": "dev", "text": "Trường THPT Nguyễn Du tổ chức hội thảo.", "spans": []}
+{"id": 163, "split": "dev", "text": "Công ty cổ phần Trần Anh vừa khai trương chi nhánh mới.", "spans": []}
+{"id": 164, "split": "dev", "text": "Chương trình khuyến mãi áp dụng từ 01/01 đến 31/01.", "spans": []}
+{"id": 165, "split": "dev", "text": "Tôi cần tư vấn gói cước 4G 5GB/ngày giá 120.000đ/tháng.", "spans": []}
+{"id": 166, "split": "dev", "text": "Bạn có thể nhắn tin cho cửa hàng để được hỗ trợ.", "spans": []}
+{"id": 167, "split": "dev", "text": "Mã đơn 0123456789 chưa thanh toán.", "spans": []}
+{"id": 168, "split": "dev", "text": "Số hiệu lô hàng 123456789012 đã nhập kho.", "spans": []}
+{"id": 169, "split": "dev", "text": "Order 840912345678 shipped.", "spans": []}
+{"id": 170, "split": "dev", "text": "Ticket 100200300400 đã đóng.", "spans": []}
+{"id": 171, "split": "dev", "text": "Hạn thanh toán là 30 ngày kể từ ngày nhận hàng.", "spans": []}
+{"id": 172, "split": "dev", "text": "Tốc độ internet đạt 940 Mbps, độ trễ 12 ms.", "spans": []}
+{"id": 173, "split": "dev", "text": "Cuộc họp bắt đầu lúc 9h30, kết thúc lúc 11h.", "spans": []}
+{"id": 174, "split": "dev", "text": "Tỷ giá USD hôm nay: 25.400 VND.", "spans": []}
+{"id": 175, "split": "dev", "text": "Vui lòng nhập mã OTP gồm 6 số được gửi về điện thoại.", "spans": []}
+{"id": 176, "split": "dev", "text": "Số lượng 1500 chiếc, đơn giá 2.350.000 đồng.", "spans": []}
+{"id": 177, "split": "dev", "text": "Tôi muốn hỏi về chính sách bảo hành sản phẩm.", "spans": []}
+{"id": 178, "split": "dev", "text": "Chào bạn, mình có thể giúp gì cho bạn hôm nay?", "spans": []}
+{"id": 179, "split": "dev", "text": "Văn phòng làm việc từ thứ Hai đến thứ Sáu.", "spans": []}
+{"id": 180, "split": "dev", "text": "Lô đất rộng 120 m2 giá 3,2 tỷ đồng.", "spans": []}
+{"id": 181, "split": "dev", "text": "Tuyến bay HAN-SGN khởi hành 06:45.", "spans": []}
+{"id": 182, "split": "dev", "text": "Mã voucher: SALE2024 giảm 20%.", "spans": []}
+{"id": 183, "split": "dev", "text": "Số seri máy: SN-4567-8890.", "spans": []}
+{"id": 184, "split": "dev", "text": "Bài viết có 1.234 lượt xem và 56 bình luận.", "spans": []}
+{"id": 185, "split": "dev", "text": "IP của dịch vụ thay đổi theo vùng, hãy kiểm tra tài liệu.", "spans": []}
+{"id": 186, "split": "dev", "text": "Tên miền example.vn hết hạn ngày 01/12/2025.", "spans": []}
+{"id": 187, "split": "dev", "text": "Địa chỉ trang web là https://www.example.com/san-pham/123.", "spans": []}
+{"id": 188, "split": "dev", "text": "Hãy gọi hotline khi cần hỗ trợ.", "spans": []}
+{"id": 189, "split": "dev", "text": "Mã số thuế là một dãy số gồm 10 hoặc 13 chữ số.", "spans": []}
+{"id": 190, "split": "dev", "text": "Số tài khoản ngân hàng cần được giữ bí mật.", "spans": []}
+{"id": 191, "split": "dev", "text": "Biển số xe gồm mã tỉnh, series và dãy số.", "spans": []}
+{"id": 192, "split": "dev", "text": "Thẻ căn cước công dân gắn chip có 12 số.", "spans": []}
+{"id": 193, "split": "dev", "text": "Nhớ mang theo CCCD khi đến làm thủ tục.", "spans": []}
+{"id": 194, "split": "dev", "text": "Bạn cần cung cấp số điện thoại để nhận mã xác nhận.", "spans": []}
+{"id": 195, "split": "dev", "text": "Số tài khoản của bạn đã được xác minh thành công.", "spans": []}
+{"id": 196, "split": "dev", "text": "Vui lòng kiểm tra lại mã số thuế trước khi xuất hóa đơn.", "spans": []}
+{"id": 197, "split": "dev", "text": "sdt cua toi 034 518 7872", "spans": [{"start": 12, "end": 24, "type": "VN_PHONE"}]}
+{"id": 198, "split": "dev", "text": "cccd 075073917198 nha", "spans": [{"start": 5, "end": 17, "type": "VN_CCCD"}]}
+{"id": 199, "split": "dev", "text": "mst cong ty 0220742575", "spans": [{"start": 12, "end": 22, "type": "VN_TAX_ID"}]}
+{"id": 200, "split": "dev", "text": "chuyen khoan stk 7980962045 vcb", "spans": [{"start": 17, "end": 27, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 201, "split": "dev", "text": "bien so xe 66X-629.42", "spans": [{"start": 11, "end": 21, "type": "VN_LICENSE_PLATE"}]}
+{"id": 202, "split": "holdout", "text": "Dạ em chào anh, em muốn đổi địa chỉ giao hàng sang 17 ngõ 29 phố Tạ Quang Bửu, phường Bách Khoa, quận Hai Bà Trưng, và số máy em là 033 295 2004 nha.", "spans": [{"start": 51, "end": 114, "type": "ADDRESS"}, {"start": 132, "end": 144, "type": "VN_PHONE"}]}
+{"id": 203, "split": "holdout", "text": "Anh Phạm Đức Long đã đăng ký xe máy biển số 27-K1 754.98 tại công an quận 7.", "spans": [{"start": 4, "end": 17, "type": "PERSON"}, {"start": 44, "end": 56, "type": "VN_LICENSE_PLATE"}]}
+{"id": 204, "split": "holdout", "text": "Thông tin khách: họ tên LÊ THỊ KIM OANH, ngày sinh 19/09/2004, CCCD 026195357774.", "spans": [{"start": 24, "end": 39, "type": "PERSON"}, {"start": 51, "end": 61, "type": "DATE_OF_BIRTH"}, {"start": 68, "end": 80, "type": "VN_CCCD"}]}
+{"id": 205, "split": "holdout", "text": "Để nhận hoàn tiền xin gửi STK 5795377602336 (VPBank) và email minh.tran8852@yahoo.com.vn.", "spans": [{"start": 30, "end": 43, "type": "VN_BANK_ACCOUNT"}, {"start": 62, "end": 88, "type": "EMAIL_ADDRESS"}]}
+{"id": 206, "split": "holdout", "text": "Vui lòng xuất hóa đơn đỏ cho MST 3186844756-001, Công ty TNHH Thương mại Hoàng Gia.", "spans": [{"start": 33, "end": 47, "type": "VN_TAX_ID"}]}
+{"id": 207, "split": "holdout", "text": "Mình thấy log lạ từ IP 192.60.217.122, lúc 03:12 sáng, bạn kiểm tra giúp nhé.", "spans": [{"start": 23, "end": 37, "type": "IP_ADDRESS"}]}
+{"id": 208, "split": "holdout", "text": "Bà Võ Thị Sáu nhận tiền qua thẻ 4524 7419 3377 0529.", "spans": [{"start": 3, "end": 13, "type": "PERSON"}, {"start": 32, "end": 51, "type": "CREDIT_CARD"}]}
+{"id": 209, "split": "holdout", "text": "gọi mình theo số 037-202-0386 hoặc nhắn zalo cùng số nhé", "spans": [{"start": 17, "end": 29, "type": "VN_PHONE"}]}
+{"id": 210, "split": "holdout", "text": "Thủ tục cần: CMND số 309895092, sổ hộ khẩu bản sao và 2 ảnh 3x4.", "spans": [{"start": 21, "end": 30, "type": "VN_CMND"}]}
+{"id": 211, "split": "holdout", "text": "Sau khi chuyển 2.000.000đ, bạn nhớ chụp màn hình giao dịch gửi lại cho shop.", "spans": []}
+{"id": 212, "split": "holdout", "text": "Chủ phương tiện: Đinh Công Hậu; BKS 21U-55971; liên hệ +84 520 949 586.", "spans": [{"start": 17, "end": 30, "type": "PERSON"}, {"start": 36, "end": 45, "type": "VN_LICENSE_PLATE"}, {"start": 55, "end": 70, "type": "VN_PHONE"}]}
+{"id": 213, "split": "holdout", "text": "Tài khoản nhận lương của anh Tuấn không đổi, vẫn là số 7534526030300 ở Agribank.", "spans": [{"start": 29, "end": 33, "type": "PERSON"}, {"start": 55, "end": 68, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 214, "split": "holdout", "text": "Hộ chiếu B6447952 của khách còn hạn 7 tháng.", "spans": [{"start": 9, "end": 17, "type": "VN_PASSPORT"}]}
+{"id": 215, "split": "holdout", "text": "Em đặt 3 áo size M, tổng 897.000đ, ship về Cần Thơ giúp em.", "spans": []}
+{"id": 216, "split": "holdout", "text": "Tôi là Mai Xuân Trường, mã số thuế cá nhân 3113689548, cần quyết toán thuế năm 2024.", "spans": [{"start": 7, "end": 22, "type": "PERSON"}, {"start": 43, "end": 53, "type": "VN_TAX_ID"}]}
+{"id": 217, "split": "holdout", "text": "Kết nối từ 192.160.197.126 thất bại 3 lần liên tiếp.", "spans": [{"start": 11, "end": 26, "type": "IP_ADDRESS"}]}
+{"id": 218, "split": "holdout", "text": "Ngày 20/10 là ngày Phụ nữ Việt Nam, cửa hàng giảm giá 20%.", "spans": []}
+{"id": 219, "split": "holdout", "text": "Mã đơn: 100234567890. Trạng thái: đang giao. Dự kiến 2 ngày.", "spans": []}
+{"id": 220, "split": "holdout", "text": "Thanh toán thành công, mã tham chiếu 004512345678.", "spans": []}
+{"id": 221, "split": "holdout", "text": "Số điện thoại hỗ trợ của hãng là 1900 1234 (miễn phí cuộc gọi).", "spans": []}
+{"id": 222, "split": "holdout", "text": "Nhà tôi ở số 5 ngõ 18 đường Láng Hạ, phường Thành Công, quận Ba Đình, gần chợ.", "spans": [{"start": 10, "end": 68, "type": "ADDRESS"}]}
+{"id": 223, "split": "holdout", "text": "Thông báo: thẻ căn cước 066180566112 của Huỳnh Ngọc Ánh đã được cập nhật.", "spans": [{"start": 24, "end": 36, "type": "VN_CCCD"}, {"start": 41, "end": 55, "type": "PERSON"}]}
+{"id": 224, "split": "holdout", "text": "so tai khoan 36926339967293 ngan hang tpbank", "spans": [{"start": 13, "end": 27, "type": "VN_BANK_ACCOUNT"}]}
+{"id": 225, "split": "holdout", "text": "lien he 0850411041 gap chi Lan", "spans": [{"start": 8, "end": 18, "type": "VN_PHONE"}, {"start": 27, "end": 30, "type": "PERSON"}]}
+{"id": 226, "split": "holdout", "text": "xe 67Z2-422.15 da duoc dang ky", "spans": [{"start": 3, "end": 14, "type": "VN_LICENSE_PLATE"}]}
+{"id": 227, "split": "holdout", "text": "Địa chỉ email an.nguyen79@fpt.com đã được xác minh.", "spans": [{"start": 14, "end": 33, "type": "EMAIL_ADDRESS"}]}
+{"id": 228, "split": "holdout", "text": "Công ty Cổ phần Lê Gia vừa trúng thầu dự án cầu Nhật Tân.", "spans": []}
+{"id": 229, "split": "holdout", "text": "Phố Hàng Bài và đường Trần Hưng Đạo là hai tuyến phố sầm uất.", "spans": []}
+{"id": 230, "split": "holdout", "text": "Biên bản được lập lúc 14h30 ngày 18/09/2025 tại văn phòng.", "spans": []}
+{"id": 231, "split": "holdout", "text": "Tôi cần mua laptop tầm 20 triệu, RAM 16GB, SSD 512GB.", "spans": []}
+{"id": 232, "split": "holdout", "text": "Thẻ ngân hàng của tôi bị khóa, vui lòng hỗ trợ mở khóa.", "spans": []}
+{"id": 233, "split": "holdout", "text": "Em sinh năm 1998, hiện đang làm kế toán tại Hà Nội.", "spans": []}
+{"id": 234, "split": "holdout", "text": "Kế hoạch quý 3 gồm 12 đầu việc, 4 việc đã hoàn thành.", "spans": []}
+{"id": 235, "split": "holdout", "text": "Số CCCD gồm 12 chữ số, ba số đầu là mã tỉnh nơi đăng ký khai sinh.", "spans": []}
+{"id": 236, "split": "holdout", "text": "Vui lòng nhập số điện thoại gồm 10 chữ số để nhận mã OTP.", "spans": []}
+{"id": 237, "split": "holdout", "text": "Đã xuất hóa đơn số 00001234 ký hiệu 1C24TAA ngày 02/05/2024.", "spans": []}
+{"id": 238, "split": "holdout", "text": "Chuyến bay VN123 hạ cánh Tân Sơn Nhất lúc 21:05 ngày 15/08.", "spans": []}
+{"id": 239, "split": "holdout", "text": "Chị Ngô Thị Tuyết Mai (sinh ngày 24-10-1984) đã nhận quyết định bổ nhiệm.", "spans": [{"start": 4, "end": 21, "type": "PERSON"}, {"start": 33, "end": 43, "type": "DATE_OF_BIRTH"}]}
+{"id": 240, "split": "holdout", "text": "Khách hàng VIP: Trần Quốc Bảo - 0915 098 461 - dungvu58@gmail.com", "spans": [{"start": 16, "end": 29, "type": "PERSON"}, {"start": 32, "end": 44, "type": "VN_PHONE"}, {"start": 47, "end": 65, "type": "EMAIL_ADDRESS"}]}
+{"id": 241, "split": "holdout", "text": "Hóa đơn tiền điện kỳ 09/2025: 1.245.600 đồng, mã khách hàng PE0100123456.", "spans": []}
+{"id": 242, "split": "holdout", "text": "Số hộ chiếu B6297107", "spans": [{"start": 12, "end": 20, "type": "VN_PASSPORT"}]}
+{"id": 243, "split": "holdout", "text": "Mã khuyến mãi 2024VIP áp dụng đến 31/12/2025.", "spans": []}
+{"id": 244, "split": "holdout", "text": "Bên bán: Công ty ABC, MST 0383909238, STK 77621253904575 tại BIDV, đại diện Lương Văn Cường.", "spans": [{"start": 26, "end": 36, "type": "VN_TAX_ID"}, {"start": 42, "end": 56, "type": "VN_BANK_ACCOUNT"}, {"start": 76, "end": 91, "type": "PERSON"}]}
+{"id": 245, "split": "holdout", "text": "Trời hôm nay nắng đẹp, mình đi dạo hồ Gươm nhé.", "spans": []}
+{"id": 246, "split": "holdout", "text": "Server 10.0.0.1 là mạng nội bộ, không cần chặn.", "spans": [{"start": 7, "end": 15, "type": "IP_ADDRESS"}]}
+{"id": 247, "split": "holdout", "text": "Cảm ơn bạn đã mua hàng, hẹn gặp lại bạn lần sau!", "spans": []}

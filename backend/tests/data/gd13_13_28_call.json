@@ -1,0 +1,16 @@
+{
+ "recorded": "2026-10-26",
+ "model": "gemini-3.8-flash",
+ "prompt": "nhắc tôi mỗi thứ Hai 8 giờ họp giao ban",
+ "tool_call": {
+  "name": "lich_tao",
+  "args": {
+   "cron": "0 8 * * 1",
+   "new_thread": false,
+   "message": "họp giao ban"
+  }
+ },
+ "cost_usd": 0.000308,
+ "tokens": 748,
+ "latency_s": 137.5
+}

@@ -1,0 +1,17 @@
+---
+// Hands-on exercise on Agent OS: numbered steps (slot = <ol>), expected result, optional screenshot.
+import Shot from "../Shot.astro";
+interface Props { id?: string; title: string; time?: string; result: string; shot?: string; shotAlt?: string }
+const { id = "thuc-hanh", title, time, result, shot, shotAlt = "" } = Astro.props;
+---
+<h2 id={id}>Thực hành trên Agent OS</h2>
+<div class="not-prose rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5 sm:p-6 dark:border-emerald-500/30 dark:bg-emerald-500/[0.07]">
+  <p class="callout-title text-emerald-700 dark:text-emerald-300"><span aria-hidden="true">🛠</span>Bài thực hành{time && ` · ${time}`}</p>
+  <h3 class="mt-2 text-lg font-semibold">{title}</h3>
+  <div class="practice-steps prose-l mt-3 !text-[15.5px]"><slot /></div>
+  <div class="mt-4 rounded-xl bg-white/80 p-4 text-[15px] dark:bg-zinc-900/60">
+    <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Kết quả mong đợi</p>
+    <p class="mt-1 text-zinc-700 dark:text-zinc-300">{result}</p>
+  </div>
+  {shot && <Shot name={shot} alt={shotAlt} zoom="Bấm để xem ảnh lớn" class="mt-4" sizes="(min-width: 1024px) 720px, 100vw" />}
+</div>

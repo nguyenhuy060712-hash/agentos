@@ -1,0 +1,121 @@
+---
+// Lesson page shell: course sidebar, lesson header with goals, prose body (slot), "on this page" list, prev/next, done toggle.
+import Site from "./Site.astro";
+import Icon from "../components/Icon.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { lessons, levels, lessonHref } from "../data/lessons";
+
+interface Props { slug: string; goals: string[] }
+const { slug, goals } = Astro.props;
+const i = lessons.findIndex((l) => l.slug === slug);
+const L = lessons[i];
+const prev = lessons[i - 1];
+const next = lessons[i + 1];
+const lvlCls = { 1: "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300", 2: "bg-sky-100 text-sky-800 dark:bg-sky-500/15 dark:text-sky-300", 3: "bg-violet-100 text-violet-800 dark:bg-violet-500/15 dark:text-violet-300" };
+---
+<Site lang="vi" active="learn" path={lessonHref(slug)} alt={null} type="LearningResource"
+  title={`Bài ${L.n}: ${L.title} | Học xây AI agent với Agent OS`} desc={L.summary}>
+  <div class="mx-auto w-full max-w-[90rem] px-4 sm:px-6">
+    <details class="toc-mobile sticky top-14 z-30 -mx-4 border-b border-zinc-200 bg-white/95 px-4 backdrop-blur lg:hidden dark:border-zinc-800 dark:bg-[#111214]/95 sm:-mx-6 sm:px-6">
+      <summary class="flex cursor-pointer list-none items-center gap-2 py-2.5 text-sm font-semibold"><Icon name="list" class="h-4 w-4" />Bài {L.n}/{lessons.length} · Các bài học</summary>
+      <nav class="grid gap-0.5 pb-3" aria-label="Các bài học">
+        {lessons.map((l) => <a class:list={["toc-link", l.slug === slug && "is-active"]} href={lessonHref(l.slug)}><span class="w-5 shrink-0 text-xs text-zinc-400">{l.n}</span>{l.short}</a>)}
+      </nav>
+    </details>
+
+    <div class="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15.5rem_minmax(0,1fr)_13rem]">
+      <aside class="hidden lg:block">
+        <nav class="sticky top-14 py-8 text-sm" aria-label="Các bài học">
+          <a href="/hoc/" class="mb-3 flex items-center gap-2 px-2 font-display font-bold text-zinc-950 dark:text-white"><Icon name="book" class="h-4 w-4" />Khoá học</a>
+          {([1, 2, 3] as const).map((lv) => (
+            <div class="mt-3">
+              <p class="px-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">{levels[lv]}</p>
+              {lessons.filter((l) => l.level === lv).map((l) => (
+                <a class:list={["toc-link mt-0.5", l.slug === slug && "is-active"]} href={lessonHref(l.slug)} aria-current={l.slug === slug ? "page" : undefined}>
+                  <span class="lesson-dot grid h-5 w-5 shrink-0 place-items-center rounded-full border border-zinc-300 text-[10px] font-bold dark:border-zinc-700" data-slug={l.slug}>{l.n}</span>
+                  <span>{l.short}</span>
+                </a>
+              ))}
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      <article class="min-w-0 py-10 pb-24 sm:py-14">
+        <p class="text-sm text-zinc-500"><a class="hover:text-zinc-900 dark:hover:text-white" href="/hoc/">Học xây agent</a> / Bài {L.n}</p>
+        <div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
+          <span class={`chip ${lvlCls[L.level]}`}>{levels[L.level]}</span>
+          <span class="text-zinc-500">Bài {L.n}/{lessons.length} · khoảng {L.mins} phút</span>
+        </div>
+        <h1 class="mt-3 max-w-3xl text-3xl font-bold leading-tight sm:text-[2.6rem]" style="text-wrap: balance;">{L.title}</h1>
+        <p class="lead !max-w-3xl">{L.summary}</p>
+
+        <div class="mt-8 max-w-3xl rounded-2xl border border-violet-200 bg-violet-50/70 p-5 dark:border-violet-500/30 dark:bg-violet-500/10">
+          <p class="callout-title text-violet-700 dark:text-violet-300"><Icon name="check" class="h-4 w-4" />Học xong bài này, anh chị sẽ</p>
+          <ul class="mt-3 grid gap-1.5 text-[15.5px] text-zinc-700 dark:text-zinc-300">
+            {goals.map((g) => <li class="flex gap-2"><span class="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500"></span><span>{g}</span></li>)}
+          </ul>
+        </div>
+
+        <div class="prose-l mt-10 max-w-3xl" id="lesson-body"><slot /></div>
+
+        <div class="mt-14 max-w-3xl">
+          <button id="done" type="button" class="btn-ghost" data-slug={slug} aria-pressed="false">
+            <Icon name="check" class="h-4 w-4" /><span>Đánh dấu đã học xong</span>
+          </button>
+          <nav class="mt-8 grid gap-3 sm:grid-cols-2" aria-label="Bài trước và bài sau">
+            {prev ? <a href={lessonHref(prev.slug)} class="card !p-4 hover:border-violet-400"><span class="text-xs text-zinc-500">← Bài {prev.n}</span><span class="mt-1 block font-semibold">{prev.short}</span></a> : <a href="/hoc/" class="card !p-4 hover:border-violet-400"><span class="text-xs text-zinc-500">←</span><span class="mt-1 block font-semibold">Mục lục khoá học</span></a>}
+            {next ? <a href={lessonHref(next.slug)} class="card !p-4 text-right hover:border-violet-400"><span class="text-xs text-zinc-500">Bài {next.n} →</span><span class="mt-1 block font-semibold">{next.short}</span></a> : <a href="/tinh-nang/" class="card !p-4 text-right hover:border-violet-400"><span class="text-xs text-zinc-500">Tiếp theo →</span><span class="mt-1 block font-semibold">Xem mọi tính năng</span></a>}
+          </nav>
+        </div>
+      </article>
+
+      <aside class="hidden xl:block">
+        <nav class="sticky top-14 py-14 text-sm" aria-label="Trên trang này">
+          <p class="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">Trên trang này</p>
+          <div id="otp" class="grid gap-0.5"></div>
+        </nav>
+      </aside>
+    </div>
+  </div>
+  <Lightbox close="Đóng" />
+</Site>
+
+<script>
+  // "On this page" list from the lesson's h2 headings + scroll-spy; per-lesson "done" flag in localStorage (convenience only).
+  const body = document.getElementById("lesson-body");
+  const otp = document.getElementById("otp");
+  const heads = [...(body?.querySelectorAll<HTMLElement>("h2[id]") ?? [])];
+  for (const h of heads) {
+    const a = document.createElement("a");
+    a.href = `#${h.id}`; a.textContent = h.textContent; a.className = "toc-link !py-1 text-[13px]"; a.dataset.h = h.id;
+    otp?.appendChild(a);
+  }
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) otp?.querySelectorAll<HTMLElement>("a").forEach((a) => a.classList.toggle("is-active", a.dataset.h === e.target.id));
+  }, { rootMargin: "-15% 0px -75% 0px" });
+  heads.forEach((h) => io.observe(h));
+
+  const KEY = "agentos-hoc-done";
+  const read = (): string[] => { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { return []; } };
+  const write = (v: string[]) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
+  const btn = document.getElementById("done") as HTMLButtonElement | null;
+  function paint() {
+    const done = read();
+    document.querySelectorAll<HTMLElement>(".lesson-dot").forEach((d) => {
+      const on = done.includes(d.dataset.slug!);
+      d.classList.toggle("grad-bg", on); d.classList.toggle("text-white", on); d.classList.toggle("border-transparent", on);
+    });
+    if (btn) {
+      const on = done.includes(btn.dataset.slug!);
+      btn.setAttribute("aria-pressed", String(on));
+      btn.querySelector("span")!.textContent = on ? "Đã học xong ✓ (bấm để bỏ)" : "Đánh dấu đã học xong";
+    }
+  }
+  btn?.addEventListener("click", () => {
+    const s = btn.dataset.slug!; const d = read();
+    write(d.includes(s) ? d.filter((x) => x !== s) : [...d, s]); paint();
+  });
+  document.querySelectorAll(".toc-mobile a").forEach((a) => a.addEventListener("click", () => a.closest("details")?.removeAttribute("open")));
+  paint();
+</script>

@@ -1,0 +1,22 @@
+---
+// Every module's deck in sequence on one page: this is what gets printed into Slide-trinh-chieu.pdf.
+import Base from "../../../../layouts/Base.astro";
+import SlideDeck from "../../../../components/dao-tao/SlideDeck.astro";
+import { modules, moduleHref } from "../../../../data/training/programme";
+import { pad } from "../../../../lib/training";
+---
+<Base lang="vi" title="Tất cả slide 12 buổi (bản in) | Đào tạo Chuyên gia Agent OS" desc="Toàn bộ slide trình chiếu của 12 buổi, xếp liên tiếp để in thành PDF." ogAlt="Slide 12 buổi" locale="vi_VN" path="/dao-tao/slide/tat-ca/" alt={null} type="PresentationDigitalDocument" noindex>
+  <div class="deck deck-stack" id="deck">
+    <div class="deck-top">
+      <a href="/dao-tao/" class="font-semibold">← Đào tạo</a>
+      <span class="truncate opacity-70">Tất cả slide · bản in</span>
+    </div>
+    {modules.map((m) => <SlideDeck m={m} idp={`m${pad(m.n)}-`} />)}
+  </div>
+</Base>
+<script>
+  // Printing always uses the light theme.
+  let wasDark = false;
+  addEventListener("beforeprint", () => { wasDark = document.documentElement.classList.contains("dark"); document.documentElement.classList.remove("dark"); });
+  addEventListener("afterprint", () => { if (wasDark) document.documentElement.classList.add("dark"); });
+</script>

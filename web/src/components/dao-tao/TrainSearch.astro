@@ -1,0 +1,65 @@
+---
+// Search box for /dao-tao/: loads /dao-tao/search.json on first focus, accent-insensitive, max 12 results, keyboard ↑ ↓ Enter Esc.
+import Icon from "../Icon.astro";
+interface Props { id: string; class?: string }
+const { id, class: cls = "" } = Astro.props;
+---
+<div class={`tsearch relative ${cls}`} data-tsearch role="search">
+  <label for={id} class="sr-only">Tìm trong chương trình đào tạo</label>
+  <Icon name="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+  <input id={id} type="search" placeholder="Tìm trong giáo trình…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls={`${id}-list`} aria-autocomplete="list"
+    class="w-full rounded-full border border-zinc-300 bg-white py-2 pl-9 pr-4 text-sm outline-none focus:border-violet-500 dark:border-zinc-700 dark:bg-zinc-900" />
+  <ul id={`${id}-list`} role="listbox" aria-label="Kết quả tìm kiếm" hidden
+    class="absolute left-0 right-0 top-full z-50 mt-2 max-h-[min(26rem,70vh)] overflow-y-auto rounded-2xl border border-zinc-200 bg-white p-1.5 text-left shadow-xl dark:border-zinc-700 dark:bg-zinc-900 sm:min-w-[22rem]"></ul>
+  <p class="sr-only" aria-live="polite" data-tcount></p>
+</div>
+<script>
+  type Hit = { t: string; h: string; u: string; x: string };
+  const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
+  let data: (Hit & { n: string; nh: string })[] | null = null;
+  let loading: Promise<void> | null = null;
+  function load() {
+    loading ??= fetch("/dao-tao/search.json").then((r) => r.json()).then((d: Hit[]) => { data = d.map((e) => ({ ...e, n: norm(`${e.t} ${e.h} ${e.x}`), nh: norm(`${e.t} ${e.h}`) })); }).catch(() => { data = []; });
+    return loading;
+  }
+  document.querySelectorAll<HTMLElement>("[data-tsearch]").forEach((box) => {
+    const input = box.querySelector("input")!;
+    const list = box.querySelector<HTMLElement>("ul")!;
+    const count = box.querySelector<HTMLElement>("[data-tcount]")!;
+    let idx = -1;
+    const close = () => { list.hidden = true; input.setAttribute("aria-expanded", "false"); idx = -1; };
+    const items = () => [...list.querySelectorAll<HTMLAnchorElement>("a")];
+    const mark = (i: number) => { const a = items(); a.forEach((x, k) => { x.setAttribute("aria-selected", String(k === i)); x.classList.toggle("bg-zinc-100", k === i); x.classList.toggle("dark:bg-zinc-800", k === i); }); idx = i; a[i]?.scrollIntoView({ block: "nearest" }); };
+    async function run() {
+      const q = norm(input.value.trim());
+      if (!q) { close(); return; }
+      await load();
+      const words = q.split(/\s+/);
+      const hits = (data ?? []).filter((e) => words.every((w) => e.n.includes(w)))
+        .map((e) => ({ e, s: words.reduce((n, w) => n + (e.nh.includes(w) ? 2 : 0), 0) + (e.nh.includes(q) ? 3 : 0) }))
+        .sort((a, b) => b.s - a.s).slice(0, 12);
+      list.replaceChildren();
+      if (!hits.length) { const p = document.createElement("li"); p.className = "px-3 py-3 text-sm text-zinc-500"; p.textContent = "Không tìm thấy nội dung phù hợp."; list.appendChild(p); }
+      for (const { e } of hits) {
+        const li = document.createElement("li"); li.setAttribute("role", "presentation");
+        const a = document.createElement("a"); a.href = e.u; a.setAttribute("role", "option"); a.className = "block rounded-xl px-3 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800";
+        const h = document.createElement("span"); h.className = "block text-sm font-semibold text-zinc-950 dark:text-white"; h.textContent = e.h;
+        const t = document.createElement("span"); t.className = "block text-xs text-violet-700 dark:text-violet-300"; t.textContent = e.t;
+        const x = document.createElement("span"); x.className = "mt-0.5 block text-[13px] text-zinc-600 dark:text-zinc-400"; x.textContent = e.x;
+        a.append(h, t, x); li.appendChild(a); list.appendChild(li);
+      }
+      list.hidden = false; input.setAttribute("aria-expanded", "true"); idx = -1;
+      count.textContent = `${hits.length} kết quả`;
+    }
+    input.addEventListener("focus", () => { load(); });
+    input.addEventListener("input", run);
+    input.addEventListener("keydown", (ev) => {
+      const a = items();
+      if (ev.key === "ArrowDown") { ev.preventDefault(); if (list.hidden) run(); else mark(Math.min(idx + 1, a.length - 1)); }
+      else if (ev.key === "ArrowUp") { ev.preventDefault(); mark(Math.max(idx - 1, 0)); }
+      else if (ev.key === "Enter") { const t = a[idx] ?? a[0]; if (t && !list.hidden) { ev.preventDefault(); location.href = t.href; } }
+      else if (ev.key === "Escape") { close(); }
+    });
+    document.addEventListener("click", (ev) => { if (!box.contains(ev.target as Node)) close(); });
+  });
+</script>

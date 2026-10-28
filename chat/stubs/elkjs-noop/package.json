@@ -1,0 +1,8 @@
+{
+  "name": "elkjs",
+  "version": "0.9.3-noop",
+  "description": "Agent OS stub: mermaid's optional ELK layout is disabled (elkjs is EPL-2.0, outside the licence allow-list). Diagrams use mermaid's default dagre layout.",
+  "license": "MIT",
+  "main": "lib/elk.bundled.js",
+  "type": "commonjs"
+}

@@ -1,0 +1,10 @@
+---
+// Real screenshot with caption inside a lesson.
+import Shot from "../Shot.astro";
+interface Props { name: string; caption: string }
+const { name, caption } = Astro.props;
+---
+<figure class="not-prose my-7">
+  <Shot name={name} alt={caption} zoom="Bấm để xem ảnh lớn" sizes="(min-width: 1024px) 768px, 100vw" />
+  <figcaption class="mt-2 text-center text-sm text-zinc-500">{caption}</figcaption>
+</figure>

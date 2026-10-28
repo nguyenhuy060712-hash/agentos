@@ -1,0 +1,26 @@
+http://:8092 {
+    bind 127.0.0.1
+    # Đường public, xác thực trong app: /d/* (API key deployment), /ingest/* (API key ingest), /share/* (link ký HMAC)
+    @public path /d/* /ingest/* /share/*
+    handle @public {
+        request_body {
+            max_size 5MB
+        }
+        reverse_proxy 127.0.0.1:8020 {
+            transport http {
+                read_timeout 5m
+            }
+        }
+    }
+    handle {
+        basic_auth {
+            moza HASH
+        }
+        reverse_proxy 127.0.0.1:8020 {
+            flush_interval -1
+            transport http {
+                read_timeout 10m
+            }
+        }
+    }
+}

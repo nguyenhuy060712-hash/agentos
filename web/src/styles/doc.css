@@ -1,0 +1,36 @@
+/* Printable documents: student handbook (/dao-tao/in/) and instructor kit. A4, light theme, one module per section. */
+.doc-cover { display: flex; min-height: 70vh; flex-direction: column; justify-content: center; }
+.doc-mod { padding-top: 2.5rem; }
+.doc-mod > header { border-bottom: 2px solid transparent; border-image: linear-gradient(90deg, #12b5ff, #3d5bff 30%, #7b3cff 65%, #ff3fa4) 1; padding-bottom: 1rem; }
+.doc-toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .15rem; }
+.doc-toc a { text-decoration: none; }
+.doc-toc .sub { padding-left: 1.75rem; font-size: .85em; color: #71717a; }
+.doc .tr-body h3.tr-h { margin-top: 1.4em; }
+.doc table { width: 100%; }
+.doc .plan-warn { border: 2px solid #dc2626; background: #fef2f2; color: #991b1b; border-radius: .75rem; padding: .6rem .9rem; font-weight: 600; }
+.doc .plan-ok { color: #15803d; font-weight: 600; }
+
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  html, body { background: #fff !important; color: #18181b !important; margin: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body > header, body > footer, body > a { display: none !important; }
+  main, .doc { max-width: none !important; width: auto !important; padding: 0 !important; margin: 0 !important; }
+  .doc-cover { min-height: 235mm; break-after: page; page-break-after: always; }
+  .doc-toc { break-after: page; page-break-after: always; }
+  .doc-mod { break-before: page; page-break-before: always; padding-top: 0; }
+  .doc-mod.doc-first { break-before: auto; page-break-before: auto; }
+  .prose-l { font-size: 10.5pt; line-height: 1.55; color: #27272a; }
+  .prose-l h2 { font-size: 16pt; margin-top: 1.6em; }
+  .prose-l h3 { font-size: 12.5pt; margin-top: 1.2em; }
+  .prose-l pre { background: #f4f4f5 !important; color: #18181b !important; border: 1px solid #d4d4d8; white-space: pre-wrap; overflow: visible; font-size: 9pt; }
+  .prose-l pre code { color: inherit !important; }
+  h1, h2, h3, h4, th { break-after: avoid; page-break-after: avoid; }
+  figure, .tbl, table, pre, .tr-fig, .tr-terms > div, .tr-quiz > li, tr, .tr-gv { break-inside: avoid; page-break-inside: avoid; }
+  .tbl, .dg { overflow: visible !important; }
+  .dg > div { min-width: 0 !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+  .sm\:hidden { display: none !important; }
+  .doc-toc a { color: #18181b !important; }
+  .no-print { display: none !important; }
+  .tr-terms { background: #d4d4d8 !important; }
+}

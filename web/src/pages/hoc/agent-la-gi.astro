@@ -1,0 +1,118 @@
+---
+import Lesson from "../../layouts/Lesson.astro";
+import Diagram from "../../components/hoc/Diagram.astro";
+import Example from "../../components/hoc/Example.astro";
+import Note from "../../components/hoc/Note.astro";
+import Practice from "../../components/hoc/Practice.astro";
+import Quiz from "../../components/hoc/Quiz.astro";
+import Terms from "../../components/hoc/Terms.astro";
+import Fig from "../../components/hoc/Fig.astro";
+---
+<Lesson slug="agent-la-gi" goals={[
+  "Giải thích được chatbot khác AI agent ở điểm nào.",
+  "Gọi đúng tên ba thành phần của agent: LLM, prompt, công cụ, và vai trò của từng thứ.",
+  "Viết được một bản giao việc (prompt) rõ ràng cho agent.",
+  "Tự tạo agent đầu tiên trên Agent OS và xem nó đã làm gì từng bước.",
+]}>
+
+<h2 id="chatbot-va-agent">Chatbot và agent khác nhau thế nào</h2>
+<p>Khi hỏi ChatGPT "viết giúp email xin nghỉ phép", ta nhận về một đoạn chữ. Phần còn lại (mở hộp thư, dán vào, gửi cho đúng người) ta tự làm. Đó là <strong>chatbot</strong>: giỏi nói, nhưng không tự làm.</p>
+<p><strong>AI agent</strong> là trợ lý AI được giao một việc và được trao công cụ để tự làm việc đó tới nơi tới chốn: tự tra lịch, tự soạn thư, xin phép anh chị, rồi gửi. Nó không dừng ở câu trả lời đầu tiên mà làm nhiều bước cho tới khi xong.</p>
+
+<Example>
+  <p>Hãy hình dung anh chị tuyển một <strong>nhân viên mới rất sáng dạ</strong>: đã đọc hàng triệu cuốn sách, viết lách giỏi, nhưng hôm đầu đi làm không biết gì về công ty và chưa được cấp quyền vào phần mềm nào.</p>
+  <p>Muốn người này làm được việc, anh chị cần: (1) một <strong>bản giao việc</strong> rõ ràng, (2) cấp cho họ <strong>công cụ</strong> (máy tính, tài khoản phần mềm), và (3) dặn <strong>việc nào phải hỏi trước</strong>. Agent cũng đúng như vậy.</p>
+</Example>
+
+<div class="tbl"><table>
+  <thead><tr><th></th><th>Chatbot</th><th>AI agent</th></tr></thead>
+  <tbody>
+    <tr><td>Đầu ra</td><td>Một câu trả lời</td><td>Một việc được làm xong</td></tr>
+    <tr><td>Số bước</td><td>Một lượt hỏi, một lượt đáp</td><td>Nhiều bước, tự quyết bước tiếp theo</td></tr>
+    <tr><td>Công cụ</td><td>Không có, hoặc rất ít</td><td>Tra cứu, gửi mail, ghi dữ liệu, chạy code…</td></tr>
+    <tr><td>Rủi ro</td><td>Nói sai</td><td>Làm sai, nên cần quyền hạn và người duyệt</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="ba-thanh-phan">Ba thành phần của một agent</h2>
+
+<h3>1. LLM: bộ não</h3>
+<p><strong>LLM</strong> (mô hình ngôn ngữ lớn) là "bộ não" đọc chữ và viết chữ: Gemini, GPT, Claude… Nó không tự nhớ gì về công ty anh chị, không tự vào được phần mềm nào. Mỗi lần được gọi, nó chỉ thấy những gì được đưa cho nó trong lần đó. Model lớn thì thông minh hơn nhưng đắt và chậm hơn; model nhỏ rẻ và nhanh, đủ cho việc đơn giản.</p>
+<p>Model tính tiền theo <strong>token</strong>: một mẩu chữ, đại khái một token là vài ký tự. Câu hỏi càng dài, tài liệu đưa vào càng nhiều thì càng tốn token (bài 5 nói kỹ về chi phí).</p>
+
+<h3>2. Prompt: bản giao việc</h3>
+<p><strong>Prompt</strong> là đoạn chữ dặn AI phải làm gì. Với agent, phần quan trọng nhất là <strong>chỉ dẫn hệ thống</strong> (system prompt): bản mô tả công việc cố định, áp cho mọi cuộc trò chuyện. Một bản giao việc tốt thường có 6 phần:</p>
+<ol>
+  <li><strong>Vai trò</strong>: "Em là nhân viên chăm sóc khách của shop thời trang ABC."</li>
+  <li><strong>Nhiệm vụ</strong>: "Tư vấn size, trả lời về đổi trả, tra tình trạng đơn."</li>
+  <li><strong>Bối cảnh</strong>: khách là ai, sản phẩm là gì, giờ làm việc.</li>
+  <li><strong>Giới hạn</strong>: "Không hứa giảm giá. Không nói về đối thủ. Không biết thì chuyển nhân viên."</li>
+  <li><strong>Giọng điệu và định dạng</strong>: "Xưng em, gọi anh/chị, trả lời dưới 5 câu."</li>
+  <li><strong>Ví dụ</strong>: một hai câu hỏi mẫu và câu trả lời mong muốn.</li>
+</ol>
+<p>Một chỉ dẫn ngắn có thể trông như sau:</p>
+<pre><code>Em là nhân viên CSKH của shop ABC. Xưng em, gọi anh/chị.
+Chỉ trả lời về sản phẩm, size, đổi trả, đơn hàng.
+Không chắc thì nói "em kiểm tra lại" và chuyển nhân viên.</code></pre>
+<p>Ba dòng này đã nói rõ vai trò, phạm vi, giọng điệu và cách xử lý khi không biết. Prompt tốt không cần dài, cần <strong>rõ</strong>.</p>
+
+<Note>
+  <p>Đừng viết "hãy trả lời thật hay". AI không biết "hay" với anh chị là gì. Hãy viết điều đo được: "dưới 5 câu", "luôn kèm giá", "luôn hỏi lại size nếu khách chưa nói".</p>
+</Note>
+
+<h3>3. Công cụ: đôi tay</h3>
+<p><strong>Công cụ</strong> (tool) là những việc agent được phép làm ngoài việc viết chữ: tra tồn kho, tìm web, đọc Gmail, tạo file Excel, chạy code. Mỗi công cụ có một <strong>tên</strong>, một <strong>mô tả</strong> (để AI biết khi nào nên dùng) và các <strong>tham số</strong> (ví dụ mã đơn hàng).</p>
+<p>Điểm quan trọng: <strong>AI không tự chạy công cụ</strong>. Nó chỉ "xin" chạy: "tôi muốn gọi công cụ tra_don với mã DH123". Hệ thống (Agent OS) mới là bên thật sự chạy, kiểm tra quyền, ghi lại, và đưa kết quả lại cho AI. Nhờ vậy ta đặt được luật: công cụ nào chỉ đọc thì cho chạy luôn, công cụ nào <strong>ghi</strong> (gửi mail, chuyển tiền, đăng bài) thì phải <strong>hỏi trước</strong>.</p>
+
+<h2 id="vong-lap">Vòng lặp nghĩ, làm, xem kết quả</h2>
+<p>Ghép ba thứ lại, agent chạy theo một vòng lặp đơn giản: đọc bản giao việc và câu hỏi, <strong>nghĩ</strong> xem cần gì, <strong>gọi công cụ</strong>, <strong>đọc kết quả</strong>, rồi nghĩ tiếp. Khi đã đủ thông tin thì trả lời.</p>
+<Diagram name="agent-loop" caption="Vòng lặp của một agent: prompt định hướng, LLM quyết định, công cụ thực hiện, lặp tới khi xong" />
+<p>Ví dụ khách hỏi "còn áo khoác xanh size M không?": agent nghĩ "cần tra kho" → gọi công cụ tra kho → đọc kết quả "còn 3 cái" → trả lời "dạ còn 3 áo size M ạ, anh muốn em giữ một cái không?". Nếu khách bảo "giữ giúp em", agent cần gọi công cụ <em>tạo đơn giữ hàng</em>; đây là việc ghi nên nó sẽ dừng lại chờ nhân viên duyệt (bài 3).</p>
+
+<Note kind="warn" title="AI có thể bịa">
+  <p>Khi thiếu thông tin, LLM có xu hướng "đoán cho trôi chảy". Đó gọi là <strong>bịa</strong> (hallucination). Cách chống: cho agent công cụ để tra cứu thông tin thật, dặn rõ "không chắc thì nói không biết", và kiểm tra bằng trace và giám khảo (bài 4).</p>
+</Note>
+
+<h2 id="tren-agent-os">Trên Agent OS, những thứ này nằm ở đâu</h2>
+<ul>
+  <li><strong>Bộ não</strong>: ô <strong>Model</strong> trong thẻ Cấu hình của agent, kèm <strong>Nhiệt độ</strong> (càng cao càng "bay bổng", việc cần chính xác nên để thấp).</li>
+  <li><strong>Bản giao việc</strong>: ô <strong>System prompt</strong>, hoặc lấy từ kho <strong>Prompts</strong> để nhiều agent dùng chung.</li>
+  <li><strong>Đôi tay</strong>: khối <strong>Công cụ</strong>, mỗi dòng có cột <strong>Hỏi trước</strong>.</li>
+  <li><strong>Xem lại vòng lặp</strong>: mỗi lượt chạy được ghi thành một <strong>trace</strong> trong menu <strong>Tracing</strong>.</li>
+</ul>
+<p>Anh chị không phải tự điền hết: tính năng <strong>Tạo bằng trò chuyện</strong> hỏi vài câu rồi tự điền giúp.</p>
+
+<Practice title="Tạo agent đầu tiên và xem nó làm việc" time="15 phút"
+  result="Có một agent chạy được; thấy được trong trace các bước: đọc câu hỏi, gọi model, trả lời; thấy câu trả lời đổi khi sửa chỉ dẫn."
+  shot="builder-chat" shotAlt="Bản tóm tắt cấu hình AI điền sẵn sau khi hỏi đáp, và agent đã tạo">
+  <ol>
+    <li>Đăng nhập Agent OS, vào menu <strong>Xây dựng</strong> → <strong>+ Agent mới</strong> → <strong>Tạo bằng trò chuyện</strong>.</li>
+    <li>Đặt tên "Trợ lý quán cà phê", mô tả: "Trả lời khách về menu, giá và giờ mở cửa của quán". Chọn một model, bấm <strong>Tạo cấu hình</strong>.</li>
+    <li>Trả lời các câu AI hỏi. Khi được hỏi "agent được làm gì thay anh", chọn <strong>chỉ đọc, không gửi gì ra ngoài</strong>.</li>
+    <li>Đọc bản tóm tắt: xem AI đã viết <strong>System prompt</strong> thế nào, chọn công cụ nào. Bấm <strong>Tạo</strong>.</li>
+    <li>Sang thẻ <strong>Thử</strong>, hỏi "quán mở mấy giờ?". Sau đó bấm nút <strong>Trace</strong> ở góc trên để xem lượt chạy vừa rồi ở dạng <strong>Hành trình</strong>.</li>
+    <li>Quay lại thẻ <strong>Cấu hình</strong>, thêm vào System prompt dòng "Luôn mời khách thử món mới: bạc xỉu muối". Bấm <strong>Lưu</strong>, hỏi lại và so sánh câu trả lời. Xem thẻ <strong>Phiên bản</strong>: có hai bản, khôi phục được bản cũ.</li>
+  </ol>
+</Practice>
+
+<Quiz items={[
+  ["Một chatbot và một agent cùng nhận yêu cầu \"đặt lịch họp với chị Lan chiều mai\". Khác nhau ở đâu?", "Chatbot chỉ trả về đoạn chữ gợi ý (ví dụ nội dung thư mời). Agent có công cụ lịch nên tự xem lịch trống, tạo lịch họp, và vì đây là việc ghi nên dừng lại xin anh chị duyệt trước khi gửi lời mời."],
+  ["LLM có tự biết bảng giá của công ty không?", "Không. LLM chỉ biết những gì có trong lần gọi đó. Muốn nó biết bảng giá thì phải đưa vào: viết trong chỉ dẫn, đính tệp vào dự án, hoặc cho công cụ tra cứu (bài 2)."],
+  ["Viết lại cho rõ: \"Hãy trả lời khách thật chuyên nghiệp\".", "Ví dụ: \"Xưng em, gọi anh/chị. Trả lời tối đa 4 câu. Luôn nêu giá và thời gian giao. Không chắc thì nói em kiểm tra lại và chuyển nhân viên.\" Mỗi ý đều đo được."],
+  ["Ai thật sự chạy công cụ: LLM hay Agent OS? Vì sao điều đó quan trọng?", "Agent OS chạy. LLM chỉ đề nghị. Nhờ vậy hệ thống kiểm được quyền, bắt việc ghi phải duyệt, ghi lại mọi lần gọi và chặn được những đề nghị nguy hiểm."],
+  ["Khi nào nên để nhiệt độ thấp?", "Khi cần trả lời chính xác, nhất quán: báo giá, chính sách, số liệu. Nhiệt độ cao hợp với việc sáng tạo như nghĩ ý tưởng, viết slogan."],
+]} />
+
+<Terms items={[
+  ["AI agent", "Trợ lý AI được giao một việc, có công cụ và tự làm nhiều bước cho tới khi xong."],
+  ["LLM (mô hình ngôn ngữ lớn)", "\"Bộ não\" đọc và viết chữ, ví dụ Gemini, GPT, Claude."],
+  ["Model", "Một LLM cụ thể, có giá và độ thông minh khác nhau."],
+  ["Prompt", "Đoạn chữ dặn AI phải làm gì."],
+  ["System prompt (chỉ dẫn hệ thống)", "Bản giao việc cố định của agent, áp cho mọi cuộc trò chuyện."],
+  ["Token", "Mẩu chữ nhỏ, đơn vị để model tính tiền và giới hạn độ dài."],
+  ["Công cụ (tool)", "Việc agent được phép làm ngoài viết chữ: tra cứu, gửi mail, ghi dữ liệu."],
+  ["Nhiệt độ", "Mức \"ngẫu hứng\" của câu trả lời; thấp thì ổn định, cao thì sáng tạo."],
+  ["Bịa (hallucination)", "AI nói ra điều không đúng một cách tự tin khi thiếu thông tin."],
+  ["Trace", "Bản ghi lại một lần agent chạy: từng bước, thời gian, chi phí."],
+]} />
+</Lesson>

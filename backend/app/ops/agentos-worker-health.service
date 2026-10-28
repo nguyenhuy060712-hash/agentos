@@ -1,0 +1,5 @@
+[Unit]
+Description=Agent OS worker health check
+[Service]
+Type=oneshot
+ExecStart=/opt/agentos/ops/worker_health.sh

@@ -1,0 +1,15 @@
+[Unit]
+Description=Agent OS run-queue worker (second process for /api/v1 runs)
+After=network.target docker.service deepagent-api.service
+[Service]
+WorkingDirectory=/opt/agentos
+EnvironmentFile=/opt/langchain/.env
+Environment=AOS_ROLE=worker AOS_WORKER=worker1 AOS_QUEUE_CONC=2 PYTHONUNBUFFERED=1
+ExecStart=/opt/langchain/venv/bin/python /opt/agentos/worker.py
+Restart=always
+RestartSec=5
+TimeoutStopSec=130
+MemoryMax=900M
+Nice=5
+[Install]
+WantedBy=multi-user.target

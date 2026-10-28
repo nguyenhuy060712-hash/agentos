@@ -1,0 +1,14 @@
+[Unit]
+Description=Agent OS off-site backup (restic -> B2/R2, encrypted client-side)
+After=docker.service network-online.target agentos-pgbackup.service
+Wants=network-online.target
+[Service]
+Type=oneshot
+# Secrets (RESTIC_REPOSITORY, RESTIC_PASSWORD_FILE, AWS_* keys) live in this root-only file, mode 600 - never in git or chat.
+Environment=OFFSITE_ENV_FILE=/etc/agentos/offsite.env
+ExecStart=/opt/agentos/ops/offsite_backup.sh
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=3h
+# Optional failure alert (fill in the notify URL, then uncomment):
+#ExecStopPost=/bin/sh -c '[ "$SERVICE_RESULT" = success ] || curl -fsS -d "Offsite backup FAILED on $(hostname)" https://NOTIFY_URL'

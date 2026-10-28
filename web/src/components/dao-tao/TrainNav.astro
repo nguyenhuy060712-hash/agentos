@@ -1,0 +1,41 @@
+---
+// Left navigation of the training section: search, modules grouped by track, lab setup, certification.
+import Icon from "../Icon.astro";
+import TrainSearch from "./TrainSearch.astro";
+import { modules, moduleHref, tracks } from "../../data/training/programme";
+import { trackOrder } from "../../lib/training";
+
+interface Props { current?: string; variant: "side" | "mobile" }
+const { current, variant } = Astro.props;
+const cur = modules.find((m) => m.slug === current);
+const extra = [{ k: "chuan-bi-lab", t: "Chuẩn bị môi trường lab", href: "/dao-tao/chuan-bi-lab/" }, { k: "chung-nhan", t: "Thi và chứng nhận", href: "/dao-tao/chung-nhan/" }];
+---
+{variant === "mobile" ? (
+  <details class="toc-mobile sticky top-14 z-30 -mx-4 border-b border-zinc-200 bg-white/95 px-4 backdrop-blur lg:hidden dark:border-zinc-800 dark:bg-[#111214]/95 sm:-mx-6 sm:px-6">
+    <summary class="flex cursor-pointer list-none items-center gap-2 py-2.5 text-sm font-semibold"><Icon name="list" class="h-4 w-4" />{cur ? `Buổi ${cur.n}/${modules.length} · ` : ""}Các buổi học</summary>
+    <nav class="grid gap-0.5 pb-3" aria-label="Các buổi học">
+      <TrainSearch id="ts-mobile" class="mb-2" />
+      {modules.map((m) => <a class:list={["toc-link", m.slug === current && "is-active"]} href={moduleHref(m.slug)} aria-current={m.slug === current ? "page" : undefined}><span class="w-5 shrink-0 text-xs text-zinc-400">{m.n}</span>{m.short}</a>)}
+      {extra.map((e) => <a class:list={["toc-link", e.k === current && "is-active"]} href={e.href}>{e.t}</a>)}
+    </nav>
+  </details>
+) : (
+  <nav class="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto py-8 text-sm" aria-label="Các buổi học">
+    <a href="/dao-tao/" class="mb-3 flex items-center gap-2 px-2 font-display font-bold text-zinc-950 dark:text-white"><Icon name="book" class="h-4 w-4" />Chương trình đào tạo</a>
+    <TrainSearch id="ts-side" class="mb-3" />
+    {trackOrder.map((tk) => (
+      <div class="mt-3">
+        <p class="px-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">{tracks[tk].t}</p>
+        {modules.filter((m) => m.track === tk).map((m) => (
+          <a class:list={["toc-link mt-0.5", m.slug === current && "is-active"]} href={moduleHref(m.slug)} aria-current={m.slug === current ? "page" : undefined}>
+            <span class="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-zinc-300 text-[10px] font-bold dark:border-zinc-700">{m.n}</span>
+            <span>{m.short}</span>
+          </a>
+        ))}
+      </div>
+    ))}
+    <div class="mt-4 border-t border-zinc-200 pt-3 dark:border-zinc-800">
+      {extra.map((e) => <a class:list={["toc-link mt-0.5", e.k === current && "is-active"]} href={e.href} aria-current={e.k === current ? "page" : undefined}>{e.t}</a>)}
+    </div>
+  </nav>
+)}

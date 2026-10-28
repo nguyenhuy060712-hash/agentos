@@ -1,0 +1,8 @@
+[Unit]
+Description=Nightly Agent OS off-site backup (after the 02:30 Postgres backup)
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=300
+[Install]
+WantedBy=timers.target

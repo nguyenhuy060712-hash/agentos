@@ -1,0 +1,4 @@
+sandbox/aos-boot text eol=lf
+sandbox/Dockerfile.computer text eol=lf
+sandbox/egress/Dockerfile text eol=lf
+sandbox/egress/proxy.py text eol=lf

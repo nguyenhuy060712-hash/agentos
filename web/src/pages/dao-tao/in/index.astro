@@ -1,0 +1,69 @@
+---
+// Student handbook, one printable page (A4): cover, contents, 12 modules, lab setup guide, certification. No [GV] fields.
+import Site from "../../../layouts/Site.astro";
+import ModuleBody from "../../../components/dao-tao/ModuleBody.astro";
+import CertBody from "../../../components/dao-tao/CertBody.astro";
+import { modules, programme, tracks, roles } from "../../../data/training/programme";
+import { setup } from "../../../data/training/setup";
+import { pad, trackCls, wrapTables } from "../../../lib/training";
+import "../../../styles/doc.css";
+---
+<Site lang="vi" path="/dao-tao/in/" alt={null} type="LearningResource"
+  title="Giáo trình học viên (bản in) | Đào tạo Chuyên gia Agent OS" desc="Toàn bộ giáo trình học viên 12 buổi trên một trang, dùng để in hoặc lưu PDF.">
+  <div class="doc mx-auto w-full max-w-4xl px-4 sm:px-6">
+    <section class="doc-cover py-16" aria-labelledby="cover-h">
+      <p class="kicker w-fit">Tài liệu học viên</p>
+      <h1 id="cover-h" class="mt-6 text-4xl font-bold leading-[1.1] sm:text-6xl" style="text-wrap: balance;">Chương trình đào tạo <span class="grad-text">Chuyên gia Agent OS</span></h1>
+      <p class="lead">{programme.sub}</p>
+      <p class="mt-8 text-sm text-zinc-500">{programme.version}</p>
+      <p class="mt-1 text-sm text-zinc-500">MozaAI · Agent OS</p>
+      <p class="no-print mt-8 text-sm text-zinc-500">Trang này dành để in: bấm Ctrl+P rồi chọn khổ A4, hoặc tải bản <a class="underline" href="/dao-tao/Giao-trinh-hoc-vien.pdf">PDF</a>.</p>
+    </section>
+
+    <nav class="doc-toc prose-l py-10" aria-label="Mục lục">
+      <h2 id="muc-luc" class="!mt-0">Mục lục</h2>
+      <ol>
+        {modules.map((m) => (
+          <li>
+            <a class="font-semibold" href={`#m${pad(m.n)}`}>Buổi {m.n}. {m.title}</a>
+            <ol class="mt-0.5 mb-2">{m.sections.map((s) => <li class="sub"><a href={`#m${pad(m.n)}-${s.id}`}>{s.h}</a></li>)}</ol>
+          </li>
+        ))}
+        <li><a class="font-semibold" href="#chuan-bi-lab">Chuẩn bị môi trường lab</a></li>
+        <li><a class="font-semibold" href="#chung-nhan">Thi và chứng nhận</a></li>
+      </ol>
+    </nav>
+
+    {modules.map((m, i) => (
+      <article class:list={["doc-mod", i === 0 && "doc-first"]} id={`m${pad(m.n)}`} aria-labelledby={`m${pad(m.n)}-h`}>
+        <header>
+          <p class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="text-zinc-500">Buổi {m.n}/{modules.length} · {m.hours} giờ</span>
+            <span class={`chip ${trackCls[m.track]}`}>{tracks[m.track].t}</span>
+            <span class="text-zinc-500">{m.roles.map((r) => roles[r].t).join(" · ")}</span>
+          </p>
+          <h2 id={`m${pad(m.n)}-h`} class="mt-2 text-3xl font-bold leading-tight">{m.title}</h2>
+          <p class="lead !mt-2">{m.summary}</p>
+        </header>
+        <ModuleBody m={m} idp={`m${pad(m.n)}-`} hl={3} eager />
+      </article>
+    ))}
+
+    <article class="doc-mod" id="chuan-bi-lab" aria-labelledby="lab-h">
+      <header><h2 id="lab-h" class="text-3xl font-bold leading-tight">Chuẩn bị môi trường lab</h2></header>
+      <div class="prose-l mt-6" set:html={wrapTables(setup.student)} />
+    </article>
+
+    <article class="doc-mod" id="chung-nhan" aria-labelledby="cn-h">
+      <header><h2 id="cn-h" class="text-3xl font-bold leading-tight">Thi và chứng nhận</h2></header>
+      <div class="mt-4"><CertBody idp="cn-" hl={3} detail={false} /></div>
+    </article>
+  </div>
+</Site>
+
+<script>
+  // Printing always uses the light theme.
+  let wasDark = false;
+  addEventListener("beforeprint", () => { wasDark = document.documentElement.classList.contains("dark"); document.documentElement.classList.remove("dark"); });
+  addEventListener("afterprint", () => { if (wasDark) document.documentElement.classList.add("dark"); });
+</script>

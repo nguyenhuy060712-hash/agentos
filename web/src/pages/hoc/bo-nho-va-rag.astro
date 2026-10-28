@@ -1,0 +1,122 @@
+---
+import Lesson from "../../layouts/Lesson.astro";
+import Diagram from "../../components/hoc/Diagram.astro";
+import Example from "../../components/hoc/Example.astro";
+import Note from "../../components/hoc/Note.astro";
+import Practice from "../../components/hoc/Practice.astro";
+import Quiz from "../../components/hoc/Quiz.astro";
+import Terms from "../../components/hoc/Terms.astro";
+import Fig from "../../components/hoc/Fig.astro";
+---
+<Lesson slug="bo-nho-va-rag" goals={[
+  "Hiểu cửa sổ ngữ cảnh là gì và vì sao nhồi càng nhiều càng không tốt.",
+  "Phân biệt bộ nhớ ngắn hạn, bộ nhớ dài hạn, chỉ dẫn dự án và gói ngữ cảnh.",
+  "Giải thích được RAG (tra tài liệu rồi mới trả lời) bằng lời thường.",
+  "Biết chọn đúng chỗ để đưa kiến thức công ty cho agent trên Agent OS.",
+]}>
+
+<h2 id="mat-ban">Cửa sổ ngữ cảnh: mặt bàn làm việc</h2>
+<p>Bài 1 đã nói: mỗi lần được gọi, LLM chỉ thấy những gì được đưa cho nó trong lần đó. Toàn bộ "những gì được đưa" gọi là <strong>ngữ cảnh</strong> (context), và giới hạn tối đa của nó là <strong>cửa sổ ngữ cảnh</strong> (context window).</p>
+
+<Example>
+  <p>Hãy nghĩ tới <strong>mặt bàn làm việc</strong> của nhân viên. Tủ hồ sơ của công ty thì rất to, nhưng mỗi lúc chỉ bày được một số giấy tờ lên bàn. Người giỏi là người <strong>bày đúng giấy cần dùng</strong>: không thiếu tờ quan trọng, không ngập giấy không liên quan.</p>
+  <p>Model cũng vậy. Cửa sổ ngữ cảnh ngày nay rất lớn, nhưng nhồi đầy thì đắt hơn, chậm hơn và AI dễ "lạc" giữa đống chữ.</p>
+</Example>
+
+<p>Việc chọn bày gì lên bàn cho mỗi lượt gọi là <strong>thiết kế ngữ cảnh</strong> (context engineering). Đây là kỹ năng quan trọng nhất khi xây agent, quan trọng không kém viết prompt.</p>
+
+<Diagram name="context-desk" caption="Mỗi lượt, Agent OS chọn từ các kho những gì cần bày lên &quot;mặt bàn&quot; cho model" />
+
+<h2 id="cac-loai-bo-nho">Các loại bộ nhớ của agent</h2>
+<h3>Bộ nhớ ngắn hạn: lịch sử cuộc chat</h3>
+<p>Trong một cuộc trò chuyện (gọi là <strong>thread</strong>), các tin nhắn trước được đưa lại cho model ở mỗi lượt, nên agent "nhớ" anh chị vừa nói gì. Sang cuộc trò chuyện mới thì bắt đầu lại từ đầu. Agent OS lưu trạng thái này sau mỗi bước (gọi là <strong>checkpoint</strong>), nên máy chủ khởi động lại cũng không mất cuộc chat.</p>
+
+<h3>Bộ nhớ dài hạn: sổ tay ghi chú</h3>
+<p>Có những điều nên nhớ qua mọi cuộc chat: "anh Minh thích báo cáo dạng bảng", "khách VIP được miễn phí giao". Agent ghi vào <strong>bộ nhớ dài hạn</strong>; trong Chat sẽ hiện chip <em>"Em đã ghi nhớ"</em> kèm nút Quên. Lượt sau, hệ thống chỉ lấy vài mục <strong>liên quan</strong> bày lên bàn, không bày cả cuốn sổ.</p>
+<p>Bộ nhớ trên Agent OS <strong>tách theo người</strong>: điều agent nhớ về anh chị, người khác không thấy. Mỗi người xem và xoá được bộ nhớ của mình; admin xem và sửa bộ nhớ của agent trong Studio.</p>
+
+<h3>Chỉ dẫn riêng và dự án</h3>
+<p><strong>Chỉ dẫn riêng</strong> là lời dặn cố định của từng người ("tôi là kế toán trưởng, trả lời ngắn"). <strong>Dự án</strong> gom nhiều cuộc chat cùng một việc, có chỉ dẫn, tệp chung và bộ nhớ riêng của dự án: mở dự án "Khách hàng X" thì mọi chat trong đó tự biết hợp đồng, bảng giá của khách X.</p>
+
+<h3>Gói ngữ cảnh: sổ tay chung của cả đội</h3>
+<p>Khi nhiều agent cần chung một bộ quy trình, chính sách, kiến thức nghiệp vụ, ta đóng thành <strong>gói ngữ cảnh</strong> trong <strong>Context Hub</strong>. Gói có tài liệu hướng dẫn (AGENTS.md, luôn được bày lên bàn), <strong>skill</strong> (sổ tay từng việc, chỉ mở ra khi cần) và chính sách. Gói có lịch sử phiên bản và nhãn (tag) <code>prod</code>: sửa một chỗ, mọi agent ghim <code>@prod</code> dùng bản mới ở lượt sau.</p>
+
+<div class="tbl"><table>
+  <thead><tr><th>Anh chị muốn agent biết…</th><th>Đặt ở đâu trên Agent OS</th></tr></thead>
+  <tbody>
+    <tr><td>Vai trò, giới hạn, giọng điệu của một agent</td><td>System prompt (thẻ Cấu hình)</td></tr>
+    <tr><td>Quy trình, chính sách dùng chung nhiều agent</td><td>Gói trong Context Hub, ghim theo tag</td></tr>
+    <tr><td>Cách làm một việc cụ thể, dài, ít khi cần</td><td>Skill trong gói (chỉ mở khi cần)</td></tr>
+    <tr><td>Sở thích của từng người</td><td>Chỉ dẫn riêng, bộ nhớ dài hạn</td></tr>
+    <tr><td>Tài liệu của một vụ việc, một khách</td><td>Tệp trong Dự án</td></tr>
+    <tr><td>Kho tài liệu lớn (hàng trăm trang)</td><td>Tra cứu tài liệu (RAG), xem phần dưới</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="rag">RAG: tra tài liệu rồi mới trả lời</h2>
+<p>Công ty có sổ tay nhân sự 200 trang, 50 hợp đồng mẫu, kho câu hỏi thường gặp. Không thể bày hết lên bàn mỗi lượt. Giải pháp là <strong>RAG</strong> (Retrieval-Augmented Generation, tạm hiểu "tra cứu rồi mới viết").</p>
+
+<Example title="Ví dụ đời thường: thủ thư">
+  <p>Bạn hỏi thủ thư "quy định đổi hàng là mấy ngày?". Thủ thư không đọc thuộc cả thư viện. Họ tra mục lục, rút đúng hai trang liên quan, đọc rồi trả lời, và chỉ cho bạn "trang 12, sổ tay bán hàng". RAG làm đúng như vậy.</p>
+</Example>
+
+<Diagram name="rag" caption="RAG gồm hai phần: chuẩn bị kho một lần, và tra cứu ở mỗi câu hỏi" />
+
+<ol>
+  <li><strong>Cắt đoạn</strong>: tài liệu được cắt thành các đoạn nhỏ, mỗi đoạn vài đoạn văn.</li>
+  <li><strong>Embedding</strong>: mỗi đoạn được biến thành một dãy số, như "toạ độ của ý nghĩa". Hai đoạn nói về cùng một chuyện thì toạ độ gần nhau, kể cả khi dùng chữ khác nhau ("đổi hàng" và "trả lại sản phẩm").</li>
+  <li><strong>Kho vector</strong>: các toạ độ được cất vào kho. Agent OS dùng pgvector ngay trong cơ sở dữ liệu PostgreSQL trên máy chủ của khách.</li>
+  <li><strong>Mỗi câu hỏi</strong>: câu hỏi cũng được biến thành toạ độ, hệ thống tìm 3–5 đoạn gần nghĩa nhất, bày lên bàn cùng câu hỏi, rồi model trả lời <strong>kèm nguồn</strong>.</li>
+</ol>
+<p>Trong Agent OS Chat, khi anh chị tải một file dài vào cuộc chat, việc cắt đoạn và tra cứu diễn ra tự động; file ngắn thì đưa thẳng cho model.</p>
+
+<Note kind="warn" title="RAG chỉ tốt bằng tài liệu của nó">
+  <p>Tài liệu cũ, mâu thuẫn nhau hoặc viết mập mờ thì agent cũng trả lời mập mờ. Trước khi làm RAG, hãy dọn tài liệu: một chính sách một nơi, có ngày cập nhật. Và luôn đo chất lượng bằng mẫu <strong>Đánh giá RAG</strong> (bài 4): agent có bám tài liệu không, có tìm đúng đoạn không.</p>
+</Note>
+
+<h2 id="loi-thuong-gap">Lỗi thường gặp khi thiết kế ngữ cảnh</h2>
+<ul>
+  <li><strong>Nhồi tất cả vào system prompt</strong>: chỉ dẫn dài 10 trang thì đắt và AI bỏ sót. Đưa phần ít dùng sang skill hoặc RAG.</li>
+  <li><strong>Để agent nhớ thông tin nhạy cảm</strong>: số CCCD, số tài khoản không nên nằm trong bộ nhớ dài hạn. Bật che dữ liệu cá nhân (bài 5).</li>
+  <li><strong>Mỗi agent một bản chính sách</strong>: sửa một chỗ quên chỗ khác. Dùng chung một gói trong Context Hub.</li>
+  <li><strong>Không có ngày tháng</strong>: agent không tự biết hôm nay là ngày nào. Agent OS tự đưa ngày giờ hiện tại vào chỉ dẫn, nhưng tài liệu vẫn cần ghi ngày hiệu lực.</li>
+</ul>
+
+<Practice title="Cho agent biết bảng giá bằng Dự án, rồi đóng gói chính sách vào Context Hub" time="20 phút"
+  result="Chat trong dự án trả lời đúng giá theo tệp; gói ngữ cảnh có 2 bản, tag prod; agent ghim gói @ prod và trả lời theo chính sách mới sau khi chuyển tag."
+  shot="project" shotAlt="Chat trong dự án tự dùng chỉ dẫn và tệp bảng giá của dự án">
+  <ol>
+    <li>Mở <strong>Chat</strong> → mục <strong>Dự án</strong> → <strong>Dự án mới</strong>, đặt tên "Quán cà phê Moza". Chỉ dẫn: "Luôn xưng em, gọi anh/chị".</li>
+    <li>Tạo một tệp <code>bang-gia.txt</code> có 3 món và giá, tải vào <strong>Tệp</strong> của dự án.</li>
+    <li>Bấm <strong>Trò chuyện mới trong dự án</strong>, hỏi "bạc xỉu giá bao nhiêu?". Mở trace để thấy tệp đã được đưa vào ngữ cảnh.</li>
+    <li>Nói với agent "nhớ giúp anh: khách quen được giảm 10%". Mở <strong>Cài đặt dự án</strong> xem mục bộ nhớ dự án.</li>
+    <li>Sang bảng quản lý, menu <strong>Context Hub</strong> → <strong>+ Gói</strong>, tạo gói "chinh-sach-quan" với AGENTS.md ghi giờ mở cửa. Bấm <strong>Commit…</strong>, gắn tag <code>prod</code>.</li>
+    <li>Vào cấu hình agent của bài 1, khối <strong>Gói ngữ cảnh</strong>: chọn <code>chinh-sach-quan @ prod</code>, lưu. Sửa giờ mở cửa trong gói, commit, chuyển tag <code>prod</code> sang bản mới, rồi hỏi lại agent.</li>
+  </ol>
+</Practice>
+
+<Fig name="pack-diff" caption="Context Hub: so sánh khác biệt giữa hai bản của một gói, quay lại bản cũ một bấm" />
+
+<Quiz items={[
+  ["Vì sao không nên đưa toàn bộ sổ tay 200 trang vào system prompt?", "Mỗi lượt sẽ tốn rất nhiều token (đắt, chậm), và model dễ bỏ sót chi tiết khi ngữ cảnh quá dài. Nên dùng RAG để chỉ lấy vài đoạn liên quan."],
+  ["Bộ nhớ ngắn hạn và dài hạn khác nhau thế nào?", "Ngắn hạn là lịch sử của một cuộc chat, hết cuộc chat là thôi. Dài hạn là những điều được ghi lại để dùng qua nhiều cuộc chat, và chỉ vài mục liên quan được lấy ra mỗi lượt."],
+  ["Hai câu \"chính sách trả hàng\" và \"đổi lại sản phẩm thế nào\" không chung chữ nào. RAG có tìm ra nhau không?", "Có. Embedding so theo ý nghĩa, không so từng chữ, nên hai câu cùng ý có toạ độ gần nhau."],
+  ["Công ty có 15 agent cùng phải theo một quy định mới về đổi trả. Đặt quy định ở đâu?", "Trong một gói của Context Hub, các agent ghim gói theo tag prod. Sửa và chuyển tag một lần là cả 15 agent dùng bản mới, và quay lại được nếu sai."],
+  ["Agent trả lời theo chính sách cũ dù tài liệu đã cập nhật. Nên kiểm tra gì trước?", "Mở trace xem đoạn tài liệu nào đã được lấy ra: có thể kho còn bản cũ, hai bản mâu thuẫn, hoặc agent đang ghim tag chưa chuyển sang bản mới."],
+]} />
+
+<Terms items={[
+  ["Ngữ cảnh (context)", "Toàn bộ chữ được đưa cho model trong một lượt gọi."],
+  ["Cửa sổ ngữ cảnh", "Lượng ngữ cảnh tối đa một model đọc được trong một lượt."],
+  ["Thiết kế ngữ cảnh", "Chọn bày đúng thông tin lên \"mặt bàn\" của model ở mỗi lượt."],
+  ["Thread", "Một cuộc trò chuyện, có lịch sử riêng."],
+  ["Checkpoint (mốc lưu)", "Trạng thái được lưu sau mỗi bước, để chạy tiếp hoặc quay lại."],
+  ["Bộ nhớ dài hạn", "Điều agent ghi nhớ để dùng qua nhiều cuộc chat."],
+  ["Gói ngữ cảnh", "Bộ tài liệu, skill, chính sách có phiên bản trong Context Hub."],
+  ["AGENTS.md", "Tài liệu hướng dẫn luôn được đưa cho agent ở mọi lượt."],
+  ["Skill", "Sổ tay hướng dẫn một việc, agent chỉ đọc khi cần."],
+  ["RAG", "Tra cứu tài liệu liên quan rồi mới trả lời, kèm nguồn."],
+  ["Embedding", "Biến một đoạn chữ thành dãy số thể hiện ý nghĩa của nó."],
+  ["Kho vector", "Nơi cất các embedding để tìm đoạn gần nghĩa nhanh."],
+]} />
+</Lesson>

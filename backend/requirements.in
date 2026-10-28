@@ -1,0 +1,87 @@
+# Direct dependencies of Agent OS (GĐ9.P). The exact, tested versions of everything (direct + transitive) are in requirements.lock.
+# Rebuild the lock after changing this file:
+#   uv pip compile requirements.in -o requirements.lock --python-version 3.12   (or: uv pip freeze of a venv you have tested, minus dev-only packages)
+# Python 3.12 (same as the VPS). Dev/test-only packages live in requirements-dev.in, NOT here.
+
+# --- agent core ---
+deepagents==0.7.32  # deep agents harness (pin exact: 0.7.x changes middleware)
+langchain           # 1.x
+langchain-core
+langchain-text-splitters
+langchain-google-genai    # Gemini (the only model provider in use; OpenAI is locked)
+langchain-openai
+langchain-anthropic
+langgraph
+langgraph-sdk
+langgraph-checkpoint-postgres   # thread state / Studio time travel
+langgraph-checkpoint-sqlite
+openevals           # LLM-as-judge evaluators
+tiktoken
+
+# --- web server ---
+fastapi
+starlette
+uvicorn
+uvloop
+httptools
+watchfiles
+websockets
+httpx
+python-multipart
+jinja2
+pydantic
+pydantic-settings
+python-dotenv
+sse-starlette
+
+# --- database ---
+psycopg[binary,pool]
+sqlalchemy
+sqlite-vec
+
+# --- open standards (9.6) ---
+mcp                 # 2.x, spec 2026-07-28
+fastmcp
+a2a-sdk[http-server]  # A2A 1.0
+jsonschema
+pyjwt[crypto]      # JWT access tokens of the connected identity provider (GĐ9.Q lg_auth)
+
+# --- channels (8.x) ---
+aiogram             # Telegram
+slack-bolt          # Slack (Socket Mode)
+slack-sdk
+requests
+
+# --- files, documents ---
+markitdown[pdf,docx,xlsx,pptx]
+mammoth
+pdfplumber
+pdfminer.six
+python-docx
+python-pptx
+openpyxl
+xlsxwriter
+weasyprint          # PDF export
+pyarrow             # Parquet export (9.9), S3 filesystem
+pandas
+numpy
+
+# --- privacy / security (9.7, 9.8) ---
+cryptography
+presidio-analyzer   # PII detection (presidio-anonymizer is deliberately NOT used: it pins cryptography<49)
+spacy
+xx-ent-wiki-sm @ https://github.com/explosion/spacy-models/releases/download/xx_ent_wiki_sm-3.8.0/xx_ent_wiki_sm-3.8.0-py3-none-any.whl
+pyotp               # 2FA
+segno               # QR codes for 2FA
+authlib             # OAuth tools
+keyring
+
+# --- observability (9.10) ---
+opentelemetry-sdk
+opentelemetry-exporter-otlp-proto-http
+prometheus-client
+structlog
+croniter
+
+# --- images (9.P2): local OCR to mask personal data inside images (lazy-loaded; models download once into the package dir on first use) ---
+rapidocr==3.10.0

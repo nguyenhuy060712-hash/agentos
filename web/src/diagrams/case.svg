@@ -1,0 +1,20 @@
+<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="22">NGƯỜI DÙNG</text>
+<rect class="b" x="20" y="34" width="150" height="64" rx="12"/><text class="t" x="95" y="60" text-anchor="middle">Khách hàng</text><text class="s" x="95" y="80" text-anchor="middle">nhắn Zalo OA</text>
+<rect class="b" x="20" y="144" width="150" height="64" rx="12"/><text class="t" x="95" y="170" text-anchor="middle">Nhân viên</text><text class="s" x="95" y="190" text-anchor="middle">Agent OS Chat</text>
+<rect class="b" x="20" y="254" width="150" height="64" rx="12"/><text class="t" x="95" y="280" text-anchor="middle">Chủ shop</text><text class="s" x="95" y="300" text-anchor="middle">nhận báo cáo</text>
+<text class="k" x="210" y="22">AGENT</text>
+<rect class="b2" x="210" y="34" width="200" height="64" rx="12"/><text class="t" x="310" y="60" text-anchor="middle">Lễ tân CSKH</text><text class="s" x="310" y="80" text-anchor="middle">tư vấn, đổi trả, tra đơn</text>
+<rect class="b2" x="210" y="144" width="200" height="64" rx="12"/><text class="t" x="310" y="170" text-anchor="middle">Trợ lý bán hàng</text><text class="s" x="310" y="190" text-anchor="middle">báo giá, tồn kho, file</text>
+<rect class="b2" x="210" y="254" width="200" height="64" rx="12"/><text class="t" x="310" y="280" text-anchor="middle">Trợ lý báo cáo</text><text class="s" x="310" y="300" text-anchor="middle">lịch sáng thứ Hai</text>
+<path class="l" d="M172 66H208" marker-end="url(#m9)" marker-start="url(#m9)"/><path class="l" d="M172 176H208" marker-end="url(#m9)" marker-start="url(#m9)"/><path class="l" d="M210 286H174" marker-end="url(#m9)"/>
+<path class="l" d="M410 66H446M410 176H446M410 286H446M446 50V306"/>
+<text class="k" x="470" y="22">DÙNG CHUNG</text>
+<rect class="b4" x="470" y="34" width="270" height="64" rx="12"/><text class="t" x="605" y="60" text-anchor="middle">Gói ngữ cảnh “cskh-shop @ prod”</text><text class="s" x="605" y="80" text-anchor="middle">giọng điệu · chính sách đổi trả · bảng size</text>
+<rect class="b3" x="470" y="110" width="270" height="64" rx="12"/><text class="t" x="605" y="136" text-anchor="middle">Công cụ</text><text class="s" x="605" y="156" text-anchor="middle">tra đơn (đọc) · tạo phiếu đổi (hỏi trước)</text>
+<rect class="b" x="470" y="186" width="270" height="64" rx="12"/><text class="t" x="605" y="212" text-anchor="middle">Gateway</text><text class="s" x="605" y="232" text-anchor="middle">trần chi phí · che SĐT, CCCD · định tuyến</text>
+<rect class="b5" x="470" y="262" width="270" height="64" rx="12"/><text class="t" x="605" y="288" text-anchor="middle">Theo dõi và đánh giá</text><text class="s" x="605" y="308" text-anchor="middle">trace · Engine · thí nghiệm · cổng</text>
+<path class="l" d="M446 66H468" marker-end="url(#m9)"/><path class="l" d="M446 142H468" marker-end="url(#m9)"/><path class="l" d="M446 218H468" marker-end="url(#m9)"/><path class="l" d="M446 294H468" marker-end="url(#m9)"/>
+<text class="s" x="380" y="348" text-anchor="middle">Tất cả chạy trên một máy chủ riêng của shop; quản lý trong Agent OS</text>
+</svg>

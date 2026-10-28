@@ -1,0 +1,172 @@
+---
+// INSTRUCTOR KIT: internal, never part of the public build. Generated only when INSTRUCTOR=1 (see scripts/pdf-training.mjs).
+import Site from "../../../layouts/Site.astro";
+import ModuleBody from "../../../components/dao-tao/ModuleBody.astro";
+import { modules, programme, tracks, levels } from "../../../data/training/programme";
+import { exam } from "../../../data/training/exam";
+import { setup } from "../../../data/training/setup";
+import { clock, pad, roleShort, trackCls, wrapTables } from "../../../lib/training";
+import "../../../styles/doc.css";
+
+export function getStaticPaths() {
+  return process.env.INSTRUCTOR === "1" ? [{ params: { p: undefined } }] : [];
+}
+const capTotal = exam.capstone.criteria.reduce((n, c) => n + c[1], 0);
+const lvlKeys = ["L1", "L2", "L3"] as const;
+const certs = levels.map((l) => ({ ...l }));
+---
+<Site lang="vi" path="/dao-tao/giang-vien/" alt={null} noindex title="Tài liệu giảng viên (nội bộ) | Đào tạo Chuyên gia Agent OS" desc="Tài liệu nội bộ dành cho giảng viên.">
+  <div class="doc mx-auto w-full max-w-4xl px-4 sm:px-6">
+    <section class="doc-cover py-16">
+      <p class="kicker w-fit !border-red-300 !text-red-700">Nội bộ · không phát cho học viên</p>
+      <h1 class="mt-6 text-4xl font-bold leading-[1.1] sm:text-6xl" style="text-wrap: balance;">Tài liệu giảng viên <span class="grad-text">Chuyên gia Agent OS</span></h1>
+      <p class="lead">Giáo án từng buổi, câu hỏi gợi mở, ghi chú sư phạm, đáp án, rubric chấm, tiêu chí ký duyệt lab và mẫu chứng nhận.</p>
+      <p class="mt-8 text-sm text-zinc-500">{programme.version}</p>
+      <p class="mt-1 text-sm font-semibold text-red-700">Tài liệu giảng viên — nội bộ, không phát cho học viên.</p>
+    </section>
+
+    <section class="doc-mod doc-first prose-l" id="cach-dung" aria-labelledby="cd-h">
+      <h2 id="cd-h" class="!mt-0">Cách dùng bộ tài liệu này</h2>
+      <ol>
+        <li>Đọc phần <a href="#tong-quan">Tổng quan và lịch</a> và <a href="#moi-truong">Môi trường lab</a>; dựng và thử môi trường ít nhất một ngày trước buổi 1.</li>
+        <li>Mỗi buổi 180 phút. Bảng giáo án chia sẵn từng đoạn kèm đồng hồ chạy; nếu cột tổng không đủ 180 phút, tài liệu hiện cảnh báo đỏ và cần sửa giáo án.</li>
+        <li>Mở bài giảng và trình chiếu của buổi (cùng nội dung học viên có) song song với giáo án này; phần ghi chú trình chiếu nằm trong mục "Slide và lời dẫn".</li>
+        <li>Cuối lab, đối chiếu "Điều kiện ký duyệt lab" cho từng học viên trước khi cho qua.</li>
+        <li>Câu hỏi kiểm tra có đáp án và rubric ngay dưới câu hỏi; ngân hàng câu thi và đề thực hành nằm ở phần <a href="#thi-cuoi-khoa">Thi cuối khoá</a>.</li>
+      </ol>
+    </section>
+
+    <section class="doc-mod prose-l" id="tong-quan" aria-labelledby="tq-h">
+      <h2 id="tq-h" class="!mt-0">Tổng quan chương trình và lịch</h2>
+      <p>{programme.sub}</p>
+      <div class="tbl"><table>
+        <thead><tr><th scope="col">Buổi</th><th scope="col">Nội dung</th><th scope="col">Lộ trình</th><th scope="col">Vai trò</th><th scope="col">Giờ</th></tr></thead>
+        <tbody>{modules.map((m) => <tr><td class="font-semibold">{m.n}</td><td><a href={`#m${pad(m.n)}`}>{m.title}</a></td><td>{tracks[m.track].t}</td><td>{m.roles.map((r) => roleShort[r]).join(", ")}</td><td>{m.hours}</td></tr>)}</tbody>
+      </table></div>
+      <h3>Cấp chứng nhận</h3>
+      <div class="tbl"><table>
+        <thead><tr><th scope="col">Cấp</th><th scope="col">Tên</th><th scope="col">Buổi</th><th scope="col">Bài thi</th></tr></thead>
+        <tbody>{levels.map((l) => <tr><td class="font-semibold">{l.k}</td><td>{l.t}</td><td>{l.sessions}</td><td>{l.exam}</td></tr>)}</tbody>
+      </table></div>
+    </section>
+
+    <section class="doc-mod prose-l" id="moi-truong" aria-labelledby="mt-h">
+      <h2 id="mt-h" class="!mt-0">Môi trường lab dành cho giảng viên</h2>
+      <div set:html={wrapTables(setup.instructor)} />
+    </section>
+
+    {modules.map((m) => {
+      const sum = m.plan.reduce((n, p) => n + p.min, 0);
+      let t = 0;
+      return (
+        <article class="doc-mod" id={`m${pad(m.n)}`} aria-labelledby={`m${pad(m.n)}-h`}>
+          <header>
+            <p class="flex flex-wrap items-center gap-2 text-xs"><span class="text-zinc-500">Buổi {m.n}/{modules.length} · {m.hours} giờ</span><span class={`chip ${trackCls[m.track]}`}>{tracks[m.track].t}</span></p>
+            <h2 id={`m${pad(m.n)}-h`} class="mt-2 text-3xl font-bold leading-tight">{m.title}</h2>
+          </header>
+          <div class="prose-l">
+            <h3 id={`m${pad(m.n)}-giao-an`}>Giáo án 180 phút</h3>
+            {sum !== 180
+              ? <p class="plan-warn" role="alert">CẢNH BÁO: tổng thời lượng giáo án là {sum} phút, phải đủ 180 phút (lệch {sum - 180 > 0 ? "+" : ""}{sum - 180}).</p>
+              : <p class="plan-ok">Tổng thời lượng: 180 phút. Khớp.</p>}
+            <div class="tbl"><table>
+              <thead><tr><th scope="col">Đồng hồ</th><th scope="col">Phút</th><th scope="col">Hoạt động</th><th scope="col">Chi tiết</th></tr></thead>
+              <tbody>
+                {m.plan.map((p) => { const from = t; t += p.min; return <tr><td class="whitespace-nowrap">{clock(from)} – {clock(t)}</td><td>{p.min}</td><td class="font-medium text-zinc-900 dark:text-white">{p.act}</td><td>{p.detail}</td></tr>; })}
+                <tr><td class="font-semibold">Tổng</td><td class:list={["font-semibold", sum !== 180 && "text-red-600"]}>{sum}</td><td colspan="2"></td></tr>
+              </tbody>
+            </table></div>
+
+            {m.ask.length > 0 && (<><h3 id={`m${pad(m.n)}-goi-mo`}>Câu hỏi gợi mở</h3><ul>{m.ask.map((a) => <li>{a}</li>)}</ul></>)}
+            {m.notes.length > 0 && (<><h3 id={`m${pad(m.n)}-ghi-chu`}>Ghi chú sư phạm</h3><ul>{m.notes.map((a) => <li>{a}</li>)}</ul></>)}
+
+            <h3 id={`m${pad(m.n)}-slide-gv`}>Slide và lời dẫn</h3>
+            <ol>{m.slides.map((s) => <li><strong>{s.t}</strong>{s.note ? <> — <span>{s.note}</span></> : <span class="text-zinc-500"> (không có lời dẫn)</span>}</li>)}</ol>
+          </div>
+          <ModuleBody m={m} idp={`m${pad(m.n)}-`} hl={3} gv eager />
+        </article>
+      );
+    })}
+
+    <article class="doc-mod prose-l" id="thi-cuoi-khoa" aria-labelledby="thi-h">
+      <h2 id="thi-h" class="!mt-0">Thi cuối khoá</h2>
+      <h3>Thể thức</h3>
+      <div class="tbl"><table>
+        <thead><tr><th scope="col">Cấp</th><th scope="col">Số câu trắc nghiệm</th><th scope="col">Điểm đạt</th><th scope="col">Thực hành</th><th scope="col">Đồ án</th></tr></thead>
+        <tbody>{exam.format.map((f) => <tr><td class="font-semibold">{f.level}</td><td>{f.mcq}</td><td>{f.pass}</td><td>{f.practical}</td><td>{f.capstone ?? "—"}</td></tr>)}</tbody>
+      </table></div>
+
+      <h3>Ngân hàng câu trắc nghiệm</h3>
+      {lvlKeys.map((lv) => {
+        const items = exam.mcq.filter((q) => q.level === lv);
+        return items.length > 0 && (
+          <>
+            <h4 class="mt-6 font-display text-base font-semibold">Cấp {lv} · {items.length} câu</h4>
+            <ol class="tr-quiz">
+              {items.map((q) => (
+                <li>
+                  <p class="font-medium text-zinc-900 dark:text-white">{q.q} <span class="text-xs font-normal text-zinc-500">(buổi {q.module})</span></p>
+                  {q.options && <ol class="!mt-1.5" style="list-style-type: upper-alpha">{q.options.map((o) => <li>{o}</li>)}</ol>}
+                  <div class="tr-gv mt-2 rounded-xl border border-amber-300 bg-amber-50 p-3 text-[14.5px] dark:border-amber-500/40 dark:bg-amber-500/10">
+                    <p><strong>Đáp án:</strong> {q.a}</p>
+                    <p class="!mt-1"><strong>Chấm điểm:</strong> {q.rubric}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </>
+        );
+      })}
+
+      <h3>Bài thi thực hành</h3>
+      {exam.practical.map((p) => (
+        <div class="tr-gv mt-3 rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800">
+          <h4 class="font-display text-base font-semibold">Cấp {p.level} · {p.mins} phút</h4>
+          <p class="!mt-2"><strong>Đề:</strong> {p.task}</p>
+          <p class="!mt-2"><strong>Tiêu chí đạt:</strong> {p.pass}</p>
+        </div>
+      ))}
+
+      <h3>Đồ án capstone</h3>
+      <p>{exam.capstone.brief}</p>
+      <h4 class="font-display text-base font-semibold">Sản phẩm phải nộp</h4>
+      <ul>{exam.capstone.deliverables.map((d) => <li>{d}</li>)}</ul>
+      <h4 class="font-display text-base font-semibold">Tiêu chí chấm</h4>
+      <div class="tbl"><table>
+        <thead><tr><th scope="col">Tiêu chí</th><th scope="col">Điểm</th><th scope="col">Mô tả mức đạt</th></tr></thead>
+        <tbody>
+          {exam.capstone.criteria.map(([n, pts, d]) => <tr><td class="font-medium text-zinc-900 dark:text-white">{n}</td><td>{pts}</td><td>{d}</td></tr>)}
+          <tr><td class="font-semibold">Tổng</td><td class:list={["font-semibold", capTotal !== 100 && "text-red-600"]}>{capTotal}</td><td>{capTotal === 100 ? "Khớp 100 điểm." : "CẢNH BÁO: tổng điểm phải là 100."}</td></tr>
+        </tbody>
+      </table></div>
+      <h4 class="font-display text-base font-semibold">Quy trình bảo vệ</h4>
+      <p>{exam.capstone.defense}</p>
+    </article>
+
+    {certs.map((l) => (
+      <article class="doc-mod flex flex-col items-center justify-center text-center" id={`cert-${l.k.toLowerCase()}`} aria-label={`Mẫu chứng nhận ${l.k}`} style="min-height: 240mm;">
+        <div class="w-full rounded-3xl border-4 border-double border-violet-400 p-10">
+          <p class="kicker mx-auto w-fit">MozaAI · Agent OS</p>
+          <h2 class="mt-8 text-4xl font-bold leading-tight">Chứng nhận Chuyên gia Agent OS – Cấp {l.k}</h2>
+          <p class="mt-2 text-xl text-zinc-600 dark:text-zinc-400">{l.t} · {l.vi}</p>
+          <p class="mt-10 text-lg">Chứng nhận anh/chị</p>
+          <p class="mx-auto mt-6 max-w-lg border-b border-zinc-500 pb-1 text-lg">&nbsp;</p>
+          <p class="mt-2 text-xs text-zinc-500">Họ và tên học viên</p>
+          <p class="mx-auto mt-8 max-w-xl text-[15px] text-zinc-600 dark:text-zinc-400">đã hoàn thành chương trình đào tạo ({l.sessions}) và đạt yêu cầu kỳ thi: {l.exam}.</p>
+          <div class="mt-12 grid gap-8 text-sm sm:grid-cols-3">
+            <div><p class="border-b border-zinc-500 pb-1">&nbsp;</p><p class="mt-2 text-xs text-zinc-500">Ngày cấp</p></div>
+            <div><p class="border-b border-zinc-500 pb-1">&nbsp;</p><p class="mt-2 text-xs text-zinc-500">Điểm số</p></div>
+            <div><p class="border-b border-zinc-500 pb-1">&nbsp;</p><p class="mt-2 text-xs text-zinc-500">Chữ ký giảng viên</p></div>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</Site>
+
+<script>
+  // Printing always uses the light theme.
+  let wasDark = false;
+  addEventListener("beforeprint", () => { wasDark = document.documentElement.classList.contains("dark"); document.documentElement.classList.remove("dark"); });
+  addEventListener("afterprint", () => { if (wasDark) document.documentElement.classList.add("dark"); });
+</script>

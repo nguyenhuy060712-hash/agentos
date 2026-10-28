@@ -1,0 +1,65 @@
+---
+// English overview of the "Agent OS Expert" training programme. Course material itself is Vietnamese (/dao-tao/).
+import Site from "../../../layouts/Site.astro";
+import Icon from "../../../components/Icon.astro";
+import { modules, moduleHref, slideHref, programme } from "../../../data/training/programme";
+
+const tracks = { "nen-tang": "Foundations", "van-hanh": "Operations", it: "IT deep dive", "kien-truc": "Architecture & capstone" } as const;
+const titles: Record<number, string> = {
+  1: "Overview and architecture of Agent OS",
+  2: "Building agents: configuration, tools, approvals, sub-agents",
+  3: "Prompts, Context Hub, Skills and Playground",
+  4: "Agent OS Chat for power users",
+  5: "Messaging channels and tool connections",
+  6: "Observability: tracing, monitoring, Insights, Engine, alerts",
+  7: "Evaluating agent quality",
+  8: "Administration, cost and the LLM Gateway",
+  9: "Integration: Agent Server API, SDK, MCP, A2A, OpenTelemetry",
+  10: "Security, data isolation, encryption and personal data",
+  11: "Deployment, operations and incident handling",
+  12: "Agent system architecture and capstone project",
+};
+const levels = [
+  ["L1 · Agent OS Practitioner", "Sessions 1, 2, 3, 4, 6 · 15-question test (≥ 70%) + 45-min practical"],
+  ["L2 · Agent OS Administrator", "Sessions 1–8 · 30-question test (≥ 75%) + 90-min practical"],
+  ["L3 · Agent OS Expert", "All 12 sessions · 40-question test (≥ 80%) + 120-min IT practical + capstone defended before a panel (≥ 75/100)"],
+];
+---
+<Site lang="en" active="training" path="/en/training/" alt="/dao-tao/" type="Course"
+  title="Agent OS Expert training programme | MozaAI"
+  desc="A 12-session × 3-hour programme for IT teams, administrators and power users: use, operate, integrate, secure, deploy and design AI agent systems on Agent OS. Course material in Vietnamese.">
+  <section class="border-b border-zinc-200 dark:border-zinc-800">
+    <div class="wrap py-14 sm:py-20">
+      <p class="kicker"><Icon name="book" class="h-3.5 w-3.5" />Training · {programme.sessions} sessions · {programme.hours} hours</p>
+      <h1 class="mt-5 max-w-4xl text-4xl font-bold leading-[1.1] sm:text-5xl" style="text-wrap: balance;">Agent OS <span class="grad-text">Expert</span> training programme</h1>
+      <p class="lead text-lg">For IT teams, administrators and power users who must use, operate, integrate, secure, deploy and design agent systems on Agent OS. Every session has measurable goals, a lecture with diagrams, a step-by-step lab on Agent OS with a fake LLM ($0), common pitfalls, a graded quiz and homework. Instructors get lesson plans, answer keys, rubrics and slide decks.</p>
+      <p class="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">The course material is written in Vietnamese. This page summarises it in English.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn-primary" href="/dao-tao/">Open the course (Vietnamese) <Icon name="arrow" class="h-4 w-4" /></a>
+        <a class="btn-ghost" href="/en/features/">Agent OS features</a>
+      </div>
+    </div>
+  </section>
+  <section class="wrap py-14">
+    <h2 class="h2">Curriculum</h2>
+    <div class="tbl mt-8 overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
+      <table class="w-full min-w-[36rem] text-left text-sm">
+        <thead class="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900"><tr><th class="px-4 py-3">#</th><th class="px-4 py-3">Session</th><th class="px-4 py-3">Track</th><th class="px-4 py-3">Material</th></tr></thead>
+        <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800">
+          {modules.map((m) => (
+            <tr>
+              <td class="px-4 py-3 tabular-nums text-zinc-500">{m.n}</td>
+              <td class="px-4 py-3 font-medium">{titles[m.n]}</td>
+              <td class="px-4 py-3 text-zinc-500">{tracks[m.track]}</td>
+              <td class="px-4 py-3 whitespace-nowrap"><a class="text-violet-700 hover:underline dark:text-violet-300" href={moduleHref(m.slug)} lang="vi">Lesson</a> · <a class="text-violet-700 hover:underline dark:text-violet-300" href={slideHref(m.slug)} lang="vi">Slides</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <h2 class="h2 mt-16">Certification levels</h2>
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      {levels.map(([t, d]) => <div class="card"><h3 class="font-semibold">{t}</h3><p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{d}</p></div>)}
+    </div>
+  </section>
+</Site>

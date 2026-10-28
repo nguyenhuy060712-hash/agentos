@@ -1,0 +1,29 @@
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="b" x="20" y="110" width="140" height="80" rx="12"/>
+<text class="t" x="90" y="142" text-anchor="middle">Người dùng</text>
+<text class="s" x="90" y="164" text-anchor="middle">“Còn áo size M không?”</text>
+<path class="l" d="M160 150H198" marker-end="url(#m1)"/>
+<rect class="zone" x="200" y="18" width="362" height="266" rx="16"/>
+<text class="k" x="216" y="40">AGENT</text>
+<rect class="b4" x="220" y="52" width="322" height="54" rx="10"/>
+<text class="t" x="381" y="75" text-anchor="middle">Prompt: bản giao việc</text>
+<text class="s" x="381" y="95" text-anchor="middle">vai trò · nhiệm vụ · giới hạn · giọng điệu</text>
+<path class="l" d="M295 106V128" marker-end="url(#m1)"/>
+<rect class="b2" x="220" y="130" width="150" height="82" rx="10"/>
+<text class="t" x="295" y="158" text-anchor="middle">LLM: bộ não</text>
+<text class="s" x="295" y="178" text-anchor="middle">suy nghĩ, quyết định</text>
+<text class="s" x="295" y="196" text-anchor="middle">bước tiếp theo</text>
+<rect class="b3" x="402" y="130" width="140" height="82" rx="10"/>
+<text class="t" x="472" y="158" text-anchor="middle">Công cụ: đôi tay</text>
+<text class="s" x="472" y="178" text-anchor="middle">tra kho, gửi mail,</text>
+<text class="s" x="472" y="196" text-anchor="middle">tìm web…</text>
+<path class="la" d="M372 152H400" marker-end="url(#m1)"/>
+<path class="la" d="M400 190H372" marker-end="url(#m1)"/>
+<text class="s" x="381" y="236" text-anchor="middle">lặp lại: nghĩ → gọi công cụ → đọc kết quả → nghĩ tiếp</text>
+<path class="l" d="M295 212V256H664V194" marker-end="url(#m1)"/>
+<text class="s" x="470" y="274" text-anchor="middle">đủ thông tin thì trả lời</text>
+<rect class="b5" x="590" y="112" width="150" height="80" rx="12"/>
+<text class="t" x="665" y="144" text-anchor="middle">Câu trả lời</text>
+<text class="s" x="665" y="166" text-anchor="middle">“Còn 3 áo size M ạ”</text>
+</svg>

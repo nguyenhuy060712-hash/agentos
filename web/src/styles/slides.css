@@ -1,0 +1,119 @@
+/* Training slide decks (/dao-tao/slide/...). Sizes use --u = 1cqw of the 16:9 frame (12.8px at 1280 wide), so the same CSS
+   serves the full-screen deck, the 1280x720 PDF and (with --u in rem) the stacked phone layout. */
+.deck {
+  --u: 1cqw;
+  --bg: #fff; --fg: #18181b; --mut: #52525b; --card: #f4f4f5; --line: #e4e4e7; --stage: #d4d4d8; --acc: #7b3cff;
+  --grad: linear-gradient(180deg, #12b5ff, #3d5bff 30%, #7b3cff 65%, #ff3fa4);
+  --gradh: linear-gradient(90deg, #12b5ff, #3d5bff 30%, #7b3cff 65%, #ff3fa4);
+}
+.dark .deck { --bg: #0e0f12; --fg: #fafafa; --mut: #a1a1aa; --card: #18181b; --line: #27272a; --stage: #000; --acc: #a78bfa; }
+body:has(> .deck) { margin: 0; background: var(--stage, #d4d4d8); }
+.dark body:has(> .deck) { background: #000; }
+
+.slide { position: relative; background: var(--bg); color: var(--fg); overflow: hidden; }
+.slide::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--u) * .9); background: var(--grad); z-index: 1; }
+.s-in { position: absolute; inset: 0; display: flex; flex-direction: column; padding: calc(var(--u) * 4.6) calc(var(--u) * 6) calc(var(--u) * 6); }
+.s-kick { margin: 0; font-size: calc(var(--u) * 1.4); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--acc); }
+.s-t { margin: calc(var(--u) * 1) 0 0; font-size: calc(var(--u) * 4.3); line-height: 1.1; font-weight: 700; color: var(--fg); text-wrap: balance; }
+.s-t::after { content: ""; display: block; width: calc(var(--u) * 7); height: calc(var(--u) * .5); margin-top: calc(var(--u) * 1.4); border-radius: 99px; background: var(--gradh); }
+.s-body { flex: 1; min-height: 0; margin-top: calc(var(--u) * 3); display: grid; grid-template-columns: minmax(0, 1fr); gap: calc(var(--u) * 4); align-items: start; }
+.s-body.has-media { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; }
+.s-text { min-width: 0; display: grid; gap: calc(var(--u) * 2); }
+.s-pts { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--u) * 1.5); font-size: calc(var(--u) * 2.5); line-height: 1.3; color: var(--fg); }
+.s-pts li { position: relative; padding-left: calc(var(--u) * 2.6); }
+.s-pts li::before { content: ""; position: absolute; left: 0; top: .5em; width: calc(var(--u) * 1); height: calc(var(--u) * 1); border-radius: 50%; background: var(--gradh); }
+.s-pts-sm { font-size: calc(var(--u) * 1.8); gap: calc(var(--u) * .8); }
+.s-pts-num { counter-reset: n; }
+.s-pts-num li { counter-increment: n; }
+.s-pts-num li::before { content: counter(n); width: calc(var(--u) * 2.2); height: calc(var(--u) * 2.2); top: .1em; display: grid; place-items: center; font-size: calc(var(--u) * 1.3); font-weight: 700; color: #fff; }
+.s-pts-num li { padding-left: calc(var(--u) * 3.4); }
+.s-code { margin: 0; padding: calc(var(--u) * 1.6) calc(var(--u) * 2); border-radius: calc(var(--u) * 1.2); background: #09090b; color: #f4f4f5; font: 500 calc(var(--u) * 1.7)/1.45 ui-monospace, "Cascadia Mono", Consolas, monospace; overflow: auto; max-height: calc(var(--u) * 24); white-space: pre; }
+.s-code code { background: none; padding: 0; color: inherit; font: inherit; }
+.s-media { min-width: 0; min-height: 0; display: grid; place-items: center; }
+.s-media .dg { width: 100%; max-height: calc(var(--u) * 29); padding: calc(var(--u) * 1.2); border: 1px solid var(--line); border-radius: calc(var(--u) * 1.4); background: var(--card); box-sizing: border-box; }
+.s-media .dg svg { max-height: calc(var(--u) * 26); width: 100%; height: auto; margin: 0 auto; }
+.s-img { width: auto; max-width: 100%; max-height: calc(var(--u) * 29); height: auto; border-radius: calc(var(--u) * 1.2); border: 1px solid var(--line); object-fit: contain; }
+.s-foot { position: absolute; left: calc(var(--u) * 6); right: calc(var(--u) * 6); bottom: calc(var(--u) * 4.2); margin: 0; display: flex; justify-content: space-between; font-size: calc(var(--u) * 1.2); color: var(--mut); }
+.s-sub { margin: calc(var(--u) * 1.4) 0 0; max-width: calc(var(--u) * 70); font-size: calc(var(--u) * 2); line-height: 1.4; color: var(--mut); }
+.s-label { margin: 0 0 calc(var(--u) * 1.2); font-size: calc(var(--u) * 1.4); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--mut); }
+.s-next { margin: calc(var(--u) * 2) 0 0; font-size: calc(var(--u) * 2); color: var(--mut); }
+.s-next strong { color: var(--fg); }
+
+.slide-title .s-in { justify-content: center; padding-bottom: calc(var(--u) * 7); }
+.s-hero { margin: calc(var(--u) * 1.6) 0 0; width: fit-content; max-width: 100%; font-family: var(--font-display); font-size: calc(var(--u) * 5.4); line-height: 1.08; font-weight: 700; letter-spacing: -.02em; text-wrap: balance; }
+@media (min-width: 768px) {
+  .slide-title .s-sub { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .slide-title .s-pts li { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+}
+.s-goals { margin-top: calc(var(--u) * 2.4); max-width: calc(var(--u) * 78); }
+
+/* Wide screens: one slide at a time in a 16:9 frame fitted to the window */
+@media screen and (min-width: 768px) {
+  .deck { position: fixed; inset: 0; display: grid; place-items: center; background: var(--stage); }
+  .slide { display: none; width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; container-type: size; }
+  .slide.is-on { display: block; }
+  .deck-top { display: none; }
+  .deck-ui { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; align-items: center; gap: .5rem; padding: .5rem .75rem; font: 500 .8rem/1 "Inter Variable", system-ui, sans-serif; color: var(--mut); opacity: .55; transition: opacity .2s; }
+  .deck-ui:hover, .deck-ui:focus-within { opacity: 1; }
+  .deck-ui a, .deck-ui button { color: inherit; background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: .35rem .7rem; cursor: pointer; text-decoration: none; }
+  .deck-ui a:hover, .deck-ui button:hover { color: var(--fg); border-color: var(--acc); }
+  .deck-ui .sp { flex: 1; }
+  .deck-bar { position: fixed; left: 0; bottom: 0; height: 4px; width: 0; background: var(--gradh); z-index: 6; transition: width .2s; }
+  .deck-stack .deck-ui, .deck-stack .deck-bar { display: none; }
+}
+/* Stacked deck (all decks in one printable page) on screen */
+@media screen and (min-width: 768px) {
+  .deck-stack { position: static; display: block; padding: 1.5rem 0; }
+  .deck-stack .slide { display: block; margin: 0 auto 1.5rem; width: min(96vw, 1280px); }
+  .deck-stack .deck-top { display: flex; }
+}
+/* Phones: slides stack vertically and scroll naturally, text in rem */
+@media screen and (max-width: 767.98px) {
+  .deck { --u: .4rem; }
+  .deck-ui, .deck-bar { display: none; }
+  .deck-top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: .75rem; padding: .6rem 1rem; background: var(--bg); border-bottom: 1px solid var(--line); font: 600 .85rem/1.2 "Inter Variable", system-ui, sans-serif; color: var(--fg); }
+  .slide { display: block; margin-bottom: .75rem; }
+  .slide::before { width: .3rem; }
+  .s-in { position: static; padding: 1.4rem 1.2rem 3rem 1.5rem; min-height: 14rem; }
+  .s-body.has-media { grid-template-columns: minmax(0, 1fr); }
+  .s-kick { font-size: .7rem; }
+  .s-t { font-size: 1.5rem; }
+  .s-hero { font-size: 2rem; }
+  .s-pts { font-size: 1rem; gap: .6rem; }
+  .s-pts-sm { font-size: .95rem; }
+  .s-pts li { padding-left: 1.2rem; }
+  .s-pts li::before { width: .5rem; height: .5rem; }
+  .s-pts-num li { padding-left: 1.9rem; }
+  .s-pts-num li::before { width: 1.3rem; height: 1.3rem; font-size: .75rem; }
+  .s-sub { font-size: 1rem; }
+  .s-label, .s-next { font-size: .85rem; }
+  .s-code { font-size: .78rem; max-height: none; }
+  .s-media .dg { max-height: none; overflow-x: auto; }
+  .s-media .dg svg { min-width: 30rem; max-height: none; }
+  .s-img { max-height: none; }
+  .s-foot { left: 1.5rem; right: 1.2rem; bottom: 1rem; font-size: .7rem; }
+  .slide-title .s-in { padding-bottom: 3rem; }
+  .s-in { position: relative; }
+}
+
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { margin: 0 !important; background: #fff !important; }
+  .deck, .dark .deck { --bg: #fff; --fg: #18181b; --mut: #52525b; --card: #f4f4f5; --line: #e4e4e7; --acc: #7b3cff; --u: 1cqw; position: static !important; display: block !important; }
+  .deck-top, .deck-ui, .deck-bar { display: none !important; }
+  .slide { display: block !important; width: 1280px !important; height: 720px !important; aspect-ratio: auto !important; container-type: size; margin: 0 !important; break-after: page; page-break-after: always; break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .s-in { position: absolute !important; padding: calc(var(--u) * 4.6) calc(var(--u) * 6) calc(var(--u) * 6) !important; }
+  .s-code { max-height: none; overflow: hidden; }
+}
+
+/* Slides with only a diagram or screenshot: use the full width and more height. */
+.s-body.has-media.media-only { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.media-only .s-media { width: 100%; }
+.media-only .s-media .dg { max-width: calc(var(--u) * 88); max-height: calc(var(--u) * 31); }
+.media-only .s-media .dg svg { max-height: calc(var(--u) * 28); }
+.media-only .s-img { max-height: calc(var(--u) * 31); }
+@media screen and (max-width: 767.98px) {
+  .media-only .s-media .dg { max-height: none; }
+  .media-only .s-media .dg svg { max-height: none; }
+}

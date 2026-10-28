@@ -1,0 +1,118 @@
+---
+import Site from "../../layouts/Site.astro";
+import Icon from "../../components/Icon.astro";
+import TrainSearch from "../../components/dao-tao/TrainSearch.astro";
+import { modules, programme, tracks, roles, levels, moduleHref, slideHref } from "../../data/training/programme";
+import { trackCls, trackOrder, roleOrder, roleShort } from "../../lib/training";
+
+const stats = [
+  { v: `${programme.sessions} buổi`, l: "mỗi buổi 3 giờ" },
+  { v: `${programme.hours} giờ`, l: "lý thuyết và thực hành" },
+  { v: `${trackOrder.length} lộ trình`, l: "theo vai trò" },
+  { v: `${levels.length} cấp`, l: "chứng nhận" },
+];
+const modByN = (n: number) => modules.find((m) => m.n === n);
+---
+<Site lang="vi" active="training" path="/dao-tao/" alt={null} type="Course"
+  title="Đào tạo Chuyên gia Agent OS | Chương trình 12 buổi" desc={programme.sub}>
+  <section class="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 -top-48 -z-10 mx-auto h-[30rem] max-w-4xl opacity-25 blur-3xl grad-bg dark:opacity-20" style="border-radius:50%"></div>
+    <div class="wrap py-14 sm:py-20">
+      <p class="kicker"><Icon name="book" class="h-3.5 w-3.5" />{programme.version}</p>
+      <h1 class="mt-5 max-w-4xl text-4xl font-bold leading-[1.1] sm:text-5xl" style="text-wrap: balance;">Chương trình đào tạo <span class="grad-text">Chuyên gia Agent OS</span></h1>
+      <p class="lead">{programme.sub}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn-primary" href={moduleHref(modules[0].slug)}>Bắt đầu buổi 1 <Icon name="arrow" class="h-4 w-4" /></a>
+        <a class="btn-ghost" href="#lich">Xem lịch 12 buổi</a>
+        <a class="btn-ghost" href="/dao-tao/chung-nhan/">Thi và chứng nhận</a>
+      </div>
+      <dl class="mt-10 flex flex-wrap gap-x-10 gap-y-4">
+        {stats.map((s) => <div><dd class="font-display text-2xl font-bold text-zinc-950 dark:text-white">{s.v}</dd><dt class="text-sm text-zinc-500">{s.l}</dt></div>)}
+      </dl>
+      <div class="mt-8 max-w-xl"><TrainSearch id="ts-index" /></div>
+    </div>
+  </section>
+
+  <section class="wrap py-14" id="lo-trinh">
+    <h2 class="h2">Lộ trình theo vai trò</h2>
+    <p class="lead">Chọn vai trò của anh chị để biết cần học những buổi nào. Kiến trúc sư và chuyên gia học trọn 12 buổi.</p>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {roleOrder.map((r) => (
+        <div class="card flex flex-col !p-5">
+          <h3 class="font-display text-lg font-bold text-zinc-950 dark:text-white">{roles[r].t}</h3>
+          <p class="mt-2 text-[14.5px] text-zinc-600 dark:text-zinc-400">{roles[r].d}</p>
+          <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-zinc-400">{roles[r].sessions.length} buổi</p>
+          <ul class="mt-2 flex flex-wrap gap-1.5" aria-label={`Các buổi của ${roles[r].t}`}>
+            {roles[r].sessions.map((n) => {
+              const m = modByN(n);
+              return m && <li><a href={moduleHref(m.slug)} title={m.title} aria-label={`Buổi ${n}: ${m.title}`} class="grid h-8 min-w-8 place-items-center rounded-lg border border-zinc-300 px-2 text-sm font-semibold text-zinc-700 hover:border-violet-400 hover:text-violet-700 dark:border-zinc-700 dark:text-zinc-300 dark:hover:text-violet-300">{n}</a></li>;
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-y border-zinc-200 bg-zinc-50/60 dark:border-zinc-800 dark:bg-zinc-950/40" id="lich">
+    <div class="wrap py-14">
+      <h2 class="h2">Lịch 12 buổi</h2>
+      <p class="lead">Mỗi buổi 3 giờ: học khái niệm, xem trình chiếu, làm lab trên máy thử rồi tự kiểm tra bằng câu hỏi.</p>
+      <div class="tbl mt-8 overflow-x-auto rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900/50">
+        <table class="w-full min-w-[46rem] text-left text-[15px]">
+          <thead class="text-xs uppercase tracking-wide text-zinc-500"><tr class="border-b border-zinc-200 dark:border-zinc-800">
+            <th scope="col" class="px-4 py-3">Buổi</th><th scope="col" class="px-2 py-3">Nội dung</th><th scope="col" class="px-2 py-3">Lộ trình</th><th scope="col" class="px-2 py-3">Vai trò</th><th scope="col" class="px-2 py-3">Thời lượng</th><th scope="col" class="px-4 py-3">Tài liệu</th>
+          </tr></thead>
+          <tbody>
+            {modules.map((m) => (
+              <tr class="border-b border-zinc-100 last:border-0 dark:border-zinc-800/70">
+                <th scope="row" class="px-4 py-3 font-display text-lg font-bold">{m.n}</th>
+                <td class="px-2 py-3 font-medium text-zinc-900 dark:text-white">{m.title}</td>
+                <td class="px-2 py-3"><span class={`chip whitespace-nowrap ${trackCls[m.track]}`}>{tracks[m.track].t}</span></td>
+                <td class="px-2 py-3 text-[13.5px] text-zinc-600 dark:text-zinc-400">{m.roles.map((r) => roleShort[r]).join(", ")}</td>
+                <td class="whitespace-nowrap px-2 py-3 text-zinc-600 dark:text-zinc-400">{m.hours} giờ</td>
+                <td class="whitespace-nowrap px-4 py-3"><a class="font-medium text-violet-700 hover:underline dark:text-violet-300" href={moduleHref(m.slug)}>Bài giảng</a> · <a class="font-medium text-violet-700 hover:underline dark:text-violet-300" href={slideHref(m.slug)}>Trình chiếu</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <h3 class="mt-10 text-sm font-semibold uppercase tracking-wide text-zinc-500">Bốn lộ trình</h3>
+      <ul class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {trackOrder.map((tk) => <li class="card !p-4"><span class={`chip ${trackCls[tk]}`}>{tracks[tk].t}</span><p class="mt-2 text-[14.5px] text-zinc-600 dark:text-zinc-400">{tracks[tk].d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap py-14" id="chung-nhan">
+    <h2 class="h2">Ba cấp chứng nhận</h2>
+    <p class="lead">Học hết các buổi của cấp đó, rồi thi trắc nghiệm và thực hành. Cấp cao gồm cả nội dung cấp thấp.</p>
+    <div class="mt-8 grid gap-4 lg:grid-cols-3">
+      {levels.map((l) => (
+        <a href="/dao-tao/chung-nhan/" class="card group !p-6 transition hover:border-violet-400">
+          <span class="chip grad-bg text-white">{l.k}</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-zinc-950 group-hover:text-violet-700 dark:text-white dark:group-hover:text-violet-300">{l.t}</h3>
+          <p class="text-sm text-zinc-500">{l.vi} · {l.sessions}</p>
+          <p class="mt-3 text-[14.5px] text-zinc-600 dark:text-zinc-400">{l.exam}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t border-zinc-200 bg-zinc-50/60 dark:border-zinc-800 dark:bg-zinc-950/40" id="tai-ve">
+    <div class="wrap grid gap-10 py-14 lg:grid-cols-2">
+      <div>
+        <h2 class="h2">Tài liệu tải về</h2>
+        <ul class="mt-6 grid gap-3">
+          <li class="card flex items-center gap-3 !p-4"><Icon name="book" class="h-5 w-5 shrink-0 text-violet-600" /><span><a class="block font-semibold hover:underline" href="/dao-tao/Giao-trinh-hoc-vien.pdf">Giáo trình học viên (PDF)</a><span class="text-sm text-zinc-500">Cả 12 buổi, lab, câu hỏi, thuật ngữ, thể thức thi. Xem trước bản in: <a class="underline" href="/dao-tao/in/">trang in</a>.</span></span></li>
+          <li class="card flex items-center gap-3 !p-4"><Icon name="steps" class="h-5 w-5 shrink-0 text-violet-600" /><span><a class="block font-semibold hover:underline" href="/dao-tao/Slide-trinh-chieu.pdf">Slide trình chiếu (PDF)</a><span class="text-sm text-zinc-500">Toàn bộ slide của 12 buổi.</span></span></li>
+        </ul>
+        <p class="mt-4 text-sm text-zinc-500">Tài liệu giảng viên (giáo án, đáp án, rubric) phát hành riêng cho giảng viên, không đăng công khai.</p>
+      </div>
+      <div>
+        <h2 class="h2">Trước buổi đầu tiên</h2>
+        <p class="lead">Mỗi học viên cần một môi trường thực hành riêng. Làm theo hướng dẫn để máy sẵn sàng trước khi vào học.</p>
+        <a class="btn-primary mt-6" href="/dao-tao/chuan-bi-lab/">Chuẩn bị môi trường lab <Icon name="arrow" class="h-4 w-4" /></a>
+      </div>
+    </div>
+  </section>
+</Site>

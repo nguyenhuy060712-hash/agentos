@@ -1,0 +1,9 @@
+---
+// "Everyday example" callout.
+interface Props { title?: string }
+const { title = "Ví dụ đời thường" } = Astro.props;
+---
+<div class="callout border-amber-200 bg-amber-50/70 dark:border-amber-500/30 dark:bg-amber-500/10">
+  <p class="callout-title text-amber-700 dark:text-amber-300"><span aria-hidden="true">☕</span>{title}</p>
+  <slot />
+</div>

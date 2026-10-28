@@ -1,0 +1,10 @@
+---
+import Site from "../../../layouts/Site.astro";
+import FeaturesPage from "../../../components/FeaturesPage.astro";
+import { featureCount } from "../../../data/features";
+---
+<Site lang="en" active="features" path="/en/features/" alt="/tinh-nang/" type="WebPage"
+  title="Agent OS and Agent OS Chat features | MozaAI"
+  desc={`All ${featureCount} features of Agent OS, Agent OS Chat and the Telegram, Zalo and Slack channels: tracing, evaluation, Prompt & Context Hub, Studio, security, cost and open standards, with real screenshots and a LangSmith comparison.`}>
+  <FeaturesPage lang="en" />
+</Site>

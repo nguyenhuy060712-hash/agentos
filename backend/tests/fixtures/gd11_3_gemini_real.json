@@ -1,0 +1,23 @@
+{
+ "recorded": "2026-10-26",
+ "content": "pong",
+ "usage_metadata": {
+  "input_tokens": 8,
+  "output_tokens": 1,
+  "total_tokens": 9,
+  "input_token_details": {
+   "cache_read": 0
+  }
+ },
+ "response_metadata": {
+  "finish_reason": "STOP",
+  "model_name": "gemini-3.5-flash-lite",
+  "model_provider": "google_genai"
+ },
+ "cost_usd": 5e-06,
+ "input_tokens": 8,
+ "output_tokens": 1,
+ "requested_model": "gemini-3.1-flash-lite",
+ "model": "gemini-flash-lite-latest",
+ "note": "Requested gemini-3.1-flash-lite; the gateway answered with the last-resort alias (response model_name gemini-3.5-flash-lite, cost 5e-06 = flash-lite-latest price), so the first model failed once (reason not captured). One real call, no second call made."
+}

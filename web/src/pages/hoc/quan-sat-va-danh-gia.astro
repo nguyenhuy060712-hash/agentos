@@ -1,0 +1,117 @@
+---
+import Lesson from "../../layouts/Lesson.astro";
+import Diagram from "../../components/hoc/Diagram.astro";
+import Example from "../../components/hoc/Example.astro";
+import Note from "../../components/hoc/Note.astro";
+import Practice from "../../components/hoc/Practice.astro";
+import Quiz from "../../components/hoc/Quiz.astro";
+import Terms from "../../components/hoc/Terms.astro";
+import Fig from "../../components/hoc/Fig.astro";
+---
+<Lesson slug="quan-sat-va-danh-gia" goals={[
+  "Đọc được một trace: agent đã làm gì, mất bao lâu, tốn bao nhiêu.",
+  "Biết các con số cần theo dõi hằng ngày.",
+  "Hiểu cách chấm điểm agent: dataset, giám khảo, thí nghiệm, cổng đạt/không đạt.",
+  "Vận hành được vòng cải tiến agent mỗi tuần trên Agent OS.",
+]}>
+
+<h2 id="vi-sao">Vì sao phải quan sát và đo</h2>
+<p>Phần mềm thường chạy giống nhau mỗi lần. Agent thì không: cùng một câu hỏi, hôm nay trả lời đúng, mai có thể trả lời khác. Khách đổi cách hỏi, tài liệu đổi, model được nhà cung cấp cập nhật. Vì vậy không thể "làm xong rồi thôi"; phải <strong>nhìn thấy</strong> agent làm gì và <strong>đo</strong> nó bằng con số, liên tục.</p>
+
+<Example>
+  <p><strong>Trace</strong> giống <strong>camera hành trình</strong> trên xe: khi có chuyện, tua lại xem chính xác đã xảy ra gì. <strong>Đánh giá</strong> giống <strong>kỳ thi định kỳ</strong> của nhân viên: cùng một bộ đề, chấm theo cùng tiêu chí, so điểm kỳ này với kỳ trước.</p>
+</Example>
+
+<h2 id="trace">Trace: camera hành trình của agent</h2>
+<p>Mỗi lần agent chạy, Agent OS ghi một <strong>trace</strong> gồm nhiều bước nhỏ (gọi model, gọi công cụ, chờ duyệt, lỗi), mỗi bước có thời gian, số token và chi phí. Có ba cách xem:</p>
+<ul>
+  <li><strong>Hành trình</strong>: dòng thời gian từng bước, dễ thấy bước nào chậm, bước nào lỗi.</li>
+  <li><strong>Tin nhắn</strong>: xem như một đoạn chat, dễ đọc với người không kỹ thuật.</li>
+  <li><strong>Chi tiết</strong>: cấu trúc đầy đủ, xem chính xác model đã nhận gì và trả gì.</li>
+</ul>
+<Fig name="trace-trajectory" caption="Trace dạng Hành trình: từng bước gọi model, công cụ, duyệt, kèm thời gian và chi phí" />
+<p>Muốn tìm trace mà không biết cú pháp lọc? Bấm <strong>Hỏi bằng lời</strong> và gõ "lỗi trong 24 giờ qua", AI đổi câu đó thành bộ lọc để anh chị xem lại rồi mới chạy.</p>
+
+<h2 id="con-so">Những con số cần theo dõi</h2>
+<div class="tbl"><table>
+  <thead><tr><th>Con số</th><th>Nói lên điều gì</th><th>Xem ở đâu</th></tr></thead>
+  <tbody>
+    <tr><td>Tỉ lệ lỗi</td><td>Agent có bị gãy giữa chừng không (công cụ lỗi, hết giờ)</td><td>Giám sát</td></tr>
+    <tr><td>Độ trễ</td><td>Khách phải chờ bao lâu</td><td>Giám sát</td></tr>
+    <tr><td>Chi phí mỗi cuộc chat</td><td>Có đáng tiền không, có bất thường không</td><td>Giám sát, LLM Gateway</td></tr>
+    <tr><td>Điểm chất lượng</td><td>Trả lời đúng, đúng giọng, đúng chính sách không</td><td>Đánh giá, Thí nghiệm</td></tr>
+    <tr><td>Phản hồi 👍 👎</td><td>Người dùng thật có hài lòng không</td><td>Engine, Tracing</td></tr>
+    <tr><td>Chủ đề hay hỏi</td><td>Khách cần gì, chủ đề nào agent yếu</td><td>Phân tích</td></tr>
+  </tbody>
+</table></div>
+<p>Gắn nhãn <strong>môi trường</strong> (dev, staging, prod) cho project để số liệu lúc thử không lẫn với số liệu thật của khách.</p>
+
+<h2 id="danh-gia">Đánh giá: kỳ thi cho agent</h2>
+<p>Đánh giá gồm bốn thành phần:</p>
+<ol>
+  <li><strong>Dataset (bộ đề)</strong>: các câu hỏi mẫu kèm đáp án mong muốn. Nguồn tốt nhất là <strong>câu hỏi thật</strong> lấy từ trace (đã che dữ liệu cá nhân), cộng những ca khó, ca từng sai.</li>
+  <li><strong>Giám khảo (evaluator)</strong>: thứ chấm điểm. Có ba loại:
+    <ul>
+      <li><strong>Kiểm tra cứng</strong>: luật rõ ràng như "phải có giá", "không được chứa số điện thoại". Rẻ, chắc chắn.</li>
+      <li><strong>Giám khảo AI</strong> (LLM-as-a-judge): một model khác đọc và chấm theo tiêu chí ("có đúng chính sách không?", "giọng có lịch sự không?"). Agent OS có sẵn 17 mẫu. Chấm được cả <strong>hành trình</strong>: agent có gọi đúng công cụ, đúng thứ tự không.</li>
+      <li><strong>Người chấm</strong>: chuyên gia chấm tay trong <strong>Hàng đợi chú thích</strong>. Dùng để kiểm tra và <strong>căn chỉnh</strong> giám khảo AI cho giống người.</li>
+    </ul>
+  </li>
+  <li><strong>Thí nghiệm</strong>: cho một phiên bản agent làm cả bộ đề, mỗi câu được chấm. So thí nghiệm bản cũ với bản mới để biết sửa có tốt hơn thật không.</li>
+  <li><strong>Cổng</strong>: đặt ngưỡng (ví dụ điểm trung bình ≥ 0,8). Không qua thì báo <strong>Không qua ngưỡng</strong> và chưa đưa bản mới vào chạy thật.</li>
+</ol>
+
+<Note>
+  <p>Giám khảo AI cũng có thể chấm sai. Mỗi khi tạo giám khảo mới, cho người chấm khoảng 30–50 câu rồi so: Agent OS đo <strong>độ khớp</strong> và chỉ số <strong>kappa</strong> (càng gần 1 càng giống người). Lệch nhiều thì dùng <strong>Căn chỉnh nhanh</strong> để giám khảo học từ các ca lệch.</p>
+</Note>
+
+<h3>Vài kiểu đánh giá nâng cao</h3>
+<ul>
+  <li><strong>Gộp điểm</strong>: trộn nhiều điểm thành một, ví dụ 70% đúng + 30% giọng điệu.</li>
+  <li><strong>Giám khảo quyết định</strong>: trả lời có/không, chọn một, hoặc so cặp "bản nào tốt hơn".</li>
+  <li><strong>Đánh giá RAG</strong> một bấm: đo đúng, liên quan, bám tài liệu, tìm đúng tài liệu.</li>
+  <li><strong>Chấm trực tuyến</strong>: giám khảo chấm ngay trên lượt chạy thật (lấy mẫu một phần), để phát hiện tụt chất lượng sớm.</li>
+  <li><strong>Backtest</strong>: chạy lại các trace thật gần đây trên bản ứng viên trước khi chuyển.</li>
+</ul>
+
+<h2 id="vong-cai-tien">Vòng cải tiến hằng tuần</h2>
+<p>Ghép lại, ta có một vòng lặp đơn giản mà đều đặn. Agent OS tự động hoá phần lớn: <strong>Engine</strong> tự gom lỗi, điểm thấp và lượt 👎 thành "vấn đề", nêu nguyên nhân và đề xuất sửa chỉ dẫn; <strong>Phân tích</strong> gửi báo cáo chủ đề mỗi sáng thứ Hai.</p>
+<Diagram name="improve-loop" caption="Vòng cải tiến: chạy thật, ghi trace, phát hiện vấn đề, sửa, thí nghiệm, qua cổng thì đưa vào chạy" />
+<p>Điểm mấu chốt: mọi thay đổi đều đi qua <strong>bản mới có phiên bản</strong> (commit trong Prompt Hub hoặc Context Hub) và <strong>thí nghiệm trên cùng bộ đề</strong> trước khi chuyển tag <code>prod</code>. Không ai sửa thẳng vào agent đang chạy thật.</p>
+
+<Practice title="Từ trace tới thí nghiệm có cổng" time="25 phút"
+  result="Có một dataset 5–10 câu, hai thí nghiệm (bản cũ và bản mới) được chấm điểm và so sánh; thấy nhãn Không qua ngưỡng khi đặt ngưỡng cao."
+  shot="eval-gate" shotAlt="Thí nghiệm có cổng đạt/không đạt, hiện nhãn Không qua ngưỡng">
+  <ol>
+    <li>Menu <strong>Tracing</strong> → chọn project → <strong>Hỏi bằng lời</strong>: "các lượt chạy hôm nay". Mở một trace, xem thẻ <strong>Hành trình</strong> và <strong>Tin nhắn</strong>, thử <strong>Ctrl + F</strong>.</li>
+    <li>Menu <strong>Dataset &amp; Thí nghiệm</strong> → <strong>Dataset mới</strong>, kiểu "hỏi đáp". Thêm 5–10 câu hỏi về quán cà phê kèm đáp án đúng (hoặc thêm từ trace).</li>
+    <li>Menu <strong>Đánh giá</strong> → <strong>Evaluator</strong>: tạo một giám khảo AI từ mẫu "đúng sự thật" và một kiểm tra cứng "phải chứa chữ đồng".</li>
+    <li>Quay lại dataset → <strong>+ Thí nghiệm</strong>, chọn agent bài 1 và hai giám khảo. Chờ chấm xong.</li>
+    <li>Sửa chỉ dẫn của agent (hoặc dùng <strong>Prompts</strong> → <strong>Viết lại bằng AI</strong>), chạy thí nghiệm lần hai, chọn cả hai rồi bấm <strong>So sánh</strong>.</li>
+    <li>Tạo một <strong>giám khảo quyết định</strong> có ngưỡng 0,9, chạy lại và quan sát nhãn cổng.</li>
+  </ol>
+</Practice>
+
+<Quiz items={[
+  ["Khách phàn nàn agent báo sai giá. Bước đầu tiên nên làm gì?", "Tìm trace của cuộc chat đó (Hỏi bằng lời hoặc lọc), xem Hành trình: agent có gọi công cụ tra giá không, công cụ trả gì, tài liệu nào được lấy ra. Từ đó mới biết lỗi ở dữ liệu, công cụ hay chỉ dẫn."],
+  ["Vì sao nên lấy câu hỏi cho dataset từ trace thật?", "Vì khách thật hỏi theo cách ta không lường trước. Bộ đề tự nghĩ ra thường quá dễ và quá \"đẹp\", điểm cao nhưng không phản ánh thực tế."],
+  ["Khi nào dùng kiểm tra cứng, khi nào dùng giám khảo AI?", "Kiểm tra cứng cho điều đo được bằng luật (có giá, không lộ số điện thoại, đúng định dạng JSON): rẻ và chắc. Giám khảo AI cho điều cần hiểu nghĩa (đúng chính sách, lịch sự, đầy đủ)."],
+  ["Giám khảo AI cho điểm cao nhưng khách vẫn bấm 👎 nhiều. Nghĩa là gì?", "Giám khảo có thể đang lệch so với người. Cần cho người chấm một mẫu, đo độ khớp/kappa, rồi căn chỉnh giám khảo hoặc đổi tiêu chí chấm."],
+  ["Vì sao không sửa thẳng chỉ dẫn của agent đang chạy thật?", "Vì không biết bản sửa tốt hơn hay tệ hơn trên các câu khác. Sửa thành bản mới, chạy thí nghiệm trên cùng bộ đề, qua cổng rồi mới chuyển tag prod; sai thì quay lại được."],
+]} />
+
+<Terms items={[
+  ["Trace", "Bản ghi một lần agent chạy, gồm các bước."],
+  ["Span / bước", "Một phần nhỏ trong trace: một lần gọi model hoặc công cụ."],
+  ["Độ trễ (latency)", "Thời gian từ lúc hỏi tới lúc có trả lời."],
+  ["Môi trường", "Nhãn dev (đang làm), staging (đang thử), prod (chạy thật)."],
+  ["Dataset", "Bộ câu hỏi mẫu kèm đáp án để chấm agent."],
+  ["Giám khảo (evaluator)", "Luật, AI hoặc người dùng để chấm điểm câu trả lời."],
+  ["LLM-as-a-judge", "Dùng một model AI làm giám khảo."],
+  ["Kappa", "Chỉ số đo giám khảo AI chấm giống người tới đâu."],
+  ["Thí nghiệm (experiment)", "Một lần cho agent làm cả dataset và chấm điểm."],
+  ["Cổng (gate)", "Ngưỡng điểm phải đạt trước khi đưa bản mới vào chạy thật."],
+  ["Backtest", "Chạy lại các trace thật gần đây trên bản agent mới để so."],
+  ["Engine", "Tính năng tự gom vấn đề và đề xuất cách sửa."],
+]} />
+</Lesson>

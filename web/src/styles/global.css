@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Be Vietnam Pro", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-cyan: #12b5ff;
+  --color-brand-blue: #3d5bff;
+  --color-brand-violet: #7b3cff;
+  --color-brand-pink: #ff3fa4;
+  --color-ink: #0f1115;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { animation: none !important; transition: none !important; } }
+  body { @apply bg-white text-zinc-800 antialiased dark:bg-[#111214] dark:text-zinc-200; font-feature-settings: "cv11", "ss01"; }
+  h1, h2, h3 { font-family: var(--font-display); @apply text-zinc-950 dark:text-white; letter-spacing: -0.015em; }
+  :focus-visible { outline: 2px solid var(--color-brand-violet); outline-offset: 3px; border-radius: 6px; }
+  ::selection { background: color-mix(in oklab, var(--color-brand-violet) 25%, transparent); }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .section { @apply py-20 sm:py-28; }
+  .kicker { @apply inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/70 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400; }
+  .h2 { @apply text-3xl font-bold tracking-tight sm:text-4xl; text-wrap: balance; }
+  .lead { @apply mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400; text-wrap: pretty; }
+  .card { @apply rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900/50; }
+  .grad-text { background: linear-gradient(90deg, var(--color-brand-cyan), var(--color-brand-blue) 30%, var(--color-brand-violet) 65%, var(--color-brand-pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .grad-bg { background: linear-gradient(110deg, var(--color-brand-cyan), var(--color-brand-blue) 30%, var(--color-brand-violet) 65%, var(--color-brand-pink)); }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition border border-zinc-300 text-zinc-800 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide; }
+  .tech { @apply mt-4 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 text-sm dark:border-zinc-700 dark:bg-zinc-900; }
+  .tech > summary { @apply flex cursor-pointer list-none items-center gap-2 px-4 py-2.5 font-medium text-zinc-700 select-none dark:text-zinc-300; }
+  .tech > summary::-webkit-details-marker { display: none; }
+  .tech > summary::before { content: ""; width: .5rem; height: .5rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .15s; margin-right: .15rem; }
+  .tech[open] > summary::before { transform: rotate(45deg); }
+  .tech > div { @apply px-4 pb-4 leading-relaxed text-zinc-600 dark:text-zinc-400; }
+  .shot { @apply overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 shadow-sm dark:border-zinc-800 dark:bg-zinc-900; }
+  .phone { @apply overflow-hidden rounded-[1.6rem] border-[6px] border-zinc-900 bg-zinc-900 shadow-xl dark:border-zinc-700; }
+  .navlink { @apply whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white; }
+  .node { @apply rounded-xl border border-zinc-200 bg-white px-3 py-2.5 text-center shadow-sm dark:border-zinc-700 dark:bg-zinc-900; }
+  .node b { @apply block text-sm font-semibold text-zinc-900 dark:text-white; }
+  .node span { @apply block text-xs text-zinc-500 dark:text-zinc-400; }
+
+  /* Docs pages (features, lessons) */
+  .toc-link { @apply flex items-center gap-2 rounded-md px-2 py-1.5 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-800/70 dark:hover:text-white; }
+  .toc-link.is-active { @apply bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300; }
+  .fbtn { @apply rounded-full border border-zinc-300 px-3.5 py-1.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800; }
+  .fbtn.is-on { @apply border-zinc-950 bg-zinc-950 text-white hover:bg-zinc-800 dark:border-white dark:bg-white dark:text-zinc-950; }
+  [hidden] { display: none !important; }
+
+  /* Lesson prose */
+  .prose-l { @apply text-[16.5px] leading-[1.75] text-zinc-700 dark:text-zinc-300; }
+  .prose-l > * + * { margin-top: 1.05em; }
+  .prose-l h2 { @apply mt-14 scroll-mt-20 text-2xl font-bold sm:text-[1.7rem]; }
+  .prose-l h3 { @apply mt-9 scroll-mt-20 text-lg font-semibold; }
+  .prose-l ul, .prose-l ol { @apply grid gap-1.5 pl-5; }
+  .prose-l ul { list-style: disc; }
+  .prose-l ol { list-style: decimal; }
+  .prose-l li::marker { @apply text-zinc-400; }
+  .prose-l strong { @apply font-semibold text-zinc-900 dark:text-white; }
+  .prose-l a { @apply font-medium text-violet-700 underline decoration-violet-300 underline-offset-2 hover:decoration-violet-600 dark:text-violet-300 dark:decoration-violet-500/50; }
+  .prose-l :not(pre) > code { overflow-wrap: anywhere; }
+  .prose-l code { @apply rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-[0.88em] text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200; }
+  .prose-l pre { @apply overflow-x-auto rounded-xl bg-zinc-950 p-4 text-[13.5px] leading-relaxed text-zinc-100; }
+  .prose-l pre code { @apply bg-transparent p-0 text-inherit; }
+  .prose-l .tbl { @apply -mx-1 overflow-x-auto px-1; }
+  .prose-l table { @apply w-full text-left text-[15px]; }
+  .prose-l th { @apply border-b border-zinc-300 py-2 pr-4 font-semibold text-zinc-900 dark:border-zinc-700 dark:text-white; }
+  .prose-l td { @apply border-b border-zinc-200 py-2 pr-4 align-top dark:border-zinc-800; }
+  .callout { @apply rounded-2xl border p-5 text-[15.5px] leading-relaxed; }
+  .callout > * + * { margin-top: .6em; }
+  .callout-title { @apply flex items-center gap-2 text-xs font-bold uppercase tracking-wide; }
+
+  /* Static SVG diagrams (inlined so they follow the light/dark toggle) */
+  .dg svg { width: 100%; height: auto; display: block; }
+  .dg .b { fill: #fff; stroke: #d4d4d8; stroke-width: 1.5; }
+  .dg .b2 { fill: #f5f3ff; stroke: #a78bfa; stroke-width: 1.5; }
+  .dg .b3 { fill: #ecfeff; stroke: #22d3ee; stroke-width: 1.5; }
+  .dg .b4 { fill: #fff7ed; stroke: #fb923c; stroke-width: 1.5; }
+  .dg .b5 { fill: #f0fdf4; stroke: #4ade80; stroke-width: 1.5; }
+  .dg .zone { fill: none; stroke: #a78bfa; stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .dg .t { fill: #18181b; font: 600 15px "Inter Variable", system-ui, sans-serif; }
+  .dg .s { fill: #52525b; font: 400 12.5px "Inter Variable", system-ui, sans-serif; }
+  .dg .k { fill: #7c3aed; font: 700 11px "Inter Variable", system-ui, sans-serif; letter-spacing: .06em; }
+  .dg .l { stroke: #71717a; stroke-width: 1.6; fill: none; }
+  .dg .la { stroke: #7c3aed; stroke-width: 1.8; fill: none; }
+  .dg .ah { fill: #71717a; }
+  .dg .ah2 { fill: #7c3aed; }
+  .dark .dg .b { fill: #18181b; stroke: #3f3f46; }
+  .dark .dg .b2 { fill: rgba(139, 92, 246, .14); stroke: #8b5cf6; }
+  .dark .dg .b3 { fill: rgba(34, 211, 238, .1); stroke: #0891b2; }
+  .dark .dg .b4 { fill: rgba(251, 146, 60, .1); stroke: #c2410c; }
+  .dark .dg .b5 { fill: rgba(74, 222, 128, .1); stroke: #16a34a; }
+  .dark .dg .t { fill: #fafafa; }
+  .dark .dg .s { fill: #a1a1aa; }
+  .dark .dg .k { fill: #c4b5fd; }
+  .dark .dg .l { stroke: #a1a1aa; }
+  .dark .dg .ah { fill: #a1a1aa; }
+  .dark .dg .la { stroke: #a78bfa; }
+  .dark .dg .ah2 { fill: #a78bfa; }
+}

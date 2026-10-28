@@ -1,0 +1,124 @@
+---
+// The body of one training module (goals, prerequisites, sections, lab, pitfalls, quiz, homework, glossary).
+// Used by the public module page, the student handbook (print) and the instructor kit (gv = true adds the [GV] answers).
+// idp prefixes every id so several modules can share one page. Never renders plan / ask / notes / slide notes.
+import Diagram from "../hoc/Diagram.astro";
+import Shot from "../Shot.astro";
+import Icon from "../Icon.astro";
+import type { Module } from "../../data/training/types";
+import { wrapTables } from "../../lib/training";
+
+interface Props { m: Module; idp?: string; hl?: 2 | 3; gv?: boolean; eager?: boolean }
+const { m, idp = "", hl = 2, gv = false, eager = false } = Astro.props;
+const H = `h${hl}` as "h2";
+const H3 = `h${hl + 1}` as "h3";
+const id = (s: string) => idp + s;
+const letters = "ABCDEFGH";
+---
+<div class="prose-l tr-body">
+  <section class="tr-block">
+  <H id={id("muc-tieu")} class="!mt-2">Mục tiêu</H>
+  <div class="tr-goals rounded-2xl border border-violet-200 bg-violet-50/70 p-5 dark:border-violet-500/30 dark:bg-violet-500/10">
+    <p class="callout-title text-violet-700 dark:text-violet-300"><Icon name="check" class="h-4 w-4" />Học xong buổi này, học viên làm được</p>
+    <ul class="!mt-3 !list-none !pl-0 text-[15.5px]">
+      {m.goals.map((g) => <li class="flex gap-2"><span class="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500"></span><span>{g}</span></li>)}
+    </ul>
+  </div>
+  </section>
+
+  {m.prereq.length > 0 && (
+    <section class="tr-block">
+      <H id={id("tien-quyet")}>Kiến thức tiên quyết</H>
+      <ul>{m.prereq.map((p) => <li>{p}</li>)}</ul>
+    </section>
+  )}
+
+  {m.sections.map((s) => (
+    <section class="tr-block">
+      <H id={id(s.id)}>{s.h}</H>
+      <div set:html={wrapTables(s.html)} />
+      {s.diagram && <Diagram name={s.diagram} caption={s.diagramCaption ?? s.h} />}
+      {s.shot && (
+        <figure class="not-prose my-7 tr-fig">
+          <Shot name={s.shot} alt={s.shotCaption ?? s.h} zoom="Bấm để xem ảnh lớn" sizes="(min-width: 1024px) 768px, 100vw" eager={eager} />
+          {s.shotCaption && <figcaption class="mt-2 text-center text-sm text-zinc-500">{s.shotCaption}</figcaption>}
+        </figure>
+      )}
+    </section>
+  ))}
+
+  <section class="tr-block">
+    <H id={id("lab")}>{/^lab[ :.]/i.test(m.lab.title) ? m.lab.title : `Lab: ${m.lab.title}`}</H>
+    <div class="tr-lab rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5 dark:border-emerald-500/30 dark:bg-emerald-500/10">
+      <p class="text-sm text-zinc-600 dark:text-zinc-400"><strong>Thời lượng:</strong> {m.lab.time}</p>
+      {m.lab.setup && <p class="!mt-2"><strong>Chuẩn bị:</strong> {m.lab.setup}</p>}
+      <ol class="!mt-3">{m.lab.steps.map((s) => <li set:html={s} />)}</ol>
+      <H3 class="!mt-5 !text-base">Kết quả mong đợi</H3>
+      <p class="!mt-1">{m.lab.result}</p>
+      {m.lab.shot && (
+        <figure class="not-prose mt-5 tr-fig">
+          <Shot name={m.lab.shot} alt={m.lab.shotAlt ?? m.lab.title} zoom="Bấm để xem ảnh lớn" sizes="(min-width: 1024px) 768px, 100vw" eager={eager} />
+          {m.lab.shotAlt && <figcaption class="mt-2 text-center text-sm text-zinc-500">{m.lab.shotAlt}</figcaption>}
+        </figure>
+      )}
+    </div>
+    {gv && (
+      <div class="tr-gv mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-5 dark:border-amber-500/40 dark:bg-amber-500/10">
+        <p class="callout-title text-amber-700 dark:text-amber-300">Giảng viên ký duyệt lab khi</p>
+        <ul class="!mt-2">{m.lab.check.map((c) => <li>☐ {c}</li>)}</ul>
+      </div>
+    )}
+  </section>
+
+  {m.pitfalls.length > 0 && (
+    <section class="tr-block">
+      <H id={id("loi-hay-gap")}>Lỗi hay gặp</H>
+      <div class="tbl">
+        <table>
+          <thead><tr><th scope="col">Triệu chứng</th><th scope="col">Nguyên nhân và cách xử lý</th></tr></thead>
+          <tbody>{m.pitfalls.map(([a, b]) => <tr><td class="font-medium text-zinc-900 dark:text-white">{a}</td><td>{b}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  <section class="tr-block">
+    <H id={id("cau-hoi")}>Câu hỏi kiểm tra</H>
+    <ol class="tr-quiz">
+      {m.quiz.map((q) => (
+        <li>
+          <p class="font-medium text-zinc-900 dark:text-white">{q.q}</p>
+          {q.options && <ol class="!mt-1.5" style="list-style-type: upper-alpha">{q.options.map((o) => <li>{o}</li>)}</ol>}
+          {gv && (
+            <div class="tr-gv mt-2 rounded-xl border border-amber-300 bg-amber-50 p-3 text-[14.5px] dark:border-amber-500/40 dark:bg-amber-500/10">
+              <p><strong>Đáp án:</strong> {q.a}</p>
+              <p class="!mt-1"><strong>Chấm điểm:</strong> {q.rubric}</p>
+            </div>
+          )}
+        </li>
+      ))}
+    </ol>
+    {!gv && <p class="text-sm text-zinc-500">Đáp án và rubric chấm có trong tài liệu giảng viên.</p>}
+  </section>
+
+  {m.homework.length > 0 && (
+    <section class="tr-block">
+      <H id={id("bai-tap")}>Bài tập về nhà</H>
+      <ol>{m.homework.map((x) => <li>{x}</li>)}</ol>
+    </section>
+  )}
+
+  {m.glossary.length > 0 && (
+    <section class="tr-block">
+      <H id={id("thuat-ngu")}>Thuật ngữ</H>
+      <dl class="not-prose grid gap-px overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-200 sm:grid-cols-2 dark:border-zinc-800 dark:bg-zinc-800 tr-terms">
+        {m.glossary.map(([t, d]) => (
+          <div class="bg-white p-4 dark:bg-[#141518]">
+            <dt class="font-semibold text-zinc-950 dark:text-white">{t}</dt>
+            <dd class="mt-1 text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  )}
+</div>

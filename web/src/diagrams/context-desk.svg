@@ -1,0 +1,25 @@
+<svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="28">CÁC KHO (LƯU LÂU)</text>
+<rect class="b" x="20" y="40" width="172" height="58" rx="10"/><text class="t" x="106" y="64" text-anchor="middle">Context Hub</text><text class="s" x="106" y="84" text-anchor="middle">gói, skill, chính sách</text>
+<rect class="b" x="20" y="110" width="172" height="58" rx="10"/><text class="t" x="106" y="134" text-anchor="middle">Bộ nhớ dài hạn</text><text class="s" x="106" y="154" text-anchor="middle">điều đã ghi nhớ</text>
+<rect class="b" x="20" y="180" width="172" height="58" rx="10"/><text class="t" x="106" y="204" text-anchor="middle">Thư viện tài liệu</text><text class="s" x="106" y="224" text-anchor="middle">đã cắt đoạn, đánh chỉ mục</text>
+<rect class="b" x="20" y="250" width="172" height="58" rx="10"/><text class="t" x="106" y="274" text-anchor="middle">Lịch sử chat</text><text class="s" x="106" y="294" text-anchor="middle">các lượt trước (thread)</text>
+<path class="l" d="M192 69H236" marker-end="url(#m2)"/><path class="l" d="M192 139H236" marker-end="url(#m2)"/><path class="l" d="M192 209H236" marker-end="url(#m2)"/><path class="l" d="M192 279H236" marker-end="url(#m2)"/>
+<text class="s" x="214" y="328" text-anchor="middle">chọn lọc</text>
+<rect class="zone" x="240" y="16" width="304" height="310" rx="16"/>
+<text class="k" x="256" y="38">CỬA SỔ NGỮ CẢNH = MẶT BÀN</text>
+<rect class="b4" x="256" y="50" width="272" height="27" rx="7"/><text class="s" x="268" y="68">Chỉ dẫn hệ thống (system prompt)</text>
+<rect class="b4" x="256" y="83" width="272" height="27" rx="7"/><text class="s" x="268" y="101">AGENTS.md, skill cần dùng</text>
+<rect class="b4" x="256" y="116" width="272" height="27" rx="7"/><text class="s" x="268" y="134">Chỉ dẫn riêng, chỉ dẫn dự án</text>
+<rect class="b2" x="256" y="149" width="272" height="27" rx="7"/><text class="s" x="268" y="167">Vài điều đã nhớ có liên quan</text>
+<rect class="b2" x="256" y="182" width="272" height="27" rx="7"/><text class="s" x="268" y="200">Lịch sử chat gần đây</text>
+<rect class="b3" x="256" y="215" width="272" height="27" rx="7"/><text class="s" x="268" y="233">Đoạn tài liệu tìm được (RAG)</text>
+<rect class="b3" x="256" y="248" width="272" height="27" rx="7"/><text class="s" x="268" y="266">Kết quả công cụ vừa gọi</text>
+<rect class="b5" x="256" y="281" width="272" height="27" rx="7"/><text class="s" x="268" y="299">Câu hỏi mới của người dùng</text>
+<path class="l" d="M544 171H586" marker-end="url(#m2)"/>
+<rect class="b2" x="590" y="126" width="150" height="90" rx="12"/>
+<text class="t" x="665" y="158" text-anchor="middle">LLM</text>
+<text class="s" x="665" y="180" text-anchor="middle">chỉ thấy những gì</text>
+<text class="s" x="665" y="198" text-anchor="middle">nằm trên mặt bàn</text>
+</svg>

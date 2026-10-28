@@ -1,0 +1,24 @@
+<svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="mi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="22">BÊN GỌI VÀO</text>
+<rect class="b" x="20" y="34" width="180" height="50" rx="10"/><text class="t" x="110" y="55" text-anchor="middle">Ứng dụng của công ty</text><text class="s" x="110" y="73" text-anchor="middle">langgraph-sdk, agent-chat-ui</text>
+<rect class="b" x="20" y="96" width="180" height="50" rx="10"/><text class="t" x="110" y="117" text-anchor="middle">Claude, Cursor, IDE</text><text class="s" x="110" y="135" text-anchor="middle">MCP client</text>
+<rect class="b" x="20" y="158" width="180" height="50" rx="10"/><text class="t" x="110" y="179" text-anchor="middle">Agent hệ thống khác</text><text class="s" x="110" y="197" text-anchor="middle">A2A client</text>
+<rect class="b" x="20" y="220" width="180" height="50" rx="10"/><text class="t" x="110" y="241" text-anchor="middle">Ứng dụng AI khác</text><text class="s" x="110" y="259" text-anchor="middle">gửi trace OTLP / SDK</text>
+<rect class="b" x="20" y="282" width="180" height="50" rx="10"/><text class="t" x="110" y="303" text-anchor="middle">Code gọi model</text><text class="s" x="110" y="321" text-anchor="middle">OpenAI SDK → Gateway</text>
+<rect class="zone" x="236" y="12" width="290" height="356" rx="16"/>
+<text class="k" x="252" y="32">AGENT OS · CỔNG VÀO</text>
+<rect class="b2" x="252" y="40" width="258" height="46" rx="9"/><text class="t" x="381" y="60" text-anchor="middle">/api/v1 · Agent Server</text><text class="s" x="381" y="77" text-anchor="middle">assistants, threads, runs, store</text>
+<rect class="b2" x="252" y="98" width="258" height="46" rx="9"/><text class="t" x="381" y="118" text-anchor="middle">/mcp · /mcp/aos · /mcp/agents/{id}</text><text class="s" x="381" y="135" text-anchor="middle">MCP 2.x, không trạng thái</text>
+<rect class="b2" x="252" y="156" width="258" height="46" rx="9"/><text class="t" x="381" y="176" text-anchor="middle">/a2a/{id}</text><text class="s" x="381" y="193" text-anchor="middle">thẻ agent + JSON-RPC (A2A 1.0)</text>
+<rect class="b2" x="252" y="214" width="258" height="46" rx="9"/><text class="t" x="381" y="234" text-anchor="middle">/otel/v1/traces · /ingest/runs</text><text class="s" x="381" y="251" text-anchor="middle">OTLP GenAI, kiểu LangSmith</text>
+<rect class="b2" x="252" y="272" width="258" height="46" rx="9"/><text class="t" x="381" y="292" text-anchor="middle">/v1/chat/completions</text><text class="s" x="381" y="309" text-anchor="middle">Gateway tương thích OpenAI</text>
+<text class="s" x="381" y="350" text-anchor="middle">xác thực: aos_ · ak_ · vk- · cookie</text>
+<path class="l" d="M200 59H250" marker-end="url(#mi)"/><path class="l" d="M200 121H250" marker-end="url(#mi)"/><path class="l" d="M200 183H250" marker-end="url(#mi)"/><path class="l" d="M200 245H250" marker-end="url(#mi)"/><path class="l" d="M200 307H250" marker-end="url(#mi)"/>
+<text class="k" x="560" y="22">AGENT OS GỌI RA</text>
+<rect class="b3" x="560" y="34" width="180" height="50" rx="10"/><text class="t" x="650" y="55" text-anchor="middle">Máy chủ MCP</text><text class="s" x="650" y="73" text-anchor="middle">Odoo, CRM, nội bộ</text>
+<rect class="b3" x="560" y="110" width="180" height="50" rx="10"/><text class="t" x="650" y="131" text-anchor="middle">Webhook có chữ ký</text><text class="s" x="650" y="149" text-anchor="middle">X-AOS-Signature</text>
+<rect class="b3" x="560" y="186" width="180" height="50" rx="10"/><text class="t" x="650" y="207" text-anchor="middle">OTLP ra ngoài</text><text class="s" x="650" y="225" text-anchor="middle">Grafana, Datadog…</text>
+<rect class="b3" x="560" y="262" width="180" height="50" rx="10"/><text class="t" x="650" y="283" text-anchor="middle">Parquet / S3</text><text class="s" x="650" y="301" text-anchor="middle">BI, kho dữ liệu</text>
+<path class="la" d="M526 59H558" marker-end="url(#mi)"/><path class="la" d="M526 135H558" marker-end="url(#mi)"/><path class="la" d="M526 211H558" marker-end="url(#mi)"/><path class="la" d="M526 287H558" marker-end="url(#mi)"/>
+</svg>

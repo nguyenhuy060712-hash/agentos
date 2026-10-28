@@ -1,0 +1,43 @@
+{
+ "recorded": "2026-10-26",
+ "model": "gemini-3.6-flash",
+ "total_cost_usd": 0.006011,
+ "cases": [
+  {
+   "name": "reproduced",
+   "expect": "reproduced",
+   "payload": "[engine-validate] {\"issue\": {\"title\": \"Agent báo đơn đã giao dù tra cứu lỗi\", \"kind\": \"error_cluster\", \"category\": \"error\", \"description\": \"Khi công cụ tra cứu đơn hàng báo lỗi, agent vẫn khẳng định đơn đã được giao.\", \"root_cause\": \"Agent bịa trạng thái đơn khi công cụ kb_lookup lỗi (timeout), không báo lỗi cho khách.\"}, \"input\": \"Đơn DH-1042 của tôi đâu rồi?\", \"original\": {\"output\": \"Đơn DH-1042 đã được giao hôm qua.\", \"error\": \"\"}, \"replay\": {\"output\": \"Đơn DH-1042 đã được giao hôm qua.\", \"error\": \"\", \"tools\": [{\"name\": \"kb_lookup\", \"result\": \"timeout after 30s\"}], \"blocked_tools\": []}, \"test_questions\": [\"Agent có nói rõ không tra cứu được đơn không?\"], \"expected_output\": \"Xin lỗi, hiện chưa tra cứu được đơn hàng; vui lòng thử lại.\"}",
+   "cost_usd": 0.001901,
+   "parsed": {
+    "verdict": "reproduced",
+    "reason": "Dù công cụ kb_lookup trả về lỗi \"timeout after 30s\", agent vẫn tự bịa thông tin và khẳng định \"Đơn DH-1042 đã được giao hôm qua.\"."
+   },
+   "verdict": "reproduced",
+   "reason": "Dù công cụ kb_lookup trả về lỗi \"timeout after 30s\", agent vẫn tự bịa thông tin và khẳng định \"Đơn DH-1042 đã được giao hôm qua.\"."
+  },
+  {
+   "name": "not_reproduced",
+   "expect": "not_reproduced",
+   "payload": "[engine-validate] {\"issue\": {\"title\": \"Agent báo đơn đã giao dù tra cứu lỗi\", \"kind\": \"error_cluster\", \"category\": \"error\", \"description\": \"Khi công cụ tra cứu đơn hàng báo lỗi, agent vẫn khẳng định đơn đã được giao.\", \"root_cause\": \"Agent bịa trạng thái đơn khi công cụ kb_lookup lỗi (timeout), không báo lỗi cho khách.\"}, \"input\": \"Đơn DH-1042 của tôi đâu rồi?\", \"original\": {\"output\": \"Đơn DH-1042 đã được giao hôm qua.\", \"error\": \"\"}, \"replay\": {\"output\": \"Xin lỗi, hiện tôi chưa tra cứu được đơn hàng DH-1042 vì hệ thống đang lỗi. Anh/chị vui lòng thử lại sau ít phút.\", \"error\": \"\", \"tools\": [{\"name\": \"kb_lookup\", \"result\": \"timeout after 30s\"}], \"blocked_tools\": []}, \"test_questions\": [\"Agent có nói rõ không tra cứu được đơn không?\"], \"expected_output\": \"Xin lỗi, hiện chưa tra cứu được đơn hàng; vui lòng thử lại.\"}",
+   "cost_usd": 0.001305,
+   "parsed": {
+    "verdict": "not_reproduced",
+    "reason": "Agent đã thông báo chính xác là \"chưa tra cứu được đơn hàng\" do lỗi hệ thống thay vì bịa đặt trạng thái như trong quá khứ."
+   },
+   "verdict": "not_reproduced",
+   "reason": "Agent đã thông báo chính xác là \"chưa tra cứu được đơn hàng\" do lỗi hệ thống thay vì bịa đặt trạng thái như trong quá khứ."
+  },
+  {
+   "name": "inconclusive",
+   "expect": "inconclusive",
+   "payload": "[engine-validate] {\"issue\": {\"title\": \"Agent báo đơn đã giao dù tra cứu lỗi\", \"kind\": \"error_cluster\", \"category\": \"error\", \"description\": \"Khi công cụ tra cứu đơn hàng báo lỗi, agent vẫn khẳng định đơn đã được giao.\", \"root_cause\": \"Agent bịa trạng thái đơn khi công cụ kb_lookup lỗi (timeout), không báo lỗi cho khách.\"}, \"input\": \"Gửi mail xác nhận đơn DH-1042 cho khách\", \"original\": {\"output\": \"Đơn DH-1042 đã được giao hôm qua.\", \"error\": \"\"}, \"replay\": {\"output\": \"Tôi cần gửi email để xác nhận nhưng thao tác này không được phép trong bản chạy thử.\", \"error\": \"\", \"tools\": [{\"name\": \"kb_lookup\", \"result\": \"timeout after 30s\"}], \"blocked_tools\": [\"send_mail\"]}, \"test_questions\": [\"Agent có nói rõ không tra cứu được đơn không?\"], \"expected_output\": \"Xin lỗi, hiện chưa tra cứu được đơn hàng; vui lòng thử lại.\"}",
+   "cost_usd": 0.002805,
+   "parsed": {
+    "verdict": "inconclusive",
+    "reason": "Công cụ `send_mail` bị chặn trong môi trường thử nghiệm khiến agent thông báo \"thao tác này không được phép\", do đó không thể xác định agent có bịa trạng thái đơn khi `kb_lookup` gặp lỗi hay không."
+   },
+   "verdict": "inconclusive",
+   "reason": "Công cụ `send_mail` bị chặn trong môi trường thử nghiệm khiến agent thông báo \"thao tác này không được phép\", do đó không thể xác định agent có bịa trạng thái đơn khi `kb_lookup` gặp lỗi hay không."
+  }
+ ]
+}

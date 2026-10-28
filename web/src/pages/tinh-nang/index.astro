@@ -1,0 +1,10 @@
+---
+import Site from "../../layouts/Site.astro";
+import FeaturesPage from "../../components/FeaturesPage.astro";
+import { featureCount } from "../../data/features";
+---
+<Site lang="vi" active="features" path="/tinh-nang/" alt="/en/features/" type="WebPage"
+  title="Tính năng Agent OS và Agent OS Chat | MozaAI"
+  desc={`Danh mục ${featureCount} tính năng của Agent OS, Agent OS Chat và các kênh Telegram, Zalo, Slack: quan sát, đánh giá, Prompt & Context Hub, Studio, bảo mật, chi phí, chuẩn mở. Kèm ảnh thật và so sánh với LangSmith.`}>
+  <FeaturesPage lang="vi" />
+</Site>

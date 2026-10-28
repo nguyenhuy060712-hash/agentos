@@ -1,0 +1,21 @@
+---
+// Self-check questions; answers stay hidden until opened.
+interface Props { items: [string, string][] }
+const { items } = Astro.props;
+---
+<h2 id="tu-kiem-tra">Tự kiểm tra</h2>
+<p>Tự trả lời trong đầu trước, rồi mới mở đáp án.</p>
+<ol class="not-prose !pl-0 grid gap-2.5" style="list-style:none">
+  {items.map(([q, a], i) => (
+    <li>
+      <details class="group rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900/50">
+        <summary class="flex cursor-pointer list-none gap-3 p-4 font-medium text-zinc-900 dark:text-white">
+          <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-zinc-100 text-xs font-bold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">{i + 1}</span>
+          <span class="flex-1">{q}</span>
+          <span class="shrink-0 text-xs font-semibold text-violet-600 group-open:hidden dark:text-violet-300">Xem đáp án</span>
+        </summary>
+        <p class="border-t border-zinc-200 px-4 py-3 pl-13 text-[15px] leading-relaxed text-zinc-700 dark:border-zinc-800 dark:text-zinc-300">{a}</p>
+      </details>
+    </li>
+  ))}
+</ol>

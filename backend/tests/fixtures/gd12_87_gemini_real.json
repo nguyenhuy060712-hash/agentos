@@ -1,0 +1,12 @@
+{
+ "recorded": "2026-10-26",
+ "model": "gemini-3.6-flash",
+ "input_tokens": 498,
+ "output_tokens": 1359,
+ "cost_usd": 0.00547,
+ "feature": "skill_draft",
+ "mode": "describe",
+ "material": "Tôi bán quần áo online. Khi khách hỏi báo giá, hãy hỏi sản phẩm và số lượng, tra bảng giá, tính tổng, ghi rõ giá chưa gồm VAT và phí ship, và hẹn báo giá có hiệu lực 7 ngày.",
+ "prompt_chars": 1825,
+ "response": "{\n  \"name\": \"bao-gia-quan-ao\",\n  \"description\": \"Dùng khi khách hàng hỏi báo giá quần áo, hỏi chi phí mua sắm hoặc hỏi đơn giá sản phẩm. Use when customers ask for clothing price quotes, item pricing, or total cost calculation.\",\n  \"body\": \"# Hướng dẫn báo giá quần áo online\\n\\nThực hiện theo các bước sau khi khách hàng yêu cầu báo giá:\\n\\n1. **Thu thập thông tin**: Nếu khách chưa cung cấp đủ, hỏi rõ tên/mẫu sản phẩm, kích cỡ (size), màu sắc và số lượng mua.\\n2. **Tra bảng giá**: Xem đơn giá sản phẩm tại [bảng giá sản phẩm](references/bang-gia-quan-ao.md).\\n3. **Tính toán tổng tiền**: Lấy đơn giá nhân với số lượng cho từng mặt hàng và tính tổng đơn hàng.\\n4. **Soạn phản hồi báo giá**:\\n   - Liệt kê rõ từng sản phẩm, số lượng và thành tiền.\\n   - Nêu rõ ghi chú: \\\"Giá trên chưa bao gồm thuế VAT và phí vận chuyển (ship)\\\".\\n   - Thông báo thời hạn: \\\"Báo giá có hiệu lực trong vòng 7 ngày kể từ hôm nay\\\".\\n5. **Gửi báo giá**: Kiểm tra lại số liệu và gửi cho khách hàng.\\n\\nThử: \\\"Báo giá giúp mình 5 áo thun trắng size L và 2 quần jeans đen size M nhé.\\\"\",\n  \"files\": {\n    \"references/bang-gia-quan-ao.md\": \"# Bảng giá tham khảo quần áo\\n\\n| Sản phẩm | Size | Đơn giá (VNĐ) |\\n|---|---|---|\\n| Áo thun nam/nữ | S, M, L, XL | 150.000 |\\n| Quần jeans nam/nữ | 28 - 34 | 350.000 |\\n| Áo sơ mi | S, M, L | 250.000 |\\n| Áo khoác | Freesize | 450.000 |\\n\"\n  }\n}"
+}

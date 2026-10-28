@@ -1,0 +1,27 @@
+# Image of the agent "virtual computer" (GĐ11 card 11.40). Runs ONLY under gVisor (runsc), as root INSIDE the sandbox, no network by default.
+# 26/10/2026: ubuntu 24.04 + node 24 (copied from the official node:24-slim image) + office/doc tools. Python libs: versions from requirements.lock
+# (python-docx 1.2.0, openpyxl 3.1.5, python-pptx 1.0.2, markitdown 0.1.9) in /opt/aos/venv (image layer); the user's own venv is /opt/aos-user/venv
+# (volume, created by aos-boot, sees the image venv through a .pth file). Root FS is durable because the driver starts the box with
+# `--annotation dev.gvisor.flag.overlay2=none` (apt-get / pip into the root FS survive stop/start; see N2 §8) - there is no apt wrapper.
+# Build:  docker build -t aos-computer:20261026 -f sandbox/Dockerfile.computer sandbox/
+FROM node:24-slim AS node
+FROM ubuntu:24.04
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends python3 python3-venv python3-pip git curl wget jq ripgrep tini zstd unzip zip less procps file ca-certificates \
+      libreoffice-writer libreoffice-calc libreoffice-impress pandoc poppler-utils fonts-noto-core fonts-noto-color-emoji fontconfig \
+ && rm -rf /var/lib/apt/lists/* && fc-cache -f
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -sf ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+ && ln -sf ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+ && python3 -m venv /opt/aos/venv \
+ && /opt/aos/venv/bin/pip install --no-cache-dir python-docx==1.2.0 openpyxl==3.1.5 python-pptx==1.0.2 "markitdown[docx,pptx,xlsx,pdf]==0.1.9"
+COPY aos-boot /usr/local/bin/aos-boot
+RUN chmod 0755 /usr/local/bin/aos-boot \
+ && mkdir -p /workspace /opt/aos-user \
+ && printf '%s\n' 'export PATH=/opt/aos-user/venv/bin:/opt/aos-user/npm/bin:/opt/aos/venv/bin:$PATH' 'export NPM_CONFIG_PREFIX=/opt/aos-user/npm' > /etc/profile.d/aos.sh
+ENV PATH=/opt/aos-user/venv/bin:/opt/aos-user/npm/bin:/opt/aos/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    NPM_CONFIG_PREFIX=/opt/aos-user/npm LANG=C.UTF-8 HOME=/root PYTHONDONTWRITEBYTECODE=1
+WORKDIR /workspace
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/aos-boot"]

@@ -1,0 +1,44 @@
+{
+ "recorded": "2026-10-26",
+ "model": "gemini-3.8-flash",
+ "prompt": "Khách Lan Anh báo rằng máy in văn phòng hỏng từ sáng, cả phòng không in được hợp đồng, cần xử lý gấp trong hôm nay và nhờ gọi lại. Lập phiếu hỗ trợ.",
+ "response_format": {
+  "properties": {
+   "customer": {
+    "type": "string"
+   },
+   "needs_callback": {
+    "type": "boolean"
+   },
+   "priority": {
+    "enum": [
+     "low",
+     "normal",
+     "high"
+    ],
+    "type": "string"
+   },
+   "summary": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "customer",
+   "priority",
+   "summary",
+   "needs_callback"
+  ],
+  "title": "SupportTicket",
+  "type": "object"
+ },
+ "structured_response": {
+  "customer": "Lan Anh",
+  "summary": "Máy in văn phòng hỏng từ sáng, cả phòng không in được hợp đồng, cần xử lý gấp trong hôm nay",
+  "priority": "high",
+  "needs_callback": true
+ },
+ "answer_text": "",
+ "cost_usd": 0.000329,
+ "tokens": 677,
+ "latency_s": 143.5
+}

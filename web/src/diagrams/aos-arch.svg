@@ -1,0 +1,33 @@
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="22">TRUY CẬP</text>
+<rect class="b3" x="20" y="34" width="140" height="48" rx="10"/><text class="t" x="90" y="55" text-anchor="middle">Agent OS Chat</text><text class="s" x="90" y="72" text-anchor="middle">React, /chat/</text>
+<rect class="b3" x="20" y="92" width="140" height="48" rx="10"/><text class="t" x="90" y="113" text-anchor="middle">Bảng quản lý</text><text class="s" x="90" y="130" text-anchor="middle">trang web quản trị</text>
+<rect class="b3" x="20" y="150" width="140" height="48" rx="10"/><text class="t" x="90" y="171" text-anchor="middle">Kênh</text><text class="s" x="90" y="188" text-anchor="middle">Zalo, Telegram, Slack</text>
+<rect class="b3" x="20" y="208" width="140" height="48" rx="10"/><text class="t" x="90" y="229" text-anchor="middle">Phần mềm khác</text><text class="s" x="90" y="246" text-anchor="middle">API · MCP · A2A</text>
+<path class="l" d="M160 58H186V146H206M160 116H186M160 174H186M160 232H186V146" /><path class="l" d="M186 146H206" marker-end="url(#ma)"/>
+<rect class="zone" x="196" y="12" width="370" height="376" rx="16"/>
+<text class="k" x="212" y="32">MÁY CHỦ RIÊNG (VPS) CỦA KHÁCH</text>
+<rect class="b" x="212" y="44" width="338" height="40" rx="10"/><text class="t" x="381" y="69" text-anchor="middle">Caddy: HTTPS, chuyển vào 127.0.0.1</text>
+<path class="l" d="M381 84V100" marker-end="url(#ma)"/>
+<rect class="b2" x="212" y="102" width="338" height="108" rx="12"/>
+<text class="t" x="381" y="124" text-anchor="middle">Agent OS API (FastAPI)</text>
+<text class="s" x="381" y="144" text-anchor="middle">LangGraph + Deep Agents · Agent Server /api/v1</text>
+<text class="s" x="381" y="162" text-anchor="middle">Gateway · duyệt · kênh · tracing · đánh giá</text>
+<text class="s" x="381" y="180" text-anchor="middle">Prompt/Context Hub · RBAC, RLS · mã hoá · PII</text>
+<text class="s" x="381" y="198" text-anchor="middle">MCP · A2A · OTLP vào/ra</text>
+<rect class="b2" x="212" y="222" width="160" height="50" rx="10"/><text class="t" x="292" y="244" text-anchor="middle">Worker</text><text class="s" x="292" y="262" text-anchor="middle">hàng đợi run, lịch chạy</text>
+<rect class="b3" x="390" y="222" width="160" height="50" rx="10"/><text class="t" x="470" y="244" text-anchor="middle">Sandbox gVisor</text><text class="s" x="470" y="262" text-anchor="middle">chạy code, không mạng</text>
+<path class="l" d="M292 210V220" marker-end="url(#ma)"/><path class="l" d="M470 210V220" marker-end="url(#ma)"/>
+<rect class="b5" x="212" y="290" width="338" height="82" rx="12"/>
+<text class="t" x="381" y="314" text-anchor="middle">PostgreSQL + pgvector</text>
+<text class="s" x="381" y="334" text-anchor="middle">checkpoint · store (bộ nhớ) · trace · dataset</text>
+<text class="s" x="381" y="352" text-anchor="middle">agent, prompt, gói · người dùng, bí mật</text>
+<path class="l" d="M292 272V288" marker-end="url(#ma)"/>
+<text class="k" x="590" y="40">BÊN NGOÀI</text>
+<rect class="b" x="590" y="52" width="150" height="58" rx="10"/><text class="t" x="665" y="76" text-anchor="middle">Model AI</text><text class="s" x="665" y="96" text-anchor="middle">Gemini, OpenAI…</text>
+<rect class="b" x="590" y="126" width="150" height="58" rx="10"/><text class="t" x="665" y="150" text-anchor="middle">Google · Microsoft</text><text class="s" x="665" y="170" text-anchor="middle">OAuth từng người</text>
+<rect class="b" x="590" y="200" width="150" height="58" rx="10"/><text class="t" x="665" y="224" text-anchor="middle">Máy chủ MCP</text><text class="s" x="665" y="244" text-anchor="middle">Odoo, CRM, nội bộ</text>
+<rect class="b" x="590" y="274" width="150" height="58" rx="10"/><text class="t" x="665" y="298" text-anchor="middle">Kho sao lưu S3</text><text class="s" x="665" y="318" text-anchor="middle">B2 / R2, đã mã hoá</text>
+<path class="l" d="M550 130H570V81H588" marker-end="url(#ma)"/><path class="l" d="M570 130V155H588" marker-end="url(#ma)"/><path class="l" d="M570 155V229H588" marker-end="url(#ma)"/><path class="l" d="M550 330H570V303H588" marker-end="url(#ma)"/>
+</svg>

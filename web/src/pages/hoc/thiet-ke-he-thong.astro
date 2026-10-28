@@ -1,0 +1,168 @@
+---
+import Lesson from "../../layouts/Lesson.astro";
+import Diagram from "../../components/hoc/Diagram.astro";
+import Example from "../../components/hoc/Example.astro";
+import Note from "../../components/hoc/Note.astro";
+import Practice from "../../components/hoc/Practice.astro";
+import Quiz from "../../components/hoc/Quiz.astro";
+import Terms from "../../components/hoc/Terms.astro";
+import Fig from "../../components/hoc/Fig.astro";
+---
+<Lesson slug="thiet-ke-he-thong" goals={[
+  "Đi trọn quy trình 8 bước để thiết kế một hệ thống agent cho doanh nghiệp thật.",
+  "Biến một bài toán kinh doanh thành bản thiết kế: agent, ngữ cảnh, công cụ, quyền, số đo.",
+  "Dựng toàn bộ hệ thống mẫu trên Agent OS bằng những gì đã học ở bài 1–6.",
+  "Có danh sách kiểm tra trước khi ra mắt để dùng cho dự án của mình.",
+]}>
+
+<h2 id="bai-toan">Bài toán: Shop thời trang ABC</h2>
+<p>Shop ABC bán quần áo online, có Zalo OA với khoảng 300 tin nhắn mỗi ngày, 4 nhân viên chăm sóc khách và 1 chủ shop. Vấn đề:</p>
+<ul>
+  <li>Khách hỏi lặp đi lặp lại (size, giá, phí ship, đổi trả); nhân viên trả lời chậm vào giờ cao điểm và buổi tối.</li>
+  <li>Thông tin không thống nhất: mỗi nhân viên nhớ chính sách đổi trả một kiểu.</li>
+  <li>Chủ shop không biết khách hay hỏi gì, phàn nàn gì.</li>
+</ul>
+<p>Mục tiêu của chủ shop: <strong>khách được trả lời trong vòng 1 phút, đúng chính sách, kể cả buổi tối</strong>, nhân viên chỉ xử lý ca khó, và có báo cáo mỗi tuần.</p>
+
+<Note>
+  <p>Toàn bộ bài này làm được trên máy thử của Agent OS với AI giả lập và kênh mô phỏng, không tốn tiền. Khi làm thật cần Zalo OA, tên miền và khoá model của shop.</p>
+</Note>
+
+<h2 id="buoc-1">Bước 1. Đặt số đo thành công</h2>
+<p>Trước khi xây, quyết định <strong>đo bằng gì</strong>. Không có số đo thì không biết hệ thống tốt lên hay tệ đi.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Số đo</th><th>Mục tiêu tháng đầu</th><th>Đo ở đâu</th></tr></thead>
+  <tbody>
+    <tr><td>Tỉ lệ câu agent tự trả lời, không cần chuyển người</td><td>≥ 60%</td><td>Trace, Phân tích</td></tr>
+    <tr><td>Thời gian phản hồi</td><td>&lt; 1 phút</td><td>Giám sát (độ trễ)</td></tr>
+    <tr><td>Điểm đúng chính sách</td><td>≥ 0,9 trên bộ đề</td><td>Thí nghiệm</td></tr>
+    <tr><td>Tỉ lệ 👎</td><td>&lt; 5%</td><td>Engine</td></tr>
+    <tr><td>Chi phí AI</td><td>&lt; 5 USD/ngày</td><td>LLM Gateway</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="buoc-2">Bước 2. Phân việc giữa người và agent</h2>
+<p>Liệt kê các việc trong hành trình của khách, rồi quyết định với từng việc: agent <strong>tự làm</strong>, agent <strong>làm nhưng xin duyệt</strong>, hay <strong>chuyển người</strong>.</p>
+<div class="tbl"><table>
+  <thead><tr><th>Việc</th><th>Ai làm</th><th>Lý do</th></tr></thead>
+  <tbody>
+    <tr><td>Tư vấn size, giá, phí ship, chính sách</td><td>Agent tự làm</td><td>Chỉ đọc, có tài liệu chuẩn</td></tr>
+    <tr><td>Tra tình trạng đơn</td><td>Agent tự làm</td><td>Chỉ đọc, qua công cụ tra đơn</td></tr>
+    <tr><td>Tạo phiếu đổi hàng</td><td>Agent làm, nhân viên duyệt</td><td>Ghi dữ liệu, ảnh hưởng kho</td></tr>
+    <tr><td>Hoàn tiền, khiếu nại, khách giận</td><td>Chuyển người</td><td>Cần phán đoán và thẩm quyền</td></tr>
+    <tr><td>Báo cáo tuần cho chủ shop</td><td>Agent tự làm theo lịch</td><td>Tổng hợp số liệu có sẵn</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="buoc-3">Bước 3. Thiết kế đội agent</h2>
+<p>Nguyên tắc bài 3: bắt đầu ít agent nhất có thể. Shop ABC cần ba agent, mỗi agent một nhóm người dùng rõ ràng:</p>
+<Diagram name="case" caption="Hệ thống của Shop ABC: ba agent dùng chung gói ngữ cảnh, công cụ, gateway và vòng đánh giá" min="36rem" />
+<ul>
+  <li><strong>Lễ tân CSKH</strong> (Zalo OA, cho khách): tư vấn, tra đơn, tạo phiếu đổi (xin duyệt), chuyển người khi cần. Model nhỏ, rẻ, nhanh; có định tuyến sang model mạnh cho câu khó.</li>
+  <li><strong>Trợ lý bán hàng</strong> (Agent OS Chat, cho nhân viên): tra tồn kho, soạn báo giá, tạo file Excel đơn sỉ.</li>
+  <li><strong>Trợ lý báo cáo</strong> (lịch sáng thứ Hai, cho chủ shop): tổng hợp số liệu tuần, chủ đề khách hay hỏi, gửi qua Telegram.</li>
+</ul>
+
+<h2 id="buoc-4">Bước 4. Thiết kế ngữ cảnh</h2>
+<p>Theo bài 2, đặt kiến thức đúng chỗ:</p>
+<ul>
+  <li><strong>System prompt</strong> của Lễ tân (ngắn): vai trò, xưng hô "em – anh/chị", trả lời tối đa 4 câu, không hứa giảm giá, khi nào chuyển người.</li>
+  <li><strong>Gói ngữ cảnh</strong> <code>cskh-shop</code> trong Context Hub, dùng chung cho cả ba agent: AGENTS.md (giọng điệu, thông tin shop), chính sách đổi trả, bảng size, phí ship theo vùng. Gắn tag <code>prod</code>.</li>
+  <li><strong>Skill</strong> "xử lý đổi hàng": các bước hỏi mã đơn, kiểm điều kiện, tạo phiếu. Chỉ mở khi khách muốn đổi.</li>
+  <li><strong>Bộ nhớ</strong>: mỗi khách trên Zalo có bộ nhớ riêng (size quen, địa chỉ giao); không lưu số tài khoản hay CCCD.</li>
+</ul>
+<p>Một đoạn chính sách trong gói có thể chỉ cần thế này:</p>
+<pre><code>## Đổi hàng
+- Đổi trong 7 ngày kể từ ngày nhận, còn tem mác.
+- Đổi size miễn phí 1 lần; đổi mẫu khác khách trả phí ship.
+- Hàng giảm giá trên 50% không đổi.</code></pre>
+<p>Ngắn, rõ, có số cụ thể: agent ít có cớ để "đoán".</p>
+
+<h2 id="buoc-5">Bước 5. Công cụ và quyền</h2>
+<div class="tbl"><table>
+  <thead><tr><th>Công cụ</th><th>Loại</th><th>Cài đặt trên Agent OS</th></tr></thead>
+  <tbody>
+    <tr><td>Tra đơn hàng</td><td>Đọc</td><td>Qua MCP từ phần mềm bán hàng; tự chạy</td></tr>
+    <tr><td>Tra tồn kho</td><td>Đọc</td><td>Qua MCP; tự chạy</td></tr>
+    <tr><td>Tạo phiếu đổi hàng</td><td>Ghi</td><td>Tick <strong>Hỏi trước</strong>; nhân viên duyệt trong Hộp duyệt</td></tr>
+    <tr><td>Gửi mail xác nhận</td><td>Gửi ra ngoài</td><td>Luôn duyệt; dùng Danh tính agent cho hộp thư cskh@</td></tr>
+    <tr><td>Tạo file Excel</td><td>Tạo tệp</td><td>Chỉ Trợ lý bán hàng; chạy trong sandbox</td></tr>
+  </tbody>
+</table></div>
+<p>Token kết nối Zalo và phần mềm bán hàng cất trong <strong>kho bí mật</strong>, mỗi cái chỉ gửi được tới đúng máy đích.</p>
+
+<h2 id="buoc-6">Bước 6. An toàn và chi phí</h2>
+<ul>
+  <li><strong>Trần chi phí</strong>: Lễ tân 4 USD/ngày (chặn), cả workspace 150 USD/tháng (cảnh báo).</li>
+  <li><strong>Định tuyến</strong>: câu ngắn, hỏi giá, hỏi size đi model nhỏ; câu dài, khiếu nại đi model mạnh.</li>
+  <li><strong>Che dữ liệu cá nhân</strong>: bật che số điện thoại, CCCD, số tài khoản trong trace và trước khi gửi cho model; dùng chế độ tên giả để agent vẫn xác nhận được "số điện thoại kết thúc bằng 321".</li>
+  <li><strong>Quyền</strong>: khách Zalo không dùng được hộp thư của ai; nhân viên là biên tập viên, chủ shop là quản trị; bật đăng nhập 2 lớp cho mọi tài khoản nội bộ.</li>
+  <li><strong>Pháp lý</strong>: tin chào đầu tiên trên Zalo nói rõ "bạn đang trò chuyện với trợ lý AI của shop", và nhờ luật sư xem việc lưu, chuyển dữ liệu.</li>
+</ul>
+
+<h2 id="buoc-7">Bước 7. Đánh giá trước khi ra mắt</h2>
+<ol>
+  <li>Lấy khoảng <strong>50 câu hỏi thật</strong> từ lịch sử Zalo (đã che dữ liệu cá nhân), gồm cả ca khó và ca khách giận.</li>
+  <li>Tạo dataset, chọn giám khảo: <em>đúng chính sách</em> (AI, có đáp án mẫu), <em>giọng điệu</em> (AI), <em>không hứa giảm giá</em> (kiểm tra cứng), <em>chuyển người đúng lúc</em> (giám khảo quyết định).</li>
+  <li>Gộp điểm: 60% đúng chính sách + 20% giọng điệu + 20% chuyển người đúng. Đặt <strong>cổng ≥ 0,85</strong>.</li>
+  <li>Cho chủ shop chấm tay 30 câu trong Hàng đợi chú thích, kiểm độ khớp với giám khảo AI.</li>
+  <li>Dùng <strong>Thử kênh</strong> nhắn thử như khách cho 10 tình huống khó.</li>
+</ol>
+<Fig name="eval-composite" caption="Dựng giám khảo gộp điểm từ nhiều tiêu chí" />
+
+<h2 id="buoc-8">Bước 8. Ra mắt từng bước và vận hành</h2>
+<ol>
+  <li><strong>Tuần 1 (staging)</strong>: chỉ nhân viên nhắn thử qua Zalo OA nội bộ; sửa theo Engine.</li>
+  <li><strong>Tuần 2 (prod, giờ tối)</strong>: bật agent từ 20:00 tới 8:00, ban ngày nhân viên trực như cũ.</li>
+  <li><strong>Tuần 3 trở đi</strong>: bật cả ngày, nhân viên chuyển sang duyệt phiếu đổi và xử lý ca chuyển người.</li>
+  <li><strong>Mỗi thứ Hai</strong>: đọc báo cáo Phân tích, mở Engine, sửa chỉ dẫn hoặc gói bằng Prompt Canvas, chạy lại thí nghiệm, qua cổng mới chuyển tag <code>prod</code> (vòng cải tiến ở bài 4).</li>
+</ol>
+
+<h2 id="checklist">Danh sách kiểm tra trước khi ra mắt</h2>
+<ul>
+  <li>Đã có số đo thành công và nơi xem từng số.</li>
+  <li>Mỗi công cụ ghi hoặc gửi ra ngoài đều có Hỏi trước; biết ai là người duyệt.</li>
+  <li>Kiến thức nằm trong gói ngữ cảnh có tag, không rải rác trong từng agent.</li>
+  <li>Trần chi phí cho agent và cho workspace; cảnh báo về Telegram hoặc email.</li>
+  <li>Che dữ liệu cá nhân đã bật và đã thử; đăng nhập 2 lớp cho tài khoản nội bộ.</li>
+  <li>Dataset từ câu hỏi thật, giám khảo đã căn chỉnh với người, thí nghiệm qua cổng.</li>
+  <li>Đã thử trên staging; biết cách quay lại bản trước.</li>
+  <li>Sao lưu đã chạy; khoá gốc mã hoá cất ở 2 nơi.</li>
+  <li>Phần pháp lý về dữ liệu cá nhân đã có ý kiến luật sư; phần bảo mật nhạy cảm đã có chuyên gia xem.</li>
+</ul>
+
+<Practice title="Dựng hệ thống Shop ABC trên máy thử" time="40–60 phút"
+  result="Có agent Lễ tân CSKH ghim gói cskh-shop @ prod, công cụ ghi có Hỏi trước, trần chi phí, che dữ liệu bật; dataset và thí nghiệm có cổng; thử kênh Zalo trả lời đúng chính sách và xin duyệt khi tạo phiếu đổi."
+  shot="zalo-oa" shotAlt="Khách nhắn Zalo OA, agent trả lời và xin duyệt">
+  <ol>
+    <li><strong>Context Hub</strong> → <strong>+ Gói</strong> <code>cskh-shop</code>: AGENTS.md (giọng điệu, thông tin shop) và tệp chính sách đổi trả, bảng size. <strong>Commit…</strong>, gắn tag <code>prod</code>.</li>
+    <li><strong>Xây dựng</strong> → <strong>+ Agent mới</strong> → <strong>Tạo bằng trò chuyện</strong>: "Lễ tân chăm sóc khách cho shop thời trang trên Zalo". Khi được hỏi việc làm thay, chọn: được tạo phiếu đổi nhưng phải hỏi trước.</li>
+    <li>Trong cấu hình: khối <strong>Gói ngữ cảnh</strong> chọn <code>cskh-shop @ prod</code>; khối <strong>Công cụ</strong> kiểm cột <strong>Hỏi trước</strong>; khối <strong>Trần chi phí</strong> đặt 4 USD mỗi ngày, Chặn.</li>
+    <li><strong>Thành viên &amp; quyền</strong> → <strong>Che dữ liệu cá nhân</strong>: bật, chọn chế độ tên giả, thử che một câu có số điện thoại.</li>
+    <li>Thẻ <strong>Kênh</strong> → thêm Zalo OA (mô phỏng). Ở <strong>Thử kênh</strong>, nhắn: "áo sơ mi trắng size M còn không", "mình muốn đổi size đơn DH1023". Duyệt phiếu đổi.</li>
+    <li><strong>Dataset &amp; Thí nghiệm</strong>: tạo dataset 10 câu (từ trace vừa rồi và tự thêm), giám khảo đúng chính sách + giọng điệu, gộp điểm, cổng 0,85; chạy thí nghiệm.</li>
+    <li>Sửa một câu trong chính sách (ví dụ đổi 7 ngày thành 10 ngày), commit, chuyển tag <code>prod</code>, chạy lại thí nghiệm và so sánh.</li>
+  </ol>
+</Practice>
+
+<Quiz items={[
+  ["Vì sao bước 1 là đặt số đo, không phải viết prompt?", "Vì không có số đo thì không biết thiết kế có tốt không, không biết lúc nào được ra mắt, và không so được trước và sau mỗi lần sửa."],
+  ["Shop muốn agent tự hoàn tiền cho khách để nhanh hơn. Anh chị khuyên gì?", "Hoàn tiền là việc liên quan tiền và cần phán đoán: ít nhất phải có người có thẩm quyền duyệt, hoặc chuyển người hẳn. Có thể cho agent chuẩn bị sẵn thông tin để nhân viên duyệt nhanh."],
+  ["Chính sách đổi trả đổi từ 7 sang 10 ngày. Cần làm những gì để cả ba agent dùng đúng?", "Sửa trong gói cskh-shop, commit bản mới, chạy thí nghiệm trên bộ đề (cập nhật đáp án mẫu), qua cổng thì chuyển tag prod. Cả ba agent ghim @prod nên dùng bản mới ngay ở lượt sau."],
+  ["Vì sao ra mắt buổi tối trước rồi mới cả ngày?", "Buổi tối không có người trực nên agent mang lại giá trị rõ nhất, lượng tin ít hơn nên rủi ro nhỏ hơn, và đội có thời gian sửa theo dữ liệu thật trước khi mở rộng."],
+  ["Tỉ lệ 👎 tăng vọt sau khi đổi model rẻ hơn. Nên làm gì?", "Xem Engine và trace các lượt 👎; chạy thí nghiệm so model cũ và mới trên cùng bộ đề; nếu model rẻ yếu ở loại câu cụ thể thì dùng định tuyến: loại câu đó đi model mạnh, còn lại giữ model rẻ."],
+]} />
+
+<Terms items={[
+  ["Số đo thành công (KPI)", "Con số cho biết hệ thống có đạt mục tiêu không."],
+  ["Mức tự chủ", "Agent tự làm, làm nhưng xin duyệt, hay chuyển người."],
+  ["Chuyển người (handoff)", "Agent trao cuộc chat cho nhân viên khi vượt khả năng hoặc thẩm quyền."],
+  ["Gói ngữ cảnh dùng chung", "Một nguồn kiến thức cho nhiều agent, có phiên bản và tag."],
+  ["Định tuyến", "Tự chọn model tuỳ loại câu hỏi để cân bằng giá và chất lượng."],
+  ["Gộp điểm", "Trộn nhiều tiêu chí chấm thành một điểm tổng."],
+  ["Cổng (gate)", "Ngưỡng điểm phải đạt trước khi đưa bản mới vào chạy thật."],
+  ["Staging", "Môi trường dùng thử như thật trước khi mở cho khách."],
+  ["Ra mắt từng bước", "Mở dần theo thời gian hoặc nhóm người dùng để giảm rủi ro."],
+  ["Vòng cải tiến", "Chu kỳ đều đặn: xem số liệu, sửa, thí nghiệm, qua cổng, đưa vào chạy."],
+]} />
+</Lesson>

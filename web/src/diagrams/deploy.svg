@@ -1,0 +1,23 @@
+<svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="k" x="20" y="22">KÊNH</text>
+<rect class="b3" x="20" y="32" width="150" height="46" rx="10"/><text class="t" x="95" y="60" text-anchor="middle">Zalo OA</text>
+<rect class="b3" x="20" y="88" width="150" height="46" rx="10"/><text class="t" x="95" y="116" text-anchor="middle">Telegram</text>
+<rect class="b3" x="20" y="144" width="150" height="46" rx="10"/><text class="t" x="95" y="172" text-anchor="middle">Slack</text>
+<rect class="b3" x="20" y="200" width="150" height="56" rx="10"/><text class="t" x="95" y="224" text-anchor="middle">Agent OS Chat</text><text class="s" x="95" y="243" text-anchor="middle">web, điện thoại</text>
+<rect class="b3" x="20" y="266" width="150" height="56" rx="10"/><text class="t" x="95" y="290" text-anchor="middle">Phần mềm khác</text><text class="s" x="95" y="309" text-anchor="middle">MCP · A2A · SDK</text>
+<path class="l" d="M170 55C195 55 195 64 218 64"/><path class="l" d="M170 111C195 111 195 64 218 64"/><path class="l" d="M170 167C195 167 195 64 218 64"/><path class="l" d="M170 228C195 228 195 64 218 64"/><path class="l" d="M170 294C195 294 195 64 218 64" marker-end="url(#m8)"/>
+<rect class="zone" x="200" y="14" width="340" height="312" rx="16"/>
+<text class="k" x="216" y="34">MÁY CHỦ RIÊNG CỦA KHÁCH (VPS)</text>
+<rect class="b" x="220" y="44" width="300" height="42" rx="10"/><text class="t" x="370" y="70" text-anchor="middle">Cổng HTTPS + đăng nhập</text>
+<path class="l" d="M370 86V114" marker-end="url(#m8)"/>
+<rect class="b2" x="220" y="116" width="300" height="86" rx="12"/><text class="t" x="370" y="146" text-anchor="middle">Agent OS</text><text class="s" x="370" y="168" text-anchor="middle">agent · kênh · duyệt · gateway</text><text class="s" x="370" y="186" text-anchor="middle">trace · đánh giá · lịch chạy</text>
+<path class="l" d="M290 202V234" marker-end="url(#m8)"/><path class="l" d="M450 202V234" marker-end="url(#m8)"/>
+<rect class="b5" x="220" y="236" width="140" height="74" rx="12"/><text class="t" x="290" y="266" text-anchor="middle">PostgreSQL</text><text class="s" x="290" y="287" text-anchor="middle">dữ liệu, bộ nhớ</text>
+<rect class="b3" x="380" y="236" width="140" height="74" rx="12"/><text class="t" x="450" y="266" text-anchor="middle">Sandbox</text><text class="s" x="450" y="287" text-anchor="middle">chạy code cách ly</text>
+<text class="k" x="590" y="40">BÊN NGOÀI</text>
+<rect class="b" x="590" y="52" width="150" height="62" rx="10"/><text class="t" x="665" y="78" text-anchor="middle">Model AI</text><text class="s" x="665" y="98" text-anchor="middle">Gemini, OpenAI…</text>
+<rect class="b" x="590" y="142" width="150" height="62" rx="10"/><text class="t" x="665" y="168" text-anchor="middle">Google · Microsoft</text><text class="s" x="665" y="188" text-anchor="middle">OAuth từng người</text>
+<rect class="b" x="590" y="232" width="150" height="62" rx="10"/><text class="t" x="665" y="258" text-anchor="middle">Odoo, CRM…</text><text class="s" x="665" y="278" text-anchor="middle">qua MCP</text>
+<path class="l" d="M520 159C556 159 556 83 588 83" marker-end="url(#m8)"/><path class="l" d="M520 159C556 159 556 173 588 173" marker-end="url(#m8)"/><path class="l" d="M520 159C556 159 556 263 588 263" marker-end="url(#m8)"/>
+</svg>

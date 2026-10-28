@@ -1,0 +1,334 @@
+---
+// /tinh-nang/ and /en/features/: product documentation-style catalogue (left TOC, areas, filter, LangSmith comparison).
+import Icon from "./Icon.astro";
+import Shot from "./Shot.astro";
+import Lightbox from "./Lightbox.astro";
+import { areas, featureCount } from "../data/features";
+const newCount = areas.reduce((n, a) => n + a.features.filter((f) => f.since).length, 0);
+import { parity } from "../data/parity";
+import { whatsNew } from "../data/whatsnew";
+import { ui, routes, type Lang } from "../data/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const vi = lang === "vi";
+const cmpId = vi ? "so-sanh" : "compare";
+const copy = vi ? {
+  crumb: "Tính năng", h1: "Mọi tính năng của Agent OS",
+  lead: "Danh mục đầy đủ tính năng của Agent OS (bảng quản lý), Agent OS Chat và các kênh nhắn tin, nhóm theo khu vực. Mỗi mục nói ngắn gọn làm được gì, dùng khi nào, nằm ở đâu, kèm ảnh chụp giao diện thật và mức độ sẵn sàng.",
+  stats: [[String(featureCount), "tính năng"], [String(newCount), "mới nâng cấp 10/2026"], [String(parity.latest.rows[0].v[3]).replace(".", ",") + "%", "nhu cầu thiết yếu DNVVN so với LangSmith"]],
+  newTitle: "Có gì mới: bản nâng cấp tháng 10/2026", newNav: "Có gì mới", newChip: "Mới", newFilter: "Mới 10/2026", phase: (n: number) => `Giai đoạn ${n}`,
+  newLead: `Bốn giai đoạn nâng cấp (10–13) hoàn thành ngày ${whatsNew.date.vi}: ${newCount} tính năng mới hoặc nâng cấp lớn, gắn nhãn "Mới" trong danh mục bên dưới. Đã kiểm thử đầy đủ trên máy chủ phát triển; bản demo công khai sẽ được cập nhật ở lần triển khai tới.`,
+  proofTitle: "Bằng chứng chất lượng", seeAllNew: "Chỉ xem tính năng mới",
+  filter: "Lọc tính năng…", all: "Tất cả", none: "Không có tính năng nào khớp bộ lọc.", toc: "Mục lục", onPage: "Trên trang này",
+  legend: "Nhãn mức độ", count: (n: number) => `${n} tính năng`, top: "Lên đầu",
+  cmpTitle: "So sánh với LangSmith", cmpNav: "So với LangSmith",
+  cmpLead: "LangSmith là bộ công cụ thương mại của LangChain để theo dõi, đánh giá và triển khai agent. Agent OS tự xây các tính năng tương đương trên nền mã nguồn mở và chạy trên máy chủ của khách. Bảng dưới chấm theo cách cố định từ ngày 19/10/2026: mỗi trang tài liệu tính năng công khai của LangSmith là một dòng; đủ tính 1 điểm, một phần tính 0,5.",
+  cols: ["Khu vực", "Trước (19/10)", "Hiện tại", "Đủ / một phần / chưa có"], total: "Tổng",
+  provisional: `Số chốt ở cổng chất lượng GĐ9.Z ngày ${parity.date.vi} (báo cáo GD9_PARITY.md, BAO_CAO_TU_DONG.md). Đã loại 2 mục chỉ có nghĩa trên LangSmith Cloud.`,
+  latestTitle: `Cách chấm mới, chi tiết từng tính năng (${parity.latest.date.vi})`,
+  latestLead: `Từ 25/10/2026 chúng tôi chấm lại khắt khe hơn: liệt kê ${parity.latest.catalogue.toLocaleString("vi-VN")} tính năng nhỏ của LangSmith, chấm từng cái đủ / một phần / chưa có, rồi tách riêng nhóm doanh nghiệp vừa và nhỏ thật sự cần. Nhiều tính năng của LangSmith chỉ dành cho tập đoàn lớn nên điểm toàn danh mục thấp hơn là bình thường.`,
+  oldTitle: "Cách chấm cũ, theo trang tài liệu (25/10/2026)",
+  gapsTitle: "Còn khác biệt (nói thẳng)", extrasTitle: "Agent OS có mà LangSmith không có",
+  seeArea: "Xem khu vực",
+} : {
+  crumb: "Features", h1: "Every Agent OS feature",
+  lead: "The complete catalogue of Agent OS (the admin platform), Agent OS Chat and the messaging channels, grouped by area. Each entry says what it does, when to use it and where to find it, with a real screenshot and a readiness label.",
+  stats: [[String(featureCount), "features"], [String(newCount), "new in the Oct 2026 upgrade"], [parity.latest.rows[0].v[3] + "%", "of SME-essential LangSmith features"]],
+  newTitle: "What's new: the October 2026 upgrade", newNav: "What's new", newChip: "New", newFilter: "New Oct 2026", phase: (n: number) => `Phase ${n}`,
+  newLead: `Four upgrade phases (10–13) completed on ${whatsNew.date.en}: ${newCount} new or substantially upgraded features, tagged "New" in the catalogue below. Fully tested on the development server; the public demo is updated at the next deployment.`,
+  proofTitle: "Quality evidence", seeAllNew: "Show only new features",
+  filter: "Filter features…", all: "All", none: "No feature matches the filter.", toc: "Contents", onPage: "On this page",
+  legend: "Readiness labels", count: (n: number) => `${n} features`, top: "Top",
+  cmpTitle: "Compared with LangSmith", cmpNav: "vs LangSmith",
+  cmpLead: "LangSmith is LangChain's commercial suite for tracing, evaluating and deploying agents. Agent OS re-implements equivalent features on open source and runs them on the customer's own server. The table uses a fixed method since 19 Oct 2026: one row per public LangSmith feature docs page; done counts 1, partial 0.5.",
+  cols: ["Area", "Before (19 Oct)", "Now", "Done / partial / missing"], total: "Total",
+  provisional: `Figures confirmed at the GĐ9.Z quality gate on ${parity.date.en} (GD9_PARITY.md, BAO_CAO_TU_DONG.md). 2 rows that only make sense on LangSmith Cloud are excluded.`,
+  latestTitle: `New per-feature scoring (${parity.latest.date.en})`,
+  latestLead: `Since 25 Oct 2026 we score much more strictly: ${parity.latest.catalogue.toLocaleString("en-US")} individual LangSmith features, each marked done / partial / missing, with the subset small and medium businesses really need scored separately. Many LangSmith features target large enterprises, so the whole-catalogue score is naturally lower.`,
+  oldTitle: "Earlier scoring, one row per docs page (25 Oct 2026)",
+  gapsTitle: "Remaining gaps (honestly)", extrasTitle: "What Agent OS has that LangSmith doesn't",
+  seeArea: "See area",
+};
+const newId = vi ? "moi" : "whats-new";
+const pct = (n: number) => (vi ? String(n).replace(".", ",") : String(n)) + "%";
+const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
+const chip = {
+  stable: "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300",
+  beta: "bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300",
+  setup: "bg-sky-100 text-sky-800 dark:bg-sky-500/15 dark:text-sky-300",
+  review: "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
+  new: "bg-violet-100 text-violet-800 dark:bg-violet-500/20 dark:text-violet-200",
+};
+const areaName = Object.fromEntries(areas.map((a) => [a.id, a[lang].t]));
+---
+<div class="mx-auto w-full max-w-[90rem] px-4 sm:px-6">
+  <!-- Mobile contents -->
+  <details class="toc-mobile sticky top-14 z-30 -mx-4 border-b border-zinc-200 bg-white/95 px-4 backdrop-blur lg:hidden dark:border-zinc-800 dark:bg-[#111214]/95 sm:-mx-6 sm:px-6">
+    <summary class="flex cursor-pointer list-none items-center gap-2 py-2.5 text-sm font-semibold"><Icon name="list" class="h-4 w-4" />{copy.toc}</summary>
+    <nav class="grid max-h-[60vh] gap-0.5 overflow-auto pb-3" aria-label={copy.toc}>
+      <a class="toc-link" href={`#${newId}`}><Icon name="spark" class="h-4 w-4 shrink-0" />{copy.newNav}</a>
+      {areas.map((a) => <a class="toc-link" href={`#${a.id}`}><Icon name={a.icon} class="h-4 w-4 shrink-0" />{a[lang].t}</a>)}
+      <a class="toc-link" href={`#${cmpId}`}><Icon name="map" class="h-4 w-4 shrink-0" />{copy.cmpNav}</a>
+    </nav>
+  </details>
+
+  <div class="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[16.5rem_minmax(0,1fr)]">
+    <!-- Desktop sidebar -->
+    <aside class="hidden lg:block">
+      <nav class="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto py-8 pr-2 text-sm" aria-label={copy.toc} id="toc">
+        <p class="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">{copy.toc}</p>
+        <a class="toc-link mb-1 font-medium" href={`#${newId}`} data-toc={newId}><Icon name="spark" class="h-4 w-4 shrink-0" /><span class="truncate">{copy.newNav}</span><span class={`chip ml-auto ${chip.new}`}>{newCount}</span></a>
+        {areas.map((a) => (
+          <div class="mb-1">
+            <a class="toc-link font-medium" href={`#${a.id}`} data-toc={a.id}><Icon name={a.icon} class="h-4 w-4 shrink-0" /><span class="truncate">{a[lang].t}</span><span class="ml-auto text-xs text-zinc-400">{a.features.length}</span></a>
+            <div class="toc-sub hidden border-l border-zinc-200 pl-2 ml-4 dark:border-zinc-800" data-sub={a.id}>
+              {a.features.map((f) => <a class="toc-link !py-1 text-[13px] text-zinc-500" href={`#${f.id}`} data-feat={f.id}>{f[lang].t}</a>)}
+            </div>
+          </div>
+        ))}
+        <a class="toc-link mt-2 font-medium" href={`#${cmpId}`} data-toc={cmpId}><Icon name="map" class="h-4 w-4 shrink-0" />{copy.cmpNav}</a>
+      </nav>
+    </aside>
+
+    <div class="min-w-0 pb-24">
+      <!-- Header -->
+      <div class="border-b border-zinc-200 py-10 dark:border-zinc-800 sm:py-14">
+        <p class="text-sm text-zinc-500"><a class="hover:text-zinc-900 dark:hover:text-white" href={routes[lang].home}>Agent OS</a> / {copy.crumb}</p>
+        <h1 class="mt-3 text-3xl font-bold sm:text-5xl" style="text-wrap: balance;">{copy.h1}</h1>
+        <p class="lead !max-w-3xl">{copy.lead}</p>
+        <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+          {copy.stats.map(([n, l]) => (
+            <div><dd class="font-display text-2xl font-bold text-zinc-950 dark:text-white">{n}</dd><dt class="text-sm text-zinc-500">{l}</dt></div>
+          ))}
+        </dl>
+        <div class="mt-8 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+          <p class="text-xs font-semibold uppercase tracking-wide text-zinc-400">{copy.legend}</p>
+          <ul class="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+            {(["stable", "beta", "setup", "review"] as const).map((k) => (
+              <li class="flex items-start gap-2"><span class={`chip mt-0.5 shrink-0 ${chip[k]}`}>{t.status[k]}</span><span class="text-zinc-600 dark:text-zinc-400">{t.statusHelp[k]}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div class="mt-6 flex flex-wrap items-center gap-2" role="search">
+          <label class="relative min-w-0 flex-1 basis-60">
+            <span class="sr-only">{copy.filter}</span>
+            <Icon name="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+            <input id="ff" type="search" placeholder={copy.filter} autocomplete="off" class="w-full rounded-full border border-zinc-300 bg-white py-2 pl-9 pr-4 text-sm outline-none focus:border-violet-500 dark:border-zinc-700 dark:bg-zinc-900" />
+          </label>
+          <div class="flex gap-1" role="group" aria-label={copy.legend}>
+            <button type="button" class="fbtn is-on" data-s="">{copy.all}</button>
+            <button type="button" class="fbtn" data-s="stable">{t.status.stable}</button>
+            <button type="button" class="fbtn" data-s="beta">{t.status.beta}</button>
+            <button type="button" class="fbtn" data-s="new" id="fnew">{copy.newFilter}</button>
+          </div>
+        </div>
+        <p id="fnone" class="mt-4 hidden text-sm text-zinc-500">{copy.none}</p>
+      </div>
+
+      <!-- What's new (Oct 2026 upgrade, phases 10–13) -->
+      <section id={newId} class="scroll-mt-16 border-b border-zinc-200 py-12 dark:border-zinc-800">
+        <div class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl grad-bg text-white"><Icon name="spark" class="h-5 w-5" /></span>
+          <h2 class="text-2xl font-bold sm:text-3xl">{copy.newTitle}</h2>
+        </div>
+        <p class="mt-3 max-w-3xl text-zinc-600 dark:text-zinc-400" style="text-wrap: pretty;">{copy.newLead}</p>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {whatsNew.phases.map((p) => (
+            <div class="card">
+              <div class="flex items-center gap-2">
+                <Icon name={p.icon} class="h-5 w-5 text-violet-600 dark:text-violet-300" />
+                <span class={`chip ${chip.new}`}>{copy.phase(p.n)}</span>
+              </div>
+              <h3 class="mt-3 text-lg font-semibold">{p[lang].t}</h3>
+              <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400" style="text-wrap: pretty;">{p[lang].d}</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5">
+                {areas.flatMap((a) => a.features.filter((f) => f.since === p.n)).map((f) => (
+                  <li><a class="inline-block rounded-full border border-zinc-200 px-2.5 py-1 text-xs text-zinc-700 hover:border-violet-400 hover:text-violet-700 dark:border-zinc-700 dark:text-zinc-300 dark:hover:text-violet-300" href={`#${f.id}`}>{f[lang].t}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div class="mt-4 flex flex-wrap items-end justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-zinc-400">{copy.proofTitle}</p>
+            <ul class="mt-2 grid gap-1 text-sm text-zinc-600 sm:grid-cols-2 sm:gap-x-8 dark:text-zinc-400">
+              {whatsNew.proof[lang].map((g) => <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"></span><span>{g}</span></li>)}
+            </ul>
+          </div>
+          <button type="button" class="btn-ghost !px-4 !py-1.5 text-sm" id="shownew">{copy.seeAllNew}</button>
+        </div>
+      </section>
+
+      {areas.map((a) => (
+        <section id={a.id} class="area scroll-mt-16 border-b border-zinc-200 py-12 dark:border-zinc-800" data-area>
+          <div class="flex items-center gap-3">
+            <span class="grid h-10 w-10 place-items-center rounded-xl grad-bg text-white"><Icon name={a.icon} class="h-5 w-5" /></span>
+            <h2 class="text-2xl font-bold sm:text-3xl"><a href={`#${a.id}`} class="hover:underline decoration-zinc-300 underline-offset-4">{a[lang].t}</a></h2>
+            <span class="ml-auto hidden text-sm text-zinc-400 sm:inline">{copy.count(a.features.length)}</span>
+          </div>
+          <p class="mt-3 max-w-3xl text-zinc-600 dark:text-zinc-400" style="text-wrap: pretty;">{a[lang].intro}</p>
+
+          <div class="mt-8 grid gap-6">
+            {a.features.map((f) => {
+              const x = f[lang];
+              const img = lang === "en" && f.imgEn ? f.imgEn : f.img;
+              return (
+                <article id={f.id} class="feat scroll-mt-16 rounded-2xl border border-zinc-200 bg-white p-5 sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/40" data-s={f.s} data-new={f.since ? "1" : undefined} data-text={norm([x.t, x.what, x.when, x.where].join(" "))}>
+                  <div class:list={["grid gap-6", img && "xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]"]}>
+                    <div>
+                      <div class="flex flex-wrap items-center gap-1.5">
+                        {f.since && <span class={`chip ${chip.new}`}>{copy.newChip} · {copy.phase(f.since)}</span>}
+                        <span class={`chip ${chip[f.s]}`} title={t.statusHelp[f.s]}>{t.status[f.s]}</span>
+                        {f.setup && <span class={`chip ${chip.setup}`} title={t.statusHelp.setup}>{t.status.setup}</span>}
+                        {f.review && <span class={`chip ${chip.review}`} title={t.statusHelp.review}>{t.status.review}</span>}
+                      </div>
+                      <h3 class="mt-3 text-lg font-semibold sm:text-xl"><a href={`#${f.id}`} class="hover:underline decoration-zinc-300 underline-offset-4">{x.t}</a></h3>
+                      <dl class="mt-3 grid gap-3 text-[15px] leading-relaxed">
+                        <div><dt class="text-xs font-semibold uppercase tracking-wide text-violet-600 dark:text-violet-300">{t.what}</dt><dd class="mt-0.5 text-zinc-700 dark:text-zinc-300">{x.what}</dd></div>
+                        <div><dt class="text-xs font-semibold uppercase tracking-wide text-violet-600 dark:text-violet-300">{t.when}</dt><dd class="mt-0.5 text-zinc-700 dark:text-zinc-300">{x.when}</dd></div>
+                        <div><dt class="text-xs font-semibold uppercase tracking-wide text-zinc-400">{t.where}</dt><dd class="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">{x.where}</dd></div>
+                      </dl>
+                    </div>
+                    {img && <Shot name={img} alt={x.t} zoom={t.zoom} class="self-start" />}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+
+      <!-- LangSmith comparison -->
+      <section id={cmpId} class="scroll-mt-16 py-12">
+        <div class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"><Icon name="map" class="h-5 w-5" /></span>
+          <h2 class="text-2xl font-bold sm:text-3xl">{copy.cmpTitle}</h2>
+        </div>
+        <p class="mt-3 max-w-3xl text-zinc-600 dark:text-zinc-400" style="text-wrap: pretty;">{copy.cmpLead}</p>
+
+        <h3 class="mt-8 text-lg font-semibold">{copy.latestTitle}</h3>
+        <p class="mt-2 max-w-3xl text-sm text-zinc-600 dark:text-zinc-400" style="text-wrap: pretty;">{copy.latestLead}</p>
+        <div class="mt-4 overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
+          <table class="w-full min-w-[40rem] text-left text-sm">
+            <thead class="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
+              <tr>{parity.latest.cols[lang].map((c, i) => <th scope="col" class:list={["px-4 py-3 font-semibold", i > 0 && "text-right"]}>{c}</th>)}</tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800">
+              {parity.latest.rows.map((r, ri) => (
+                <tr>
+                  <th scope="row" class="px-4 py-3 font-medium">{r[lang]}</th>
+                  {r.v.map((v, i) => <td class:list={["px-4 py-3 text-right tabular-nums", i === r.v.length - 1 ? "font-semibold text-zinc-950 dark:text-white" : "text-zinc-500"]}>{i === r.v.length - 1 && ri === 0 ? <span class="grad-text text-lg">{pct(v)}</span> : pct(v)}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mt-10 text-lg font-semibold">{copy.oldTitle}</h3>
+        <div class="mt-4 overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
+          <table class="w-full min-w-[40rem] text-left text-sm">
+            <thead class="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
+              <tr>{copy.cols.map((c, i) => <th scope="col" class:list={["px-4 py-3 font-semibold", i > 0 && i < 3 && "text-right"]}>{c}</th>)}</tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800">
+              {parity.rows.map((r) => (
+                <tr>
+                  <th scope="row" class="px-4 py-3 font-medium"><a class="hover:underline" href={`#${r.area}`} title={`${copy.seeArea}: ${areaName[r.area]}`}>{r[lang]}</a></th>
+                  <td class="px-4 py-3 text-right tabular-nums text-zinc-500">{pct(r.pctBefore)}</td>
+                  <td class="px-4 py-3">
+                    <div class="flex items-center justify-end gap-3">
+                      <span class="hidden h-2 w-28 overflow-hidden rounded-full bg-zinc-200 sm:block dark:bg-zinc-800" aria-hidden="true">
+                        <span class="block h-full rounded-full grad-bg" style={`width:${r.pctNow}%`}></span>
+                      </span>
+                      <b class="tabular-nums text-zinc-950 dark:text-white">{pct(r.pctNow)}</b>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 tabular-nums text-zinc-500">{r.now[0]} / {r.now[1]} / {r.now[2]} <span class="text-zinc-400">({r.before.join(" / ")})</span></td>
+                </tr>
+              ))}
+              <tr class="bg-zinc-50 font-semibold dark:bg-zinc-900">
+                <th scope="row" class="px-4 py-3">{copy.total}</th>
+                <td class="px-4 py-3 text-right tabular-nums">{pct(parity.total.before)}</td>
+                <td class="px-4 py-3 text-right tabular-nums text-lg"><span class="grad-text">{pct(parity.total.now)}</span></td>
+                <td class="px-4 py-3 tabular-nums">{parity.total.done} / {parity.total.partial} / {parity.total.missing}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs text-zinc-500">{copy.provisional}</p>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <div class="card">
+            <h3 class="font-semibold">{copy.gapsTitle}</h3>
+            <ul class="mt-3 grid gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+              {parity.gaps[lang].map((g) => <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500"></span><span>{g}</span></li>)}
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="font-semibold">{copy.extrasTitle}</h3>
+            <ul class="mt-3 grid gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+              {parity.extras[lang].map((g) => <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"></span><span>{g}</span></li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<Lightbox close={vi ? "Đóng" : "Close"} />
+
+<script>
+  // Filter (accent-insensitive text + status) and scroll-spy for the sidebar.
+  const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
+  const input = document.getElementById("ff") as HTMLInputElement | null;
+  const btns = [...document.querySelectorAll<HTMLButtonElement>(".fbtn")];
+  const feats = [...document.querySelectorAll<HTMLElement>(".feat")];
+  const areasEl = [...document.querySelectorAll<HTMLElement>("[data-area]")];
+  let status = "";
+  function apply() {
+    const q = norm(input?.value.trim() ?? "");
+    let shown = 0;
+    for (const f of feats) {
+      const ok = (!status || f.dataset.s === status || (status === "new" && f.dataset.new === "1")) && (!q || (f.dataset.text ?? "").includes(q));
+      f.hidden = !ok; if (ok) shown++;
+      document.querySelector<HTMLElement>(`[data-feat="${f.id}"]`)?.classList.toggle("hidden", !ok);
+    }
+    for (const a of areasEl) a.hidden = !a.querySelector(".feat:not([hidden])");
+    document.getElementById("fnone")?.classList.toggle("hidden", shown > 0);
+  }
+  input?.addEventListener("input", apply);
+  btns.forEach((b) => b.addEventListener("click", () => {
+    status = b.dataset.s ?? "";
+    btns.forEach((x) => { x.classList.toggle("is-on", x === b); x.setAttribute("aria-pressed", String(x === b)); });
+    apply();
+  }));
+
+  document.getElementById("shownew")?.addEventListener("click", () => {
+    document.getElementById("fnew")?.click();
+    document.getElementById("ff")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>("#toc [data-toc]")].map((a) => [a.dataset.toc!, a]));
+  const subs = new Map([...document.querySelectorAll<HTMLElement>("#toc [data-sub]")].map((d) => [d.dataset.sub!, d]));
+  const featLinks = new Map([...document.querySelectorAll<HTMLAnchorElement>("#toc [data-feat]")].map((a) => [a.dataset.feat!, a]));
+  let current = "";
+  function setArea(id: string) {
+    if (id === current) return;
+    current = id;
+    links.forEach((a, k) => a.classList.toggle("is-active", k === id));
+    subs.forEach((d, k) => d.classList.toggle("hidden", k !== id));
+  }
+  const sections = [...document.querySelectorAll<HTMLElement>("section[id]")];
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) setArea(e.target.id);
+  }, { rootMargin: "-20% 0px -70% 0px" });
+  sections.forEach((s) => io.observe(s));
+  const fio = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) featLinks.forEach((a, k) => a.classList.toggle("is-active", k === e.target.id));
+  }, { rootMargin: "-25% 0px -65% 0px" });
+  feats.forEach((f) => fio.observe(f));
+  document.querySelectorAll(".toc-mobile a").forEach((a) => a.addEventListener("click", () => a.closest("details")?.removeAttribute("open")));
+</script>

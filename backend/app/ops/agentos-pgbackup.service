@@ -1,0 +1,9 @@
+[Unit]
+Description=Agent OS nightly Postgres backup (7 daily / 4 weekly) + restore drill
+After=docker.service
+[Service]
+Type=oneshot
+ExecStart=/opt/agentos/ops/pg_backup.sh
+ExecStartPost=/opt/agentos/ops/pg_restore.sh --test
+Nice=10
+IOSchedulingClass=idle

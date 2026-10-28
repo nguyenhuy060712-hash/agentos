@@ -1,0 +1,7 @@
+[Unit]
+Description=Agent OS worker health check every minute
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=60s
+[Install]
+WantedBy=timers.target

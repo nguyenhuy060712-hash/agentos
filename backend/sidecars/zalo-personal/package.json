@@ -1,0 +1,10 @@
+{
+  "name": "aos-zalo-personal-sidecar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "GĐ8.3b: UNOFFICIAL Zalo personal-account sidecar (zca-js). Off unless AOS_ZALO_PERSONAL=1. Listens on 127.0.0.1 only.",
+  "main": "index.mjs",
+  "scripts": { "start": "node index.mjs" },
+  "dependencies": { "zca-js": "2.2.0" }
+}

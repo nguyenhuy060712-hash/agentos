@@ -1,0 +1,25 @@
+#!/bin/bash
+# PID 1's child (tini is PID 1). Runs on EVERY `docker start` of an agent box (GĐ11 card 11.40).
+#  1. make sure the two durable volumes have their folders and the user's python venv (/opt/aos-user/venv, sees the image venv via a .pth file)
+#  2. touch /run/aos-ready  (the driver waits for this file before it reports the box as running)
+#  3. re-run /opt/aos-user/setup.sh (AOS_BOOT=1, 120 s cap). A failure never stops the box: the reason goes to /workspace/.aos/boot_error
+#     (the driver copies it into sandboxes.last_error); the full log is /workspace/.aos/boot.log
+#  4. touch /run/aos-boot-done (setup finished or failed), then stay alive (sleep infinity); tini reaps children.
+set -u
+rm -f /run/aos-ready /run/aos-boot-done   # the root FS is durable (overlay2=none): markers of the previous start must not survive
+mkdir -p /workspace/.aos/out /opt/aos-user/npm/bin
+if [ ! -x /opt/aos-user/venv/bin/python ]; then
+  python3 -m venv /opt/aos-user/venv >/workspace/.aos/boot.log 2>&1
+  SP=$(ls -d /opt/aos-user/venv/lib/python3*/site-packages 2>/dev/null | head -1)
+  BASE=$(ls -d /opt/aos/venv/lib/python3*/site-packages 2>/dev/null | head -1)
+  [ -n "$SP" ] && [ -n "$BASE" ] && echo "$BASE" > "$SP/aos_image_venv.pth"
+fi
+touch /run/aos-ready
+rm -f /workspace/.aos/boot_error
+if [ -f /opt/aos-user/setup.sh ]; then
+  AOS_BOOT=1 timeout -s KILL 120 bash -l /opt/aos-user/setup.sh >>/workspace/.aos/boot.log 2>&1
+  rc=$?
+  if [ "$rc" -ne 0 ]; then echo "setup.sh failed (exit $rc; 137 = 120 s limit)" > /workspace/.aos/boot_error; fi
+fi
+touch /run/aos-boot-done
+exec sleep infinity

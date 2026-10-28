@@ -1,0 +1,4 @@
+# Test-only packages (local WSL venv / CI). Never installed on the VPS.
+pytest
+# i18n_crawl.py (app/tests) needs python playwright + system Chrome: install it in a separate throwaway venv, not here
+moto[server,s3]     # fake S3 for the Parquet export test (tests/test_gd9_polish_3.py)

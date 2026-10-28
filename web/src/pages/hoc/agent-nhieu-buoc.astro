@@ -1,0 +1,112 @@
+---
+import Lesson from "../../layouts/Lesson.astro";
+import Diagram from "../../components/hoc/Diagram.astro";
+import Example from "../../components/hoc/Example.astro";
+import Note from "../../components/hoc/Note.astro";
+import Practice from "../../components/hoc/Practice.astro";
+import Quiz from "../../components/hoc/Quiz.astro";
+import Terms from "../../components/hoc/Terms.astro";
+import Fig from "../../components/hoc/Fig.astro";
+---
+<Lesson slug="agent-nhieu-buoc" goals={[
+  "Hiểu agent lập kế hoạch và làm việc nhiều bước như thế nào.",
+  "Biết khi nào nên chia việc cho agent con và cái giá phải trả.",
+  "Thiết kế được chỗ nào agent phải dừng chờ con người duyệt.",
+  "Dùng Studio để tua lại một lượt chạy và thử cách khác mà không làm lại từ đầu.",
+]}>
+
+<h2 id="lap-ke-hoach">Từ một câu trả lời tới một kế hoạch</h2>
+<p>Việc đơn giản ("quán mở mấy giờ?") chỉ cần một vòng. Việc lớn ("lên chiến dịch Tết cho shop") cần nhiều bước: tìm hiểu đối thủ, nghĩ thông điệp, viết bài, đề xuất ngân sách. Agent tốt sẽ <strong>lập kế hoạch</strong> trước: viết danh sách việc (to-do), làm lần lượt, đánh dấu xong, và sửa kế hoạch khi gặp điều mới.</p>
+<p>Trong Agent OS Chat, kế hoạch này hiện ngay trên màn hình và cập nhật trực tiếp, nên người dùng biết agent đang ở bước nào thay vì chờ trong im lặng. Khả năng này bật bằng công tắc <strong>Lập kế hoạch</strong> trong khối Khả năng của agent.</p>
+
+<Example>
+  <p>Một <strong>trưởng phòng</strong> nhận việc lớn từ giám đốc. Anh ấy không tự làm hết: chia việc cho chuyên viên nghiên cứu, chuyên viên nội dung, chuyên viên quảng cáo, rồi gom kết quả. Việc nào tiêu tiền hay gửi ra ngoài thì <strong>trình giám đốc duyệt</strong> trước. Đội agent hoạt động đúng như vậy.</p>
+</Example>
+
+<h2 id="agent-con">Agent con: chia việc cho chuyên gia</h2>
+<p><strong>Agent con</strong> (sub-agent) là agent chuyên một việc, được agent trưởng nhóm giao. Lợi ích:</p>
+<ul>
+  <li><strong>Chuyên môn</strong>: mỗi agent con có chỉ dẫn, công cụ riêng cho đúng việc của nó.</li>
+  <li><strong>Mặt bàn gọn</strong>: agent con làm trên "mặt bàn" riêng, chỉ gửi kết quả tóm tắt về, nên ngữ cảnh của trưởng nhóm không bị ngập (nhớ bài 2).</li>
+  <li><strong>Song song</strong>: nhiều agent con chạy cùng lúc. Tính năng <strong>Nghiên cứu sâu</strong> dùng cách này: vài agent con tìm web song song rồi tổng hợp thành báo cáo có nguồn.</li>
+</ul>
+<p>Cái giá: nhiều agent thì nhiều lượt gọi model, tốn tiền hơn và khó theo dõi hơn. Quy tắc tốt: <strong>bắt đầu với một agent</strong>, chỉ tách agent con khi thấy rõ một phần việc cần chuyên môn hoặc ngữ cảnh riêng.</p>
+
+<Diagram name="team" caption="Agent trưởng nhóm chia việc cho agent con; việc chi tiền dừng lại chờ người duyệt; sau mỗi bước có mốc lưu" />
+
+<h2 id="con-nguoi-duyet">Con người duyệt: dừng đúng chỗ</h2>
+<p>Agent có công cụ thì có thể làm sai thật: gửi nhầm mail, đăng nhầm bài, ghi sai dữ liệu. Vì vậy những việc có hậu quả phải có <strong>con người duyệt</strong> (human-in-the-loop). Khi tới bước đó, agent <strong>dừng lại</strong>, trạng thái được lưu, và một thẻ duyệt hiện ra với ba lựa chọn:</p>
+<ul>
+  <li><strong>Cho phép</strong>: chạy đúng như đề nghị.</li>
+  <li><strong>Sửa</strong>: chỉnh tham số (ví dụ đổi người nhận, sửa nội dung thư) rồi chạy.</li>
+  <li><strong>Từ chối</strong>: không chạy, kèm lý do để agent tìm cách khác.</li>
+</ul>
+<p>Thẻ duyệt hiện ngay trong chat, trong kênh Telegram/Slack (nút bấm), Zalo (trả lời "duyệt &lt;số&gt;"), và gom chung ở <strong>Hộp duyệt</strong> cho người quản lý. Người duyệt có thể duyệt sau vài giờ; agent chờ được vì trạng thái đã lưu, đóng tab cũng không mất.</p>
+<p>Ngoài duyệt, agent còn có thể <strong>hỏi lại</strong> khi thiếu thông tin: hiện một biểu mẫu nhỏ (chọn ngày, chọn size…) để người dùng điền, bấm Gửi là chạy tiếp.</p>
+
+<h3>Nên đặt duyệt ở đâu</h3>
+<div class="tbl"><table>
+  <thead><tr><th>Loại việc</th><th>Ví dụ</th><th>Mức tự chủ gợi ý</th></tr></thead>
+  <tbody>
+    <tr><td>Chỉ đọc, trong nhà</td><td>tra đơn, đọc lịch, tìm tài liệu</td><td>Tự làm</td></tr>
+    <tr><td>Ghi, hoàn tác được</td><td>tạo bản nháp, ghi chú CRM</td><td>Tự làm, có nhật ký</td></tr>
+    <tr><td>Gửi ra ngoài</td><td>gửi mail cho khách, đăng bài</td><td>Hỏi trước</td></tr>
+    <tr><td>Tiền, dữ liệu quan trọng</td><td>hoàn tiền, xoá dữ liệu, chạy quảng cáo</td><td>Hỏi trước, người có thẩm quyền duyệt</td></tr>
+    <tr><td>Không bao giờ để AI làm</td><td>đổi mật khẩu, mở khoá cửa</td><td>Chặn hẳn ở máy chủ</td></tr>
+  </tbody>
+</table></div>
+
+<Note>
+  <p>Đừng bắt duyệt mọi thứ. Duyệt quá nhiều thì người duyệt bấm "Cho phép" theo thói quen và mất tác dụng. Chỉ đặt duyệt ở việc thật sự có hậu quả.</p>
+</Note>
+
+<h2 id="tua-lai">Mốc lưu và "tua lại" trong Studio</h2>
+<p>Sau mỗi bước, Agent OS lưu một <strong>mốc</strong> (checkpoint): giống lưu game. Nhờ đó ta làm được ba việc rất mạnh:</p>
+<ol>
+  <li><strong>Chạy tiếp sau khi duyệt</strong>, kể cả khi máy chủ vừa khởi động lại.</li>
+  <li><strong>Tua lại</strong>: mở Studio, chọn một mốc ở giữa, chạy lại từ đó.</li>
+  <li><strong>Sửa trạng thái rồi chạy</strong>: ví dụ sửa một kết quả công cụ sai, rồi xem agent làm gì tiếp. Nhánh cũ <strong>luôn được giữ nguyên</strong> để so sánh.</li>
+</ol>
+<Diagram name="fork" caption="Rẽ nhánh: chạy lại từ bước 3 sau khi sửa, nhánh cũ vẫn còn để so sánh" />
+<p>Cách này giúp tìm lỗi nhanh: thay vì đoán "chắc tại prompt", ta thấy chính xác agent sai ở bước nào và thử cách sửa ngay ở bước đó.</p>
+
+<h2 id="graph">Agent là một sơ đồ các bước</h2>
+<p>Bên dưới, mỗi agent trên Agent OS là một <strong>graph</strong> (đồ thị) các bước, chạy trên LangGraph: một nút "gọi model", một nút "chạy công cụ", các cạnh nối giữa chúng, và một <strong>trạng thái</strong> (state) được chuyền qua các nút như hồ sơ chuyền qua các bàn. Anh chị không cần lập trình graph: Agent OS dựng sẵn từ cấu hình (dùng Deep Agents). Hiểu khái niệm này giúp đọc trace và dùng Studio dễ hơn.</p>
+
+<Practice title="Đặt duyệt cho công cụ ghi, rồi tua lại trong Studio" time="20 phút"
+  result="Thấy thẻ duyệt hiện ra trước việc ghi; sau khi Từ chối thì agent đổi cách; trong Studio tạo được nhánh mới từ một mốc, nhánh cũ vẫn còn."
+  shot="studio-timeline" shotAlt="Dòng thời gian các mốc lưu trong Studio, mỗi mốc có nút chạy lại từ đây">
+  <ol>
+    <li>Mở cấu hình một agent, khối <strong>Công cụ</strong>: tick một công cụ ghi (ví dụ đăng bài, gửi mail) và tick cột <strong>Hỏi trước</strong>. Bật <strong>Lập kế hoạch</strong> trong khối Khả năng. Lưu.</li>
+    <li>Thêm một agent con: <strong>+ Thêm sub-agent</strong>, đặt tên "Người viết", chỉ dẫn "viết bài quảng cáo 80 chữ".</li>
+    <li>Trong thẻ <strong>Thử</strong> hoặc Chat, giao: "Viết và đăng bài khuyến mãi cuối tuần". Quan sát kế hoạch, thẻ agent con, rồi thẻ duyệt.</li>
+    <li>Bấm <strong>Từ chối</strong> kèm lý do "chưa có giá". Xem agent hỏi lại. Lần sau thử <strong>Sửa</strong> nội dung rồi Cho phép.</li>
+    <li>Vào <strong>Thêm</strong> → <strong>Hộp duyệt</strong>, xem phần <strong>Lịch sử</strong> ghi ai duyệt gì.</li>
+    <li>Mở trace của lượt chạy, bấm <strong>Chạy trong Studio</strong>. Trong <strong>Dòng thời gian checkpoint</strong>, chọn một mốc trước bước viết bài, chọn <strong>Sửa trạng thái rồi chạy</strong>. Xem khối <strong>Các nhánh</strong> và bấm <strong>So sánh hai nhánh đã chọn</strong>.</li>
+  </ol>
+</Practice>
+
+<Fig name="deep-research" caption="Nghiên cứu sâu: agent đưa kế hoạch để duyệt trước khi các agent con tìm web song song" />
+
+<Quiz items={[
+  ["Khi nào nên tách một agent con?", "Khi một phần việc cần chỉ dẫn hoặc công cụ riêng, cần chạy song song, hoặc sinh ra nhiều chữ làm ngập ngữ cảnh của trưởng nhóm. Nếu không, một agent là đủ và rẻ hơn."],
+  ["Vì sao agent có thể chờ duyệt cả buổi chiều mà không mất việc đang làm?", "Vì trạng thái được lưu thành mốc (checkpoint) trước khi dừng. Khi có người duyệt, Agent OS nạp lại mốc đó và chạy tiếp."],
+  ["Người duyệt bấm \"Cho phép\" cho 100% yêu cầu trong tháng. Điều đó nói lên gì?", "Có thể đang bắt duyệt những việc không cần, khiến duyệt thành thủ tục. Nên rà lại: việc chỉ đọc hoặc hoàn tác được thì cho tự làm, chỉ giữ duyệt ở việc có hậu quả."],
+  ["\"Sửa\" khác \"Từ chối\" thế nào?", "Sửa: vẫn làm nhưng với tham số đã chỉnh (người nhận, nội dung). Từ chối: không làm, agent nhận lý do và tìm cách khác hoặc hỏi lại."],
+  ["Studio giúp gì khi agent trả lời sai ở bước thứ 7 trong 10 bước?", "Mở lượt chạy trong Studio, quay về mốc ngay trước bước 7, sửa trạng thái hoặc chạy lại để thử cách sửa, mà không phải chạy lại 6 bước đầu; nhánh cũ còn để so sánh."],
+]} />
+
+<Terms items={[
+  ["Lập kế hoạch (to-do)", "Agent tự viết danh sách việc và làm lần lượt."],
+  ["Agent con (sub-agent)", "Agent chuyên một phần việc, được agent trưởng nhóm giao."],
+  ["Con người duyệt (human-in-the-loop)", "Agent dừng chờ người cho phép trước việc quan trọng."],
+  ["Thẻ duyệt", "Ô hiện ra với Cho phép / Sửa / Từ chối."],
+  ["Hộp duyệt (Inbox)", "Nơi gom mọi yêu cầu duyệt của các agent."],
+  ["Hỏi trước", "Đánh dấu một công cụ luôn phải được duyệt mới chạy."],
+  ["Checkpoint (mốc lưu)", "Trạng thái được lưu sau mỗi bước."],
+  ["Graph", "Sơ đồ các bước của agent và đường đi giữa chúng."],
+  ["State (trạng thái)", "\"Hồ sơ\" chuyền qua các bước: tin nhắn, kết quả, kế hoạch."],
+  ["Rẽ nhánh (fork)", "Chạy lại từ một mốc cũ thành nhánh mới, giữ nhánh cũ."],
+  ["Studio", "Màn hình xem và tua lại các mốc của một lượt chạy."],
+]} />
+</Lesson>

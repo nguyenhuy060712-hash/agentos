@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.log
+shots/
+sandboxes/
+tests/p567_state.json
+.link_key
+exports/
+snapshots/
+volumes/
+.env*
+bench/base_out.json

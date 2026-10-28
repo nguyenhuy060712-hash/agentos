@@ -1,0 +1,27 @@
+---
+import Site from "../../../layouts/Site.astro";
+import TrainNav from "../../../components/dao-tao/TrainNav.astro";
+import CertBody from "../../../components/dao-tao/CertBody.astro";
+import { LINKS } from "../../../data/content";
+import Ext from "../../../components/Ext.astro";
+---
+<Site lang="vi" active="training" path="/dao-tao/chung-nhan/" alt={null} type="LearningResource"
+  title="Thi và chứng nhận | Đào tạo Chuyên gia Agent OS" desc="Ba cấp chứng nhận Agent OS (Practitioner, Administrator, Expert): thể thức thi trắc nghiệm, thực hành và đồ án capstone.">
+  <div class="mx-auto w-full max-w-[90rem] px-4 sm:px-6">
+    <TrainNav variant="mobile" current="chung-nhan" />
+    <div class="lg:grid lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-10">
+      <aside class="hidden lg:block"><TrainNav variant="side" current="chung-nhan" /></aside>
+      <article class="min-w-0 py-10 pb-24 sm:py-14">
+        <p class="text-sm text-zinc-500"><a class="hover:text-zinc-900 dark:hover:text-white" href="/dao-tao/">Đào tạo</a> / Thi và chứng nhận</p>
+        <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight sm:text-[2.6rem]" style="text-wrap: balance;">Thi và chứng nhận</h1>
+        <p class="lead !max-w-3xl">Chứng nhận xác nhận anh chị làm được việc thật trên Agent OS, không chỉ nhớ lý thuyết. Mỗi cấp gồm bài trắc nghiệm và bài thực hành; cấp cao nhất có thêm đồ án bảo vệ trước hội đồng.</p>
+        <div class="mt-8 max-w-3xl"><CertBody /></div>
+        <div class="prose-l mt-10 max-w-3xl">
+          <h2 id="dang-ky">Đăng ký thi</h2>
+          <p>Liên hệ MozaAI để đăng ký lớp và lịch thi. Đáp án, rubric chấm và tiêu chí đạt của bài thực hành nằm trong tài liệu giảng viên, không đăng công khai.</p>
+          <p><Ext class="btn-primary" href={LINKS.mozaai} label="(mở tab mới)">Liên hệ MozaAI</Ext></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</Site>
